@@ -1,0 +1,39 @@
+{
+  "name": "jianshu",
+  "version": "1.0.0",
+  "author": {
+    "name": "jiayi",
+    "url": "https://github.com/jiayisheji"
+  },
+  "description": "这是一个模仿简书从前端到后台的项目",
+  "keywords": [
+    "typescript",
+    "gulp",
+    "npm",
+    "ts",
+    "tsc",
+    "node",
+    "mongodb",
+    "express"
+  ],
+  "dependencies": {
+    "express": "^4.14.1",
+    "mongoose": "^4.8.1"
+  },
+  "scripts": {
+    "dev": "gulp dev",
+    "build": "gulp build",
+    "start": "node ./build/app"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.4",
+    "merge2": "^1.0.3",
+    "typescript": "^2.1.6"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT"
+}
