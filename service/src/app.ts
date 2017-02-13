@@ -5,10 +5,12 @@
  * 引入依赖模块
  */
 import * as express from 'express';
-import * as config from './config';
 import * as glob from 'glob';
 import * as mongoose from 'mongoose';
-
+/**
+ * 引入配置
+ */
+import config = require('./config');
 /**
  * 连接数据库
  */
@@ -17,10 +19,13 @@ var db = mongoose.connection;
 db.on('error', function () {
     throw new Error('unable to connect to database at ' + config.db);
 });
+db.open(function() {
+    console.log('数据库启动了')
+});
 /**
  * 引入数据库模型
  */
-const models = glob.sync(config.root + '/app/models/*.js');
+const models = glob.sync(config.root + '/models/*.js');
 models.forEach(function (model) {
     require(model);
 });

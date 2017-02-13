@@ -1,11 +1,11 @@
 /**
  * Created by jiayi on 2017/2/10.
  */
-import * as path from 'path';
-
-const rootPath = path.normalize(__dirname + '/..');
-
+//import * as path from "path";
+import * as path from "path";
+let rootPath = path.resolve(__dirname + '/..');
 let env = process.env.NODE_ENV || 'development';
+
 // 数据库配置
 let config = {
     development: {
