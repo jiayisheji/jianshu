@@ -23,13 +23,14 @@
 2. 点击右上角download
 3. 根据自己系统版本下载对应的软件
 4. 然后点击安装。依次下一步。
+> 因为网络原因Mongodb老是下载不了，百度搜索一下，顺便搜索一篇安装[教程](http://blog.csdn.net/qq_27093465/article/details/54574948)
 
 > 注意：需要一些依赖，python2.7必须安装。
 
 ```
 Node v6.9.5
 Npm v3.8.9
-Mongodb v3.4.2
+Mongodb v3.4.1
 Gulp v3.9.0
 TypeScript v2.1.6
 ```
