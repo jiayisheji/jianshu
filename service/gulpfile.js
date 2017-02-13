@@ -16,13 +16,7 @@ const config = {
 };
 
 // ts配置
-let tsProject = ts.createProject({
-    "declaration": true,
-    "module": "commonjs",   //指定生成哪个模块系统代码
-    "target": "es6",        //目标代码类型
-    "noImplicitAny": false, //在表达式和声明上有隐含的'any'类型时报错。
-    "sourceMap": false,     //用于debug
-});
+let tsProject = ts.createProject('tsconfig.json', { noImplicitAny: false });
 
 // ts to js
 gulp.task('tsc-scripts', function () {
