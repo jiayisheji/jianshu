@@ -15,13 +15,15 @@ import config = require('./config');
  * 连接数据库
  */
 mongoose.connect(config.db);
-var db = mongoose.connection;
+let db = mongoose.connection;
 db.on('error', function () {
     throw new Error('unable to connect to database at ' + config.db);
 });
-db.open(function() {
+db.once('open', function (callback) {
     console.log('数据库启动了')
 });
+
+
 /**
  * 引入数据库模型
  */
@@ -38,4 +40,9 @@ const app = express();
 /**
  * 启动app
  */
+
+app.get('/', function (req, res) {
+    res.send('Hello World!');
+});
+
 app.listen(config.port, () => console.log('Express server listening on port ' + config.port));
