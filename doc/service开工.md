@@ -94,7 +94,7 @@ export =语法定义一个模块的导出对象。 它可以是类，接口，�
 
 会出现以上的报错信息：
 1. 需要配置一下tsconfig.json([参考](https://www.tslang.cn/docs/handbook/tsconfig-json.html))
-2. 定义"types" : ["node", "lodash", "express"]在compilerOptions里
-3. npm install @types/node --save-dev安装对应的依赖
+2. 定义"types" : ["node", "lodash", "express", "mongoose"]在compilerOptions里
+3. npm install @types/node --save安装对应的依赖
 
 
