@@ -36,13 +36,30 @@ models.forEach(function (model) {
  * 引入express配置
  */
 const app = express();
+
+/**
+ * 设置静态资源路径，web ,app ,admin
+ */
+app.use('/web', express.static('public/web'));
+app.use('/app', express.static('public/app'));
+app.use('/admin', express.static('public/admin'));
+
+/**
+ * 设置模板
+ */
+app.set('view', './view'); // 放模板文件的目录
+app.set('view engine', 'ejs');  // 模板引擎
+
+
 //require('./config/express')(app, config);
 /**
  * 启动app
  */
 
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.render('index', {
+        name: "jianshu"
+    });
 });
 
 app.listen(config.port, () => console.log('Express server listening on port ' + config.port));
