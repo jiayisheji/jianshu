@@ -44,25 +44,27 @@ TypeScript v2.1.6
      │   ├──app.ts                   * 启动入口
      │   ├──config.ts                * 配置文件
      │   │
-     │   ├──view/                      * 模板文件
-     │   │     ├──index.ejs             * web入口
-     │   │     ├──admin.ejs             * 后台管理入口
      │   ├──routes/                      * 模板文件
      │   │     ├──index.ts             * web路由
      │   │     ├──admin.ts             * 后台管理路由
      │   ├──api/                      * 请求api接口
      │   │     ├──v1/                   * 版本1
      │   │     ├──v2/                   * 版本2
-     │   ├──public/                      * 静态资源
-     │   │     ├──web/                     * web相关
-     │   │     ├──admin/                   * admin相关
      │   ├──models/                      * 数据库定义
      │   │     ├──web/                     * web相关
      │   │     ├──admin/                   * admin相关
      │   ├──controllers/                  * 数据库操作
      │   │     ├──web/                     * web相关
-     │   │     ├──admin/                   * admin相关    
-     │ 
+     │   │     ├──admin/                   * admin相关  
+     │
+     ├──views/                      * 模板文件
+     │     ├──index.ejs             * web入口
+     │     ├──admin.ejs             * 后台管理入口
+     │
+     ├──public/                      * 静态资源
+     │     ├──web/                     * web相关
+     │     ├──admin/                   * admin相关 
+     │
      ├──db/                        * 数据库
      │
      ├──build/                       * 发布目录
