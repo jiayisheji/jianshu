@@ -45,7 +45,7 @@ TypeScript v2.1.6
      │   ├──config.ts                * 配置文件
      │   │
      │   ├──routes/                      * 模板文件
-     │   │     ├──index.ts             * web路由
+     │   │     ├──admin.ts             * web路由
      │   │     ├──admin.ts             * 后台管理路由
      │   ├──api/                      * 请求api接口
      │   │     ├──v1/                   * 版本1
