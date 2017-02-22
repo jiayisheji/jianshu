@@ -11,6 +11,18 @@ import * as mongoose from 'mongoose';
  * 引入配置
  */
 import config = require('./config');
+
+/**
+ * 导入路由
+ */
+import * as routesAdmin from "./routes/admin";
+import * as routesWeb from "./routes/web";
+
+/**
+ * api接口
+ */
+import * as api from "./api/index";
+
 /**
  * 连接数据库
  */
@@ -47,7 +59,7 @@ app.use('/admin', express.static('public/admin'));
 /**
  * 设置模板
  */
-app.set('view', './view'); // 放模板文件的目录
+app.set('views', './views'); // 放模板文件的目录
 app.set('view engine', 'ejs');  // 模板引擎
 
 
@@ -55,11 +67,20 @@ app.set('view engine', 'ejs');  // 模板引擎
 /**
  * 启动app
  */
+/**
+ * web相关路由
+ */
+routesWeb.web(app);
+/**
+ * admin相关路由
+ */
+routesAdmin.admin(app);
 
-app.get('/', function (req, res) {
-    res.render('index', {
-        name: "jianshu"
-    });
-});
+/**
+ * api接口
+ */
+api.index(app);
+
+
 
 app.listen(config.port, () => console.log('Express server listening on port ' + config.port));
