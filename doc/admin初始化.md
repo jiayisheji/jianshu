@@ -25,10 +25,10 @@
 > 你看到vuelogo+Welcome to Your Vue.js App，恭喜你安装成功
 13. 安装剩余依赖
 > 默认只有vue源文件和路由，我们还需要状态管理[vuex](https://vuex.vuejs.org/zh-cn/)状态管理、
-和后台数据[vue-resource](https://github.com/pagekit/vue-resource)、UI组件[element](https://github.com/ElemeFE/element)
+和后台数据交互[axios](https://github.com/mzabriskie/axios)、UI组件[element](https://github.com/ElemeFE/element)
 ```
 npm install vuex --save
-npm install vue-resource --save
+npm install axios --save
 npm install element-ui --save
 ```
 > 我们目前只需要这几个以后需要在添加
