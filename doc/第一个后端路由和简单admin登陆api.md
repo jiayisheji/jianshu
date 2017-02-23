@@ -30,11 +30,11 @@ callback 是当路由匹配时要执行的函数。
 ## 请求信息
 > req: Express.Request
 
-方法 | 描述
---|--
-req.param() | 获得参数：1）express路由器传递的参数;2）地址栏参数；3）postt提交的参数，例如表单中input的值， ajax（异步）提交的对象值等。
-req.params | 获取参数：1）express路由器传递的参数；2）与req.params配合还能在express路由器中玩正则；3）如果没在路由器设置参数， 则 req.params 获得的值为空对象 {}；
-req.query | 获取参数：1）直接获取地址栏传递的参数；2）如果地址栏没传递参数， req.query获得的值也是空对象{}；
+方法 | 描述 
+--|-- 
+req.param()  | 获得参数：1）express路由器传递的参数; 2）地址栏参数；3）postt提交的参数，例如表单中input的值， ajax（异步）提交的对象值等。 
+req.params | 获取参数：1）express路由器传递的参数；2）与req.params配合还能在express路由器中玩正则；3）如果没在路由器设置参数， 则req.params获得的值为空对象 {}； 
+req.query | 获取参数：1）直接获取地址栏传递的参数；2）如果地址栏没传递参数， req.query获得的值也是空对象{}； 
 req.body | 获取参数：1）该属性主要用与post方法时传递参数使用，需要导入“body-parser”，并且设置；2）req.body可以接收异步传递的参数；3）如果post给后台没有传递任何参数时， req.body的值当然也是空对象{}；
 
 
