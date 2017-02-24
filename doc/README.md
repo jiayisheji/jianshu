@@ -4,6 +4,7 @@
 1. [admin初始化](admin%E5%88%9D%E5%A7%8B%E5%8C%96.md)
 2. [admin开工](admin%E5%BC%80%E5%B7%A5.md)
 3. [vue简介](vue简介.md)
+4. [admin页面和路由规划](admin页面和路由规划.md)
 
 ## service相关
 1. [service初始化](service%E5%88%9D%E5%A7%8B%E5%8C%96.md)
