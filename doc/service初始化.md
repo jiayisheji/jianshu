@@ -44,11 +44,12 @@ TypeScript v2.1.6
      │   ├──app.ts                   * 启动入口
      │   ├──config.ts                * 配置文件
      │   │
-     │   ├──routes/                      * 模板文件
-     │   │     ├──admin.ts             * web路由
+     │   ├──routes/                      * 路由文件
+     │   │     ├──web.ts             * web路由
      │   │     ├──admin.ts             * 后台管理路由
      │   ├──api/                      * 请求api接口
-     │   │     ├──v1/                   * 版本1
+     │   │     ├──index.ts              * api入口
+     │   │     ├──v1/                   * 版本1
      │   │     ├──v2/                   * 版本2
      │   ├──models/                      * 数据库定义
      │   │     ├──web/                     * web相关
