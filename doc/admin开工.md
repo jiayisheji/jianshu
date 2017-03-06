@@ -41,3 +41,59 @@ npm install postcss-loader --save-dev
 ## 下次计划
 
 > 下一步创建一个登陆页面和整个项目路由规划
+
+## 补充postcss-loader相关问题
+> 默认cli里面配置postcss比较简单，完全不能满足开发需求。需要从新配置一下。
+
+配置文件在/admin/build/vue-loader.conf.js文件最底部
+默认是这样：
+~~~
+postcss: [
+    require('autoprefixer')({ browsers: ['last 2 versions'] })
+  ]
+~~~
+这个一个最基本浏览器兼容补全
+如果想要功能强大需要几个插件，如下：
+```
+# cssnext可以让你写CSS4的语言，并能配合autoprefixer进行浏览器兼容的不全，而且还支持嵌套语法
+$ npm install postcss-cssnext --save-dev
+# 浏览器兼容补全
+$ npm install autoprefixer --save-dev
+
+# 类似scss的语法，实际上如果只是想用嵌套的话有cssnext就够了
+$ npm install precss --save-dev
+
+# 在@import css文件的时候让webpack监听并编译
+$ npm install postcss-import --save-dev
+```
+现在需要配置成如下：
+```
+postcss: [
+    require('precss'),
+    require('postcss-import')({ addDependencyTo: webpack }),
+    require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}})
+]
+```
+我们就想scss一样玩耍了，这样css里面会有很多报错信息。
+
+### 资源
+
+#### postcss & loader
+
+- [postcss](https://github.com/postcss/postcss)
+- [postcss-loader](https://github.com/postcss/postcss-loader)
+- [postcss-import](https://github.com/postcss/postcss-import)
+
+#### autoprefixer & cssnext
+
+- [precss](https://github.com/jonathantneal/precss)
+- [cssnext](http://cssnext.io/)
+- [autoprefixer](https://github.com/postcss/autoprefixer)
+- [browserslist](https://github.com/ai/browserslist)
+
+#### stylelint
+
+- [stylelint](https://github.com/stylelint/stylelint)
+- [stylelint-webpack-plugin](https://github.com/vieron/stylelint-webpack-plugin)
+- [stylelint-config-standard](https://github.com/stylelint/stylelint-config-standard)
+- [postcss-reporter](https://github.com/postcss/postcss-reporter)
