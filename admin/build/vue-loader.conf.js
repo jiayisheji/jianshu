@@ -13,6 +13,11 @@ module.exports = {
   postcss: [
     require('precss'),
     require('postcss-import')({ addDependencyTo: webpack }),
-    require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}})
+    require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}}),
+    require('stylelint')({
+      config: require('./stylelint.config.js'),
+      failOnError: true
+    }),
+    require('postcss-reporter')({ clearMessages: true })
   ]
 }
