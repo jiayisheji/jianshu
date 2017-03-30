@@ -35,34 +35,68 @@
     
 ## admin路由规划
 
-login  登录
-dashboard 控制台
-article   文章管理
-    list    列表
-    group   分组
-user      会员管理
-    list    列表
-    add     添加会员
-    details    会员详情
-comment   评论管理
-    list    列表
+- [ ] login  登录
+- [ ] dashboard 控制台
+- [ ] article   文章管理
+    - [ ] list    列表
+    - [ ] group   分组
+- [ ] user      会员管理
+    - [ ] list    列表
+    - [ ] add     添加会员
+    - [ ] details    会员详情
+- [ ] comment   评论管理
+    - [ ] list    列表
     
-role      权限管理
-    list    列表
-    add     添加权限
+- [ ] role      权限管理
+    - [ ] list    列表
+    - [ ] add     添加权限
 
-member    账号管理
-    list    列表
-    add     添加账号
+- [ ] member    账号管理
+    - [ ] list    列表
+    - [ ] add     添加账号
     
-system    系统管理
-    profile  资料修改
-    setting  系统设置
-    modpas   修改密码
+- [ ]  system    系统管理
+    - [ ] profile  资料修改
+    - [ ] setting  系统设置
+    - [ ] modpas   修改密码
 
-pages     其他页面
-    401      用户未认证
-    403      无访问权限   
-    404      找不到资源
-    500      服务器错误
-> 上面是预计设计的模块功能和路由设计
+- [ ] pages     其他页面
+    - [ ] 401      用户未认证
+    - [ ] 403      无访问权限   
+    - [ ] 404      找不到资源
+    - [ ] 500      服务器错误
+
+上面是预计设计的模块功能和路由设计
+
+> 注意：设置子路由的path千万不能以/开头，不然就变成了根路径了。
+上面很多路由需要设置重定向，所有子路由都设置name，为了侧边栏方便操作
+举个例子:
+```
+{
+    path: '/pages',        // 页面路由
+    component: Page,
+    children: [
+      {
+        path: '',             // pages/或者pages都会跳转到pages/dashboard去
+        redirect: {
+          name: 'dashboard'
+        }
+      },
+      {
+        path: 'dashboard',      // 控制台
+        name: 'dashboard',
+        component: Dashboard
+      }
+    ]
+}      
+```
+404页面：
+```
+{
+    path: '*',  // 只要访问没有定义过的路由都会调转404
+    redirect: {
+        name: '404'
+    }
+}
+```
+> 注意：这个一定要写在最后
