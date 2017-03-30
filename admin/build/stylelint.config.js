@@ -27,7 +27,6 @@ module.exports = {
     "selector-no-id": true,
     "string-quotes": "double",
     "value-no-vendor-prefix": true,
-    // 允许的单位
     "unit-whitelist": ["em", "rem", "%", "px"]
   }
 }
