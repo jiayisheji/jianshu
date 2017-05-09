@@ -31,3 +31,54 @@ Safari (7+), iOS (7+), Edge (14) and IE mobile (11)
 > 推荐`webstrom` or `vscode` 他们对TypeScript提示非常友好，webstrom和angular-cli深度集成。本项目使用webstrom2017.1.2版本，浏览器调试默认谷歌。
 
 ### 初始化一个angular4项目
+```
+如果用webstorm可以直接新建angular4项目，确定装好cli，新建项目适合就有选择angular-cli。
+也可以命令行来新建项目
+ng new PROJECT-NAME
+等待出现
+Successfully initialized git.
+Installing packages for tooling via npm.
+ps：传说会自动 npm install 安装依赖，不过我等了很久都没有安装，我就直接下一步了
+cd PROJECT-NAME
+进入项目目录以后，npm install，去干其他事吧。
+ng serve
+ps：默认不会自动打开浏览器，需要去package.json里面吧"start": "ng serve",改成"start": "ng serve --open",就好了。
+默认地址：http://localhost:4200/
+```
+
+### cli目前不支持postcss
+我给cli提了issues，官方回复我说下个版本支持。现在版本1.1.0@beta.0
+
+我也是因为这个问题耽误了很久，admin里面我是直接改了，vue的webpack的config代码，才支持。
+
+这个cli我也问了很多人，他们都无能为力，说只能自己去改cli，改cli有个问题，因为他在node_modules/@angular/cli里面的，我每次npm install都需要去改源码。
+
+我用的[postcss-cssnext](https://github.com/MoOx/postcss-cssnext)，需要去安装一个npm install postcss-cssnext -D安装到devDependencies里面
+
+找到这个文件
+node_modules\@angular\cli\models\webpack-configs\styles.js
+
+```
+引入这个postcss-cssnext
+const postcssCssnext = require('postcss-cssnext');
+
+在当前页面找到这个postcssPluginCreator函数
+它return是一个数组,这个数组是postcssPlugin列表
+
+//autoprefixer(),
+postcssCssnext({
+  "autoprefixer": {
+    "browsers": "ie >= 10, ..."
+  },
+  features: {
+    rem: false
+  }
+}),
+把原来autoprefixer注释掉，在postcssCssnext里面写，features这个是禁用rem转成px，里面有个工具插件会把rem转成px+rem，说兼容ie8+
+
+postcssCssnext一些使用范例，[查看](http://cssnext.io/features/)，全是英文，为了自己方便阅读，我自己谷歌翻译一遍，勉强[看看](https://github.com/jiayisheji/blog/issues/4)
+吧
+```
+现在已经上车了，可以发车了。
+
+
