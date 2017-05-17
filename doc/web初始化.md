@@ -81,4 +81,87 @@ postcssCssnext一些使用范例，[查看](http://cssnext.io/features/)，全�
 ```
 现在已经上车了，可以发车了。
 
+> 补充一下
+
+如果我遇到一个这样的需求，因为Cssnext里面是面向未来的css4扩展的，里面的支持var等全局变量和@apply代码快，那么我希望有个公共的root.css来处理这个东西，方便以后整体处理。我需要怎么做了。（ps：被这个东西折磨了几天）
+
+其实我在admin的vue-cli配置里面已经修改过了，postcssImport({ addDependencyTo: webpack })，有这行代码。
+
+虽然我一开始在styles.js就加了这个东西，但是一直没有生效，不停地想办法找资料，试了各种插件，黄天有眼的，今天终于找到一个解决方案。
+[https://github.com/postcss/postcss-loader/issues/8](https://github.com/postcss/postcss-loader/issues/8)
+
+```
+//webpack.config.js
+    var postcssImport = require('postcss-import');
+    ...
+    postcss: function(webpack) {
+        return [
+            postcssImport({ addDependencyTo: webpack }), // Must be first item in list
+            precss,
+            autoprefixer
+        ];
+    },
+```
+
+上面注明要postcssImport({ addDependencyTo: webpack })要放在第一位
+那么我要从新修改一下styles.js
+```
+const postcssPluginCreator = function (webpack) {
+// 这里的webpack不是webpack包，是webpack配置和webpack监听的文件
+        // safe settings based on: https://github.com/ben-eb/cssnano/issues/358#issuecomment-283696193
+        const importantCommentRe = /@preserve|@license|[@#]\s*source(?:Mapping)?URL|^!/i;
+        const minimizeOptions = {
+            autoprefixer: false,
+            safe: true,
+            mergeLonghand: false,
+            discardComments: { remove: (comment) => !importantCommentRe.test(comment) }
+        };
+        return [
+            postcssImport({ addDependencyTo: webpack }),  // 一定要放在第一位 先解析在做其他处理，还可以监听文件变化
+            postcssUrl({   // angular-cli 不解释
+                url: (URL) => {
+                    // Only convert root relative URLs, which CSS-Loader won't process into require().
+                    if (!URL.startsWith('/') || URL.startsWith('//')) {
+                        return URL;
+                    }
+                    if (deployUrl.match(/:\/\//)) {
+                        // If deployUrl contains a scheme, ignore baseHref use deployUrl as is.
+                        return `${deployUrl.replace(/\/$/, '')}${URL}`;
+                    }
+                    else if (baseHref.match(/:\/\//)) {
+                        // If baseHref contains a scheme, include it as is.
+                        return baseHref.replace(/\/$/, '') +
+                            `/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+                    }
+                    else {
+                        // Join together base-href, deploy-url and the original URL.
+                        // Also dedupe multiple slashes into single ones.
+                        return `/${baseHref}/${deployUrl}/${URL}`.replace(/\/\/+/g, '/');
+                    }
+                }
+            }),
+            postcssCssnext({   // 下一代css4语法工具
+              "autoprefixer": {    // 浏览器加css3前缀
+                "browsers": "ie >= 10, ..."
+              },
+              features: {   // 如果用rem，会自动编译对应的px，会有些问题。特别是js动态计算html的font-size时
+                rem: false
+              }
+            })
+        ].concat(minimizeCss ? [cssnano(minimizeOptions)] : []);
+    };
+    postcssPluginCreator[eject_1.postcssArgs] = {
+        variableImports: {
+            'autoprefixer': 'autoprefixer',
+            'postcss-url': 'postcssUrl',
+            'postcss-import': 'postcssImport',      // 也不知道干嘛的，看上有就加上了
+            'postcss-cssnext': 'postcssCssnext',      // 也不知道干嘛的，看上有就加上了
+            'cssnano': 'cssnano'
+        },
+        variables: { minimizeCss, baseHref, deployUrl }
+    };
+```
+现在终于可以玩转了postcss了。
+
+
 
