@@ -38,7 +38,6 @@ function pageLabel (text) {
 export function setPageOptions (options) {
   pageOptions = Object.assign({}, pageOptions, options)
 }
-
 /**
  *
  * @param currentPage  当前页
