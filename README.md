@@ -56,7 +56,7 @@ animal_type_id=1 指定筛选条件
 错误状态
 401 Unauthorized: 用户未认证，请求失败
 403 Forbidden: 用户无权限访问该资源，请求失败
-403 Notfound: 访问资源不存在，请求失败
+404 Notfound: 访问资源不存在，请求失败
 422 Unprocessable Entity: 请求被服务器正确解析，但是包含无效字段
 429 Too Many Requests: 因为访问频繁，你已经被限制访问，稍后重试
 500 Internal Server Error: 服务器错误，确认状态并报告问题

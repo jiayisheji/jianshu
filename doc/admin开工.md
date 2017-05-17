@@ -68,11 +68,13 @@ $ npm install postcss-import --save-dev
 ```
 现在需要配置成如下：
 ```
-postcss: [
-    require('precss'),
-    require('postcss-import')({ addDependencyTo: webpack }),
-    require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}})
-]
+postcss: function(webpack){
+    return [
+        require('postcss-import')({ addDependencyTo: webpack }),
+        require('precss'),
+        require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}})
+    ]
+}
 ```
 我们就想scss一样玩耍了，这样css里面会有很多报错信息。
 

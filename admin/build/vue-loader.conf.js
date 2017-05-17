@@ -10,8 +10,11 @@ module.exports = {
       : config.dev.cssSourceMap,
     extract: isProduction
   }),
-  postcss: [
-    require('postcss-import')({ addDependencyTo: webpack }),
-    require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}})
-  ]
+  postcss: function(webpack){
+      return [
+          require('postcss-import')({ addDependencyTo: webpack }),
+          require('precss'),
+          require('postcss-cssnext')({"autoprefixer": {"browsers": "ie >= 10, ..."}})
+      ]
+  }
 }
