@@ -7,19 +7,19 @@
 
 
 1. 游客所见的页面：
-  - 1.1 登录
-  - 1.2 注册
-  - 1.3 找回密码（简书是分了4个功能来处理这个，我这里就简单点了，直接手机号找回。）
-  - 1.4 首页
-  - 1.5 app下载页
-  - 1.6 搜索结果展示列表页面
-  - 1.7 文集/专题列表页
-  - 1.8 新上榜
-  - 1.9 7日热门
-  - 1.10 30日热门
-  - 1.11 简书出版
-  - 1.12 文章详情
-  - 1.13 用户首页
+   - 1.1 登录
+   - 1.2 注册
+   - 1.3 找回密码（简书是分了4个功能来处理这个，我这里就简单点了，直接手机号找回。）
+   - 1.4 首页
+   - 1.5 app下载页
+   - 1.6 搜索结果展示列表页面
+   - 1.7 文集/专题列表页
+   - 1.8 新上榜
+   - 1.9 7日热门
+   - 1.10 30日热门
+   - 1.11 简书出版
+   - 1.12 文章详情
+   - 1.13 用户首页
  
 2. 用户中心管理相关页面：
    - 2.1 基本设置
@@ -33,7 +33,6 @@
    - 2.9 还一个终于功能，写文章页面
 
 3.1 其他页面：
-
    - 3.1 帮助与反馈
    - 3.2 关于简书
 
@@ -41,25 +40,28 @@
 
 ## web路由规划
 
- login             登录
- register          注册
- forget            找回密码
- home              首页
- article/:id       文章详情
- apps              app下载
- search            搜索结果展示列表页面
- theme/:id         专题列表页 
- recommend         新上榜
- trending/weekly   7日热门
- trending/monthly  30日热门
- publications      简书出版
- user/:id          用户首页
- bookmarks         收藏的文章
- user/:id/likedNotes   喜欢文章/关注专题和文集
- settings/basic    基本设置
- settings/profile  个人资料
- settings/weiboAuth    微博认证
- settings/blacklist    黑名单
- settings/misc     账号管理
- help              帮助与反馈
- contact           关于简书
+ - [ ] login             登录
+ - [ ] register          注册
+ - [ ] forget            找回密码
+ - [ ] home              首页
+ - [ ] article/:id       文章详情
+ - [ ] apps              app下载
+ - [ ] search            搜索结果展示列表页面
+ - [ ] theme/:id         专题列表页 
+ - [ ] recommend         新上榜
+ - [ ] trending          热门
+     - [ ] weekly        7日热门
+     - [ ] monthly       30日热门
+ - [ ] publications      简书出版
+ - [ ] user/:id          用户首页
+     - [ ] likedNotes    用户喜欢文章/关注专题和文集
+ - [ ] bookmarks         收藏的文章
+ - [ ] settings          系统设置
+     - [ ] basic         基本设置
+     - [ ] profile       个人资料
+     - [ ] weiboAuth     微博认证
+     - [ ] blacklist     黑名单
+     - [ ] misc          账号管理
+ - [ ] writer            写文章
+ - [ ] help              帮助与反馈
+ - [ ] contact           关于简书
