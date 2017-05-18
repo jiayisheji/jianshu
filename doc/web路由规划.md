@@ -58,7 +58,7 @@
  - [ ] theme/:id         专题列表页 
  - [ ] recommend         新上榜
  - [ ] trending          热门
-     - [ ] weekly        7日热门
+     - [ ] weekly        7日热门
      - [ ] monthly       30日热门
  - [ ] publications      简书出版
  - [ ] user/:id          用户首页
