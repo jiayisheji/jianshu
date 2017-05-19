@@ -12,6 +12,30 @@ import App from './App'
 import routes from './router'
 // 引入ajax库，vue作者推荐
 import axios from 'axios'
+
+// 设置默认配置
+axios.defaults.baseURL = 'http://localhost:3000'
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  console.log('request interceptor')
+  return config
+}, function (error) {
+  // Do something with request error
+  console.log('request interceptor', error)
+  return Promise.reject(error)
+})
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+  // Do something with response data
+  console.log('response interceptor')
+  return response
+}, function (error) {
+  // Do something with response error
+  console.log('response interceptor', error)
+  return Promise.reject(error)
+})
 // 注册到http上，其他组件好使用
 Vue.prototype.$http = axios
 // 使用配置文件规则

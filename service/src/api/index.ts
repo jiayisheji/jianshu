@@ -3,7 +3,16 @@
  */
 import * as Express from 'express';
 const Router = Express.Router();
-import * as Login from './v1/login';
+/**
+ * admin api 引用
+ */
+import * as adminLogin from './v1/admin/login';
+import * as adminArticle from './v1/admin/article';
+/**
+ * web api 引用
+ */
+import * as webLogin from './v1/web/login';
+import * as webRegister from './v1/web/register';
 
 export function index(app) {
     // 处理跨域问题
@@ -21,5 +30,13 @@ export function index(app) {
     // 设置api
     app.use('/api/v1', Router);
 }
-
-Login.adminlogin(Router);
+/**
+ * admin api 调用
+ */
+adminLogin.adminlogin(Router);
+adminArticle.adminArticle(Router);
+/**
+ * web api 调用
+ */
+webLogin.webLogin(Router);
+webRegister.webRegister(Router);

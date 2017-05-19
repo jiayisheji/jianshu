@@ -17,7 +17,7 @@
           <li class="dropdown-item"><i class="dropdown-arr"></i></li>
           <li class="dropdown-item"><a href=""><i class="fa fa-user"></i>Profile</a></li>
           <li class="dropdown-item"><a href=""><i class="fa fa-cog"></i>Settings</a></li>
-          <li class="dropdown-item"><a class="signout" href=""><i class="fa fa-power-off"></i>Sign out</a></li>
+          <li class="dropdown-item"><a class="signout" href="/logout"><i class="fa fa-power-off"></i>Sign out</a></li>
         </ul>
       </div>
       <!--<ba-msg-center _nghost-fpf-7=""><ul _ngcontent-fpf-7="" class="al-msg-center clearfix">

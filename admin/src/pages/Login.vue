@@ -4,10 +4,10 @@
     <h3>欢迎来到简书后台管理系统</h3>
     <form class="" role="form" autocomplete="off">
       <div class="form-group">
-        <input type="text" name="username" class="form-control" placeholder="Username">
+        <input type="text" name="username" v-model="login.username" class="form-control" placeholder="Username">
       </div>
       <div class="form-group">
-        <input type="password" name="password" class="form-control" placeholder="Password">
+        <input type="password" name="password" v-model="login.password" class="form-control" placeholder="Password">
       </div>
       <button type="button" class="u-btn u-btn-primary" @click="btn()">登 陆</button>
     </form>
@@ -19,12 +19,20 @@
     name: 'hello',
     data () {
       return {
-        msg: '我是登陆页面'
+        msg: '我是登陆页面',
+        login: {}
       }
     },
     methods: {
       btn: function () {
-        console.log(this.$http())
+        this.$http.post('/api/v1/admin/login', this.login).then(response => {
+          // success callback
+          if (response.data.code === 0) {
+            this.$router.push({'name': 'dashboard'})
+          }
+        }, response => {
+          // error callback
+        })
       }
     }
   }
@@ -32,19 +40,22 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="postcss">
-  .g-login{
+  .g-login {
     max-width: 400px;
     z-index: 100;
     margin: 0 auto;
     padding-top: 40px;
-    & h3{
-        text-align: center;
-      font-size: 16px;
-      margin-top: 10px;
-      font-weight: 600;
-    }
+
+  &
+  h3 {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 10px;
+    font-weight: 600;
   }
-  .login-logo{
+
+  }
+  .login-logo {
     color: #e6e6e6;
     font-size: 170px;
     font-weight: 800;
@@ -53,12 +64,12 @@
     text-align: center;
   }
 
-  .form-group{
+  .form-group {
     margin-bottom: 15px;
   }
-  .form-control{
+
+  .form-control {
     background-color: #FFFFFF;
-    background-image: none;
     border: 1px solid #e5e6e7;
     border-radius: 1px;
     color: inherit;

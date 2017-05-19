@@ -238,10 +238,6 @@ textarea {
   box-sizing: inherit
 }
 
-@-ms-viewport {
-  width: device-width;
-}
-
 [tabindex="-1"]:focus {
   outline: none !important
 }
@@ -633,20 +629,20 @@ btn按钮
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
-  &-default{ // 默认
+  &-default{
 
   }
-  &-primary{ // 首选项
+  &-primary{
     background: #00abff;
     border-color: #00abff;
   }
-  &-warning{ // 警告
+  &-warning{
 
   }
-  &-danger{  // 危险
+  &-danger{
 
   }
-  &-link{ // 链接
+  &-link{
 
   }
 }

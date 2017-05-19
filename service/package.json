@@ -17,9 +17,19 @@
     "express"
   ],
   "dependencies": {
+    "body-parser": "^1.17.1",
+    "cookie-parser": "^1.4.3",
     "ejs": "^2.5.5",
     "express": "^4.14.1",
-    "mongoose": "^4.8.1"
+    "express-session": "^1.15.3",
+    "favicon": "0.0.2",
+    "logger": "0.0.1",
+    "method-override": "^2.3.8",
+    "mongoose": "^4.8.1",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "redis": "^2.7.1",
+    "session": "^0.1.0"
   },
   "scripts": {
     "start": "npm run dev",
@@ -35,7 +45,7 @@
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.1.4",
     "merge2": "^1.0.3",
-    "typescript": "^2.1.6"
+    "typescript": "^2.3.2"
   },
   "engines": {
     "node": ">=6.0.0"
