@@ -1,0 +1,33 @@
+{
+  "name": "jianshu",
+  "version": "1.0.0",
+  "author": {
+    "name": "jiayi",
+    "url": "https://github.com/jiayisheji"
+  },
+  "description": "这是一个模仿简书从前端到后台的项目",
+  "keywords": [
+    "typescript",
+    "gulp",
+    "npm",
+    "ts",
+    "tsc",
+    "node",
+    "mongodb",
+    "express"
+  ],
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "superagent": "^3.5.2"
+  },
+  "scripts": {
+    "dev": "node app.js",
+    "start": "supervisor app.js",
+    "build": "tsc"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "license": "MIT"
+}
