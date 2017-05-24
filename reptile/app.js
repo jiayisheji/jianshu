@@ -39,12 +39,10 @@ superagent.get(reptileUrl).end(function (err, res) {
             title: replaceText(_this.find('.title').text()),
             abstract: replaceText(_this.find('.abstract').text()),
             thumbnails: _this.find('.wrap-img img').attr('src'),
-            meta: {
-                tag: replaceText(_this.find('.collection-tag').text()),
-                read: replaceText(_this.find('.ic-list-read').parent().text()) * 1,
-                comments: replaceText(_this.find('.ic-list-comments').parent().text()) * 1,
-                like: replaceText(_this.find('.ic-list-like').parent().text()) * 1
-            }
+            collection_tag: replaceText(_this.find('.collection-tag').text()),
+            reads_count: replaceText(_this.find('.ic-list-read').parent().text()) * 1,
+            comments_count: replaceText(_this.find('.ic-list-comments').parent().text()) * 1,
+            likes_count: replaceText(_this.find('.ic-list-like').parent().text()) * 1
         });
     });
     data.forEach(function (item) {
