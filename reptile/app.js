@@ -10,7 +10,6 @@
 const superagent = require('superagent');
 const cheerio = require('cheerio');
 const fs = require('fs');
-const iconv = require('iconv-lite');
 
 const reptileUrl = "http://www.jianshu.com/";
 
