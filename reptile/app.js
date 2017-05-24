@@ -82,7 +82,7 @@ function getArticle(item) {
                 slug: note.note.slug,
                 title: replaceText($post.find('.article .title').text()),
                 content: replaceText($post.find('.article .show-content').html()),
-                publishTime: $post.find('.article .publish-time').html(),
+                publishTime: replaceText($post.find('.article .publish-time').text()),
                 wordage: $post.find('.article .wordage').text().match(/\d+/g)[0]*1,
                 views_count: note.note.views_count,
                 comments_count: note.note.comments_count,
