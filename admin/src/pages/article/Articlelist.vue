@@ -51,7 +51,7 @@
         })
       },
       addList: function () {
-        this.$http.post('/api/v1/admin/article', {title: this.title, id: Date.now()}).then(response => {
+        this.$http.post('/api/v1/admin/article', {title: this.title}).then(response => {
           // success callback
           this.getList()
           this.title = ''

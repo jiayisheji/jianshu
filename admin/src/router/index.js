@@ -1,5 +1,6 @@
 // 引入模板
 import Login from 'pages/Login'
+import Register from 'pages/Register'
 import Page from 'pages/Page'
 import Dashboard from 'pages/dashboard/Dashboard'
 import Articlelist from 'pages/article/Articlelist'
@@ -23,8 +24,16 @@ export default [
     component: Login
   },
   {
+    path: '/register',       // 注册路由
+    name: 'register',
+    component: Register
+  },
+  {
     path: '/pages',        // 页面路由
     component: Page,
+    meta: {
+      requireAuth: true  // 添加该字段，表示进入这个路由是需要登录的
+    },
     children: [
       {
         path: '',
@@ -35,11 +44,17 @@ export default [
       {
         path: 'dashboard',      // 控制台
         name: 'dashboard',
-        component: Dashboard
+        component: Dashboard,
+        meta: {
+          requireAuth: true  // 添加该字段，表示进入这个路由是需要登录的
+        }
       },
       {
         path: 'article',       // 文章管理
         component: Subroute,
+        meta: {
+          requireAuth: true  // 添加该字段，表示进入这个路由是需要登录的
+        },
         children: [
           {
             path: 'list/:page',    // 列表

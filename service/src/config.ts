@@ -14,7 +14,11 @@ let config = {
             name: 'jianshu'
         },
         port: 3000,
-        db: 'mongodb://localhost/jianshu'
+        user: 'jiayi',
+        psw: '123456',
+        host: 'localhost',
+        dbs: 'jianshu',
+        dbport: 27017
     },
 
     test: {

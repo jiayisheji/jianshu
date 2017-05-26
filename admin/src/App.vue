@@ -7,6 +7,7 @@
 <script>
   export default {
     created: function () {
+      console.log(this)
       console.log('app created')
     }
   }

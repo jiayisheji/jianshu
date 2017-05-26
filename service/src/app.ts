@@ -14,8 +14,8 @@ import * as methodOverride from 'method-override';
 import * as cookieParser from 'cookie-parser';
 import * as session from 'express-session';
 import * as passport from 'passport';
-import * as passportLocal from 'passport-local';
-const LocalStrategy = passportLocal.Strategy;
+import * as passportBearer from 'passport-http-bearer';
+const Strategy = passportBearer.Strategy;
 
 
 
@@ -35,19 +35,6 @@ import * as routesWeb from "./routes/web";
  * api接口
  */
 import * as api from "./api/index";
-
-/**
- * 连接数据库
- */
-mongoose.connect(config.db);
-let db = mongoose.connection;
-db.on('error', function () {
-    throw new Error('unable to connect to database at ' + config.db);
-});
-db.once('open', function (callback) {
-    console.log('数据库启动了')
-});
-
 
 /**
  * 引入数据库模型
@@ -98,11 +85,12 @@ function extendAPIOutput( req, res, next){
 app.use(extendAPIOutput);
 
 
-
-
+// 初始化passport模块
+app.use(passport.initialize());
 /**
  * 设置解析数据中间件，默认json传输
  */
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({
@@ -110,60 +98,40 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 
 
-passport.use('user', new LocalStrategy(
-    function (username, password, done) {
-        var user = {
-            id: '1',
-            username: 'admin',
-            password: 'pass'
-        }; // 可以配置通过数据库方式读取登陆账号
-
-        if (username !== user.username) {
-            return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (password !== user.password) {
-            return done(null, false, { message: 'Incorrect password.' });
-        }
-        console.log(username, password, done)
-        return done(null, user);
+import * as User from './models/user';
+passport.use('user', new Strategy(function(token, done) {
+        User.findOne({
+            token: token
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            return done(null, user);
+        });
     }
 ));
 
-passport.use('admin', new LocalStrategy(
-    function (username, password, done) {
-        var user = {
-            id: '1',
-            username: 'admin',
-            password: 'pass'
-        }; // 可以配置通过数据库方式读取登陆账号
-
-        if (username !== user.username) {
-            return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (password !== user.password) {
-            return done(null, false, { message: 'Incorrect password.' });
-        }
-        console.log(username, password, done)
-        return done(null, user);
+import * as Admin from './models/Admin';
+passport.use('admin', new Strategy(function(token, done) {
+    console.log(token, done)
+    Admin.findOne({
+        token: token
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (!user) {
+                return done(null, false);
+            }
+            return done(null, user);
+        });
     }
 ));
-
-passport.serializeUser(function (user, done) {//保存user对象
-    console.log(user, done)
-    done(null, user);//可以通过数据库方式操作
-});
-
-passport.deserializeUser(function (user, done) {//删除user对象
-    console.log(user, done)
-    done(null, user);//可以通过数据库方式操作
-});
-
-
-
 //require('./config/express')(app, config);
 /**
  * 启动app
@@ -189,7 +157,18 @@ app.use(function(req, res, next) {
     next(err);
 });
 
+/**
+ * 连接数据库
+ */
 
+mongoose.Promise = global.Promise;
+mongoose.connect(`mongodb://${config.user}:${config.psw}@${config.host}:${config.dbport}/${config.dbs}`);
+let db = mongoose.connection;
+db.on('error', function () {
+    throw new Error('unable to connect to database at ' + config.dbs);
+});
+db.once('open', function (callback) {
+    console.log('数据库启动了');
+    app.listen(config.port, () => console.log('Express server listening on port ' + config.port));
+});
 
-
-app.listen(config.port, () => console.log('Express server listening on port ' + config.port));

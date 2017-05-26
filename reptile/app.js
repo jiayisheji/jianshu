@@ -16,7 +16,7 @@ const reptileUrl = "http://www.jianshu.com/";
 superagent.get(reptileUrl).end(function (err, res) {
     // 抛错拦截
     if (err) {
-        return err;
+        throw Error(err);
     }
     let $ = cheerio.load(res.text);
     /**
@@ -53,7 +53,7 @@ superagent.get(reptileUrl).end(function (err, res) {
         status: 0,
         data: data
     }), function (err) {
-        if (err) throw err;
+        if (err) throw Error(err);
         console.log('写入完成');
     });
 });
@@ -67,7 +67,7 @@ function getArticle(item) {
     superagent.get(reptileUrl + '/p/' + item.slug).end(function (err, res) {
         // 抛错拦截
         if (err) {
-            return err;
+            throw Error(err);
         }
         let $ = cheerio.load(res.text);
         let $post = $('div.post');
@@ -105,7 +105,7 @@ function getArticle(item) {
             status: 0,
             data: data
         }), function (err) {
-            if (err) throw err;
+            if (err) throw Error(err);
             console.log('写入完成');
         });
     });

@@ -4,12 +4,12 @@
     <h3>欢迎来到简书后台管理系统</h3>
     <form class="" role="form" autocomplete="off">
       <div class="form-group">
-        <input type="text" name="username" v-model="login.username" class="form-control" placeholder="Username">
+        <input type="text" name="username" v-model="register.username" class="form-control" placeholder="Username">
       </div>
       <div class="form-group">
-        <input type="password" name="password" v-model="login.password" class="form-control" placeholder="Password">
+        <input type="password" name="password" v-model="register.password" class="form-control" placeholder="Password">
       </div>
-      <button type="button" class="u-btn u-btn-primary" @click="btn()">登 陆</button>
+      <button type="button" class="u-btn u-btn-primary" @click="btn()">注 册</button>
     </form>
   </main>
 </template>
@@ -19,27 +19,20 @@
     name: 'hello',
     data () {
       return {
-        msg: '我是登陆页面',
-        login: {}
+        msg: '我是注册页面',
+        register: {}
       }
-    },
-    mounted () {
     },
     methods: {
       btn: function () {
-        this.$http.post('/api/v1/admin/login', this.login).then(response => {
+        this.$http.post('/api/v1/admin/register', this.register).then(response => {
           // success callback
           if (response.data.code === 0) {
             //this.$router.push({'name': 'dashboard'})
-            this.$http.post('/api/v1/admin/accesstoken', this.login).then(response => {
+            this.$http.post('/api/v1/admin/accesstoken', this.register).then(response => {
               // success callback
               if (response.data.code === 0) {
-                console.log(this)
-                this.$store.commit('login', response.data.data.token)
-                let redirect = decodeURIComponent(this.$route.query.redirect || '/pages/dashboard')
-                this.$router.push({
-                  path: redirect
-                })
+                this.$router.push({'name': 'dashboard'})
               }
             }, response => {
               // error callback
