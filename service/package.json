@@ -25,6 +25,7 @@
     "express-session": "^1.15.3",
     "favicon": "0.0.2",
     "jsonwebtoken": "^7.4.1",
+    "lodash": "^4.17.4",
     "logger": "0.0.1",
     "method-override": "^2.3.8",
     "mongoose": "^4.8.1",
@@ -32,16 +33,18 @@
     "passport-http-bearer": "^1.0.1",
     "passport-local": "^1.0.0",
     "redis": "^2.7.1",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "slug": "^0.9.1"
   },
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm run build && npm run dev",
     "dev": "supervisor -w build ./build/app.js",
     "build": "tsc"
   },
   "devDependencies": {
     "@types/express": "^4.0.35",
     "@types/lodash": "^4.14.52",
+    "@types/mongodb": "^2.2.2",
     "@types/mongoose": "^4.7.5",
     "@types/node": "^7.0.5",
     "del": "^2.2.2",

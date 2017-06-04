@@ -100,7 +100,7 @@ app.use(session({
 }));
 
 
-import * as User from './models/user';
+import {User} from './models/user';
 passport.use('user', new Strategy(function(token, done) {
         User.findOne({
             token: token
@@ -116,9 +116,8 @@ passport.use('user', new Strategy(function(token, done) {
     }
 ));
 
-import * as Admin from './models/Admin';
+import {Admin} from './models/Admin';
 passport.use('admin', new Strategy(function(token, done) {
-    console.log(token, done)
     Admin.findOne({
         token: token
         }, function(err, user) {
@@ -152,7 +151,7 @@ api.index(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
+    let err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
@@ -161,7 +160,7 @@ app.use(function(req, res, next) {
  * 连接数据库
  */
 
-mongoose.Promise = global.Promise;
+//mongoose.Promise = global.Promise;
 mongoose.connect(`mongodb://${config.user}:${config.psw}@${config.host}:${config.dbport}/${config.dbs}`);
 let db = mongoose.connection;
 db.on('error', function () {

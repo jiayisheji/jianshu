@@ -10,42 +10,36 @@ import {Page} from '../../../utils/page';
 
 const page = new Page();
 
+function getUser(): string{
+    return ["5929abf415c9575b60bfd2e3","5933f6aec8deba2d18640e97","5933f6e0c8deba2d18640e98","5933f6fec8deba2d18640e99","5933f718c8deba2d18640e9a","5933f75dc8deba2d18640e9b"][Math.floor((Math.random()*6))]
+}
 
-export function adminArticle(app) {
+export function webArticle(app) {
     /**
      * 获取列表
      */
-    app.get('/admin/article',
-        passport.authenticate('admin', {session: false}),
-        function (req: Express.Request, res: Express.Response, next: Express.NextFunction) {
+    app.get('/article',
+        function (req: Express.Request, res: Express.Response) {
             if (!req.query) return res.sendStatus(400)
-            let page = Math.abs(parseInt(req.query.page, 10)) || 1;
-            let limit = Math.abs(parseInt(req.query.limit, 10)) || 10;
+            Article.find({published: true})
+                .sort({created: 'desc'})
+                .populate({path: 'author', select: { _id: 1,  nickname: 1, avatar: 1}})
+                .populate({path: 'category', select: { _id: 1,  title: 1}})
+                .exec(async function (err, article) {
+                    let {data, total} = await page.getPage(article, req.query.page);
 
-            async function article(done){
-               var count = await Article.count(req.params);
-               var list = await Article.find({published: true})
-                    .sort({created: 'desc'})
-                    .populate({path: 'author', select: { _id: 1,  nickname: 1}})
-                    .populate({path: 'category', select: { _id: 1,  title: 1}})
-                    .skip((page - 1) * limit)
-                    .limit(limit);
-               return done(count, list);
-            }
-            article(function (count, list) {
-                res.json({
-                    code: 0,
-                    message: "ok",
-                    data: list,
-                    total: count
+                    res.json({
+                        code: 0,
+                        message: "ok",
+                        data: data,
+                        total: total
+                    });
                 });
-            });
         });
     /**
      * 获取单条数据
      */
-    app.get('/admin/article/:id',
-        passport.authenticate('admin', {session: false}),
+    app.get('/article/:id',
         function (req: Express.Request, res: Express.Response) {
             if (!req.params.id) return res.sendStatus(400)
             Article.findById(req.params.id)
@@ -65,25 +59,17 @@ export function adminArticle(app) {
     /**
      * 添加一条数据
      */
-    app.post('/admin/article',
-        passport.authenticate('admin', {session: false}),
+    app.post('/article',
+        //passport.authenticate('user', {session: false}),
         function (req: Express.Request, res: Express.Response) {
             if (!req.body) return res.sendStatus(400);
-            (new Category({
-                title: req.body.title
-            })).save(function () {
-
-            })
-            let article = new Article({
-                title: req.body.title,
-                content: req.body.title,
-                abstract: req.body.title,
-                published: req.body.published,
-                author: '5929abf415c9575b60bfd2e3',
-                category: '5929abf415c9575b60bfd2e3'
-            });
+            function process(data: any): any{
+                let result: any = _.assign({}, data);
+                result.author = getUser();
+                return result;
+            }
+            let article = new Article(process(req.body));
             article.save(function (err, articles) {
-                // console.log(err, articles)
                 if (err) {
                     res.json({
                         code: 103,
@@ -100,8 +86,8 @@ export function adminArticle(app) {
     /**
      * 更新一条数据
      */
-    app.put('/admin/article/:id',
-        passport.authenticate('admin', {session: false}),
+    app.put('/article/:id',
+        passport.authenticate('user', {session: false}),
         function (req: Express.Request, res: Express.Response) {
             if (!req.params.id) return res.sendStatus(400);
             Article.findByIdAndUpdate(req.params.id, req.query)
@@ -119,8 +105,8 @@ export function adminArticle(app) {
     /**
      * 删除一条数据
      */
-    app.delete('/admin/article/:id',
-        passport.authenticate('admin', {session: false}),
+    app.delete('/article/:id',
+        passport.authenticate('user', {session: false}),
         async function (req: Express.Request, res: Express.Response) {
             if (!req.params.id) return res.sendStatus(400)
             Article.findByIdAndRemove(req.params.id)

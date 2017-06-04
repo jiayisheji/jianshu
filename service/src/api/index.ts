@@ -13,6 +13,9 @@ import * as adminArticle from './v1/admin/article';
  */
 import * as webLogin from './v1/web/login';
 import * as webRegister from './v1/web/register';
+import * as webArticle from './v1/web/article';
+import * as webComments from './v1/web/comments';
+import * as webReport from './v1/web/report';
 
 export function index(app) {
     // 处理跨域问题
@@ -40,3 +43,6 @@ adminArticle.adminArticle(Router);
  */
 webLogin.webLogin(Router);
 webRegister.webRegister(Router);
+webArticle.webArticle(Router);
+webComments.webComments(Router);
+webReport.webRouter(Router);

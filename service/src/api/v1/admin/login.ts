@@ -3,7 +3,8 @@
  */
 import * as Express from 'express';
 import * as jwt from 'jsonwebtoken';
-import * as Admin from '../../../models/Admin';
+import {Admin} from '../../../models/Admin';
+
 /*const redisClient = redis.createClient();
 function generateRateLimiter(getKey, limit){
     return function (req, res, next) {

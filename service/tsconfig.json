@@ -6,7 +6,7 @@
     ],
     "types": [
       // add node as an option
-      "node", "lodash", "express", "mongoose"
+      "node", "lodash", "express", "mongoose", "mongodb"
     ],
     "module": "commonjs",   //指定生成哪个模块系统代码
     "target": "es6",        //目标代码类型

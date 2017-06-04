@@ -1,27 +1,58 @@
 /**
  * Created by jiayi on 2017/5/25.
  */
-import * as mongoose from 'mongoose';
+/**
+ * 引入依赖
+ */
 import * as bcrypt from 'bcrypt';
+import {Document, Schema, Model, model} from "mongoose";
+/**
+ * 引入注解
+ */
+import {IUser} from "./interfaces/user";
 
-const UserSchema = new mongoose.Schema({
-    username: {
+/**
+ * 给Model添加注解
+ */
+export interface IUserModel extends IUser, Document {
+    comparePassword?: any;
+}
+
+/**
+ * 定义Schema
+ * @type {"mongoose".Schema}
+ */
+export const UserSchema: Schema = new Schema({
+    created: {     // 创建时间
+        type: Date,
+        'default': new Date
+    },
+    nickname: {    // 昵称
         type: String,
         unique: true, // 不可重复约束
         require: true // 不可为空约束
     },
-    password: {
+    username: {    // 登陆账号
+        type: String,
+        unique: true, // 不可重复约束
+        require: true // 不可为空约束
+    },
+    password: {    // 登陆密码
         type: String,
         require: true // 不可为空约束
     },
-    token: {
+    avatar: {    // 头像   默认随机生成一个
+        type: String,
+        require: true // 不可为空约束
+    },
+    token: {     // 签名
         type: String
     }
 });
 
 // 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
 UserSchema.pre('save', function (next) {
-    var user = this;
+    let user = this;
     if (this.isModified('password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
@@ -39,14 +70,18 @@ UserSchema.pre('save', function (next) {
         return next();
     }
 });
+
 // 校验用户输入密码是否正确
-UserSchema.methods.comparePassword = function(passw, cb) {
-    bcrypt.compare(passw, this.password, (err, isMatch) => {
+UserSchema.methods.comparePassword = function(password?: string, callback?: any): any {
+    bcrypt.compare(password, this.password, (err, isMatch) => {
         if (err) {
-            return cb(err);
+            return callback(err);
         }
-        cb(null, isMatch);
+        callback(null, isMatch);
     });
 };
-
-module.exports = mongoose.model('User', UserSchema);
+/**
+ * 导出Model
+ * @type {Model<IUserModel>}
+ */
+export const User: Model<IUserModel> = model<IUserModel>("User", UserSchema);

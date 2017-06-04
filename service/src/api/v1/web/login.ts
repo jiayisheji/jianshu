@@ -3,10 +3,11 @@
  */
 import * as Express from 'express';
 import * as jwt from 'jsonwebtoken';
-import * as User from '../../../models/user';
+import {User, IUserModel} from '../../../models/user';
 
 export function webLogin(app) {
     app.post('/register', function (req: Express.Request, res: Express.Response) {
+        console.log(req.body)
         if (!req.body.username || !req.body.password) {
             res.json({
                 code: 103,
@@ -15,6 +16,7 @@ export function webLogin(app) {
             });
         } else {
             var newUser = new User({
+                nickname: req.body.nickname,
                 username: req.body.username,
                 password: req.body.password
             });
