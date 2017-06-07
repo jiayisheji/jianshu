@@ -42,10 +42,56 @@ export const UserSchema: Schema = new Schema({
         require: true // 不可为空约束
     },
     avatar: {    // 头像   默认随机生成一个
-        type: String,
-        require: true // 不可为空约束
+        type: String
     },
-    token: {     // 签名
+    gender: {    // 性别 0 保密 1 男 2 女
+        type: Number,
+        required: true,
+        enum: [0, 1, 2],
+        'default': 0
+    },
+    intro: {     // 个人简介
+        type: String
+    },
+    homepage: {   // 个人主页
+        type: String
+    },
+    email: {     // 电子邮件
+        type: String
+    },
+    mobile: {     // 手机  
+        type: String,
+        require: true
+    },
+    email_auth: { // 电子邮件认证 不认证不能设置提醒邮件通知
+        type: Boolean,
+        'default': false
+    },
+    mobile_auth: {  // 手机 认证 不认证不能发表文章
+        type: Boolean,
+        'default': false
+    },
+    country_code: {  // 所属国家
+        type: String,
+        'default': 'cn'
+    },
+    locale: {  // 语言设置  zh-CN 中文简体 zh-TW 中文繁體
+        type: String,
+        'default': 'zh-CN'
+    },
+    chats_notify: {  // 简信接受设置  true 接收所有简信 false 只接收我关注的用户的简信
+        type: Boolean,
+        'default': true
+    },
+    email_notify: {   // 提醒邮件通知  none-不接收 later-每天未读汇总 instantly-所有动态  (如果没有邮箱验证就是不接受，如果邮箱有验证就是所有动态)
+        type: String,
+        'default': 'none',
+        enum: ['none', 'later', 'instantly']
+    },
+    qrcode: {     // 社交二维码
+        type: String
+    },
+    token: {     // 登陆验证签名
         type: String
     }
 });
