@@ -8,13 +8,14 @@
 ## versions[1.0.0-rc0]（Date[yyyy-mm-dd]）
 ### Features（新功能）
 ### Bug Fixes（修复bug）
-### Notes（添加新的文件）
+### Notes（注释）
 ```
 
-## 1.0.0beta1 （2017-05-05）
-
+## 1.0.0beta1 （2017-06-07）
 ### Features
-
+- 完善user表字段，大部分和简书匹配，去掉打赏和第三方社交认证。
+- 新增books文集表。
 ### Bug Fixes
 
 ### Notes
+需要从新梳理整个数据库设计依赖关系。以用户为核心，开始从新规划。
