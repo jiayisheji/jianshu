@@ -2,6 +2,7 @@
  * Created by jiayi on 2017/2/20.
  */
 import * as Express from 'express';
+import * as glob from 'glob';
 const Router = Express.Router();
 /**
  * admin api 引用

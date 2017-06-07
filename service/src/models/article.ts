@@ -52,10 +52,15 @@ export const ArticleSchema: Schema = new Schema({
         type: Date,
         'default': Date.now
     },
-    meta: {
-        type: Schema.Types.Mixed   //混合类型
+    views_count: {   // 阅读
+        type: Number,
+        'default': 0
     },
     comments_count: {     // 评论
+        type: Number,
+        'default': 0
+    },
+    likes_count: {    // 点赞
         type: Number,
         'default': 0
     }

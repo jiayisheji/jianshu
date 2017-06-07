@@ -109,7 +109,7 @@ export function webComments(app) {
         passport.authenticate('user', {session: false}),
         function (req: Express.Request, res: Express.Response) {
             if (!req.params || !req.body) return res.sendStatus(400);  
-            let user = req.user._id;          
+            let user = (req as any).user._id;          
             // parent_id 如果不为 undefined 就是回复， 如果是就评论
             if(_.isUndefined(req.body.parent_id)){
                 // 创建数据模型
@@ -199,7 +199,7 @@ export function webComments(app) {
         passport.authenticate('user', {session: false}),
         function (req: Express.Request, res: Express.Response) {
             if (!req.params) return res.sendStatus(400);
-            let user = req.user._id;
+            let user = (req as any).user._id;
             /**
              * 通过文章id和评论id或者回复id和用户id查找指定删除的评论，
              */
@@ -278,7 +278,7 @@ export function webComments(app) {
         passport.authenticate('user', {session: false}),
         function (req: Express.Request, res: Express.Response, next: Express.NextFunction) {
             if (!req.params.id) return res.sendStatus(400);
-            let user = req.user._id;
+            let user = (req as any).user._id;
             Comments.findOne({
                 _id: req.params.id,
                 'likes.user': user
@@ -331,7 +331,7 @@ export function webComments(app) {
         passport.authenticate('user', {session: false}),
         function (req: Express.Request, res: Express.Response) {
             if (!req.params.id) return res.sendStatus(400);
-            let user = req.user._id;
+            let user = (req as any).user._id;
             Comments.findOne({
                 _id: req.params.id,
                 'likes.user': user
