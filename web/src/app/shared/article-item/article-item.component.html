@@ -1,0 +1,27 @@
+<section class="article-item" [class.thumbnails]="item.images">
+  <a class="thumbnail" [routerLink]="['/article', item.id]" *ngIf="item.images">
+    <img [src]="item.images" alt="300">
+  </a>
+  <div class="content">
+    <div class="author">
+      <a class="avatar" [routerLink]="['/user', item.author.id]">
+        <img [src]="item.author.avatar" *ngIf="item.author.avatar">
+        <img src="../assets/images/avatar_defaul.png" *ngIf="!item.author.avatar">
+      </a>
+      <div class="name">
+        <a class="blue-link" [routerLink]="['/user', item.author.id]">{{item.author.nickname}}</a>
+        <span class="time">{{item.author.time | date:"yyyy/MM/dd"}}</span>
+      </div>
+    </div>
+    <a class="title" [routerLink]="['/article', item.id]">{{item.title}}</a>
+    <p class="abstract">{{item.abstract}}</p>
+    <div class="meta">
+      <a class="collection-tag u-btn u-btn-danger u-btn-sm transparent" [routerLink]="['/collections', item.id]" [queryParams]="{ name : item.meta.collectionTag }">{{item.meta.collectionTag}}</a>
+      <a [routerLink]="['/article', item.id]">
+        <i class="icon-list-read"></i> {{item.meta.read}}
+      </a> <a [routerLink]="['/article', item.id]">
+      <i class="icon-list-comments"></i> {{item.meta.comments}}
+    </a> <span><i class="icon-list-like"></i> {{item.meta.like}}</span>
+    </div>
+  </div>
+</section>

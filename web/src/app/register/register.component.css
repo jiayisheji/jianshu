@@ -1,0 +1,4 @@
+@import "../../root.css";
+.g-register{
+  @apply --sign-bg;
+}

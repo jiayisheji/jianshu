@@ -1,0 +1,23 @@
+<app-navbar class="g-navbar"></app-navbar>
+<div class="container notification" style="margin-top: 200px;">
+  <div class="row">
+    <div class="aside">
+      <ul>
+        <li class=""><a routerLink="/notifications/comments"><i class="iconfont ic-comments"></i> <span>评论</span> <!---->
+        </a></li>
+        <li class=""><a routerLink="/notifications/chats"><i class="iconfont ic-chats"></i> <span>简信</span> <!----></a></li>
+        <li class=""><a routerLink="/notifications/requests"><i class="iconfont ic-requests"></i> <span>投稿请求</span> <!---->
+        </a></li>
+        <li class="active"><a routerLink="/notifications/likes"><i class="iconfont ic-likes"></i> <span>喜欢和赞</span> <!---->
+        </a></li>
+        <li class=""><a routerLink="/notifications/follows"><i class="iconfont ic-follows"></i> <span>关注</span> <!----></a>
+        </li>
+        <li class=""><a routerLink="/notifications/others"><i class="iconfont ic-others"></i> <span>其他消息</span> <!----></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-xs-16 col-xs-offset-8 main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

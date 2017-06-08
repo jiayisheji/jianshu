@@ -1,0 +1,24 @@
+<app-navbar class="g-navbar"></app-navbar>
+<div class="container setting" style="margin-top: 200px;">
+  <div class="row">
+    <div class="aside">
+      <ul>
+        <li class=""><a routerLink="/settings/basic">
+          <div class="setting-icon"><i class="iconfont ic-settings-basic"></i></div>
+          <span>基础设置</span> <!----></a></li>
+        <li class=""><a routerLink="/settings/profile">
+          <div class="setting-icon"><i class="iconfont ic-settings-profile"></i></div>
+          <span>个人资料</span> <!----></a></li>
+        <li class=""><a routerLink="/settings/blacklist">
+          <div class="setting-icon"><i class="iconfont ic-settings-block"></i></div>
+          <span>黑名单</span> <!----></a></li>
+        <li class=""><a routerLink="/settings/misc">
+          <div class="setting-icon"><i class="iconfont ic-settings-account"></i></div>
+          <span>帐号管理</span> <!----></a></li>
+      </ul>
+    </div>
+    <div class="col-xs-16 col-xs-offset-8 main">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

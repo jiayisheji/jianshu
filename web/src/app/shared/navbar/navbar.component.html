@@ -1,0 +1,41 @@
+<nav class="g-navbar navbar-default navbar-fixed-top" role="navigation">
+  <h1 class="m-logo f-fl">
+    <a href="/">简书</a>
+  </h1>
+  <a routerLink="/search" [queryParams]="{ q : '简书', page: '1',  type: 'article'}">搜索</a>
+  <a routerLink="/writer" class="f-fr u-btn u-btn-danger u-btn-lg"><i class="icon-write"></i> 写文章</a>
+  <a routerLink="/register" class="f-fr u-btn u-btn-danger u-btn-lg transparent">注册</a>
+  <a routerLink="/login" class="f-fr u-btn u-btn-lg">登录</a>
+  <a routerLink="/notifications">消息</a>
+  <a routerLink="/subscriptions">关注</a>
+  <ul>
+    <li>
+      <a routerLink="/user/431a1573bee6">
+        <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
+      </a>          </li>
+    <li>
+      <a routerLink="/bookmarks">
+        <i class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
+      </a>          </li>
+    <li>
+      <a [routerLink]="['/user', '431a1573bee6', 'liked_article']">
+        <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
+      </a>          </li>
+    <li>
+      <a routerLink="/settings">
+        <i class="iconfont ic-navigation-wallet"></i><span>设置</span>
+      </a>          </li>
+    <li>
+      <a routerLink="/faqs">
+        <i class="iconfont ic-navigation-settings"></i><span>帮助与反馈</span>
+      </a>          </li>
+    <li>
+      <a href="/help">
+        <i class="iconfont ic-navigation-feedback"></i><span>找回密码</span>
+      </a>          </li>
+    <li>
+      <a rel="nofollow" data-method="delete" href="/logout">
+        <i class="iconfont ic-navigation-signout"></i><span>退出</span>
+      </a>          </li>
+  </ul>
+</nav>

@@ -1,0 +1,133 @@
+.article-placeholder {
+  position: relative;
+  padding: 0 2px 0 0;
+  margin-bottom: 50px;
+  & .img {
+    position: absolute;
+    bottom: 23px;
+    right: 0;
+    width: 150px;
+    height: 120px;
+    border-radius: 4px;
+    background-color: #eaeaea
+  }
+  & .author {
+    margin-bottom: 10px
+  }
+  & .avatar {
+    cursor: default!important;
+    width: 34px;
+    height: 34px;
+    margin: 0 5px 0 0;
+    border-radius: 50%;
+    background-color: #eaeaea;
+    display: inline-block;
+    vertical-align: middle
+  }
+  & .content {
+    padding-right: 160px
+  }
+  & .name {
+    width: 20%;
+    height: 16px;
+    background-color: #eaeaea;
+    display: inline-block;
+    vertical-align: middle
+  }
+  & .title {
+    float: none!important;
+    width: 50%;
+    height: 20px;
+    margin: 0 0 15px!important;
+    background-color: #eaeaea
+  }
+  & .title:before {
+    content: ""!important
+  }
+  & .sub-title {
+    display: none;
+    width: 70%;
+    height: 16px;
+    margin: 0 0 15px!important;
+    background-color: #eaeaea
+  }
+  & .text {
+    width: 100%;
+    height: 16px;
+    margin: 0 0 10px;
+    background-color: #eaeaea;
+    animation: loading 1s ease-in-out infinite;
+  }
+  & .animation-delay {
+    animation: loading 1s ease-in-out -.5s infinite;
+  }
+  & .short-text {
+    width: 40%;
+    animation: shortLoading 1s ease-in-out infinite;
+  }
+  & .meta {
+    margin: 0 0 0 -5px;
+    color: #eaeaea;
+    font-size: 12px;
+    & div {
+      display: inline-block;
+      vertical-align: middle;
+      background-color: #eaeaea
+    }
+    & i {
+      margin: 0 5px;
+      vertical-align: middle
+    }
+    & .tag {
+      display: none;
+      height: 20px;
+      width: 100px;
+      margin-right: 10px
+    }
+    & .read {
+      height: 16px;
+      width: 50px
+    }
+    & .small {
+      height: 16px;
+      width: 30px
+    }
+  }
+}
+
+
+@keyframes loading {
+  0% {
+    width: 60%
+  }
+
+  50% {
+    width: 100%
+  }
+
+  to {
+    width: 60%
+  }
+}
+
+@keyframes shortLoading {
+  0% {
+    width: 20%
+  }
+
+  50% {
+    width: 40%
+  }
+
+  to {
+    width: 20%
+  }
+}
+
+.notes-placeholder .index .meta {
+  margin-left: 0
+}
+
+.notes-placeholder .index .tag,.notes-placeholder .timeline .sub-title {
+  display: block
+}

@@ -1,0 +1,84 @@
+.article-item{
+  position: relative;
+  width: 100%;
+  margin: 0 0 17px;
+  padding: 0 2px 17px 0;
+  border-bottom: 1px solid #f0f0f0;
+  word-wrap: break-word;
+  &.thumbnails{
+    min-height: 140px;
+    & .content{
+      padding-right: 160px;
+    }
+  }
+  & .thumbnail{
+    position: absolute;
+    top: 50%;
+    margin-top: -68px;
+    right: 0;
+    width: 150px;
+    height: 120px;
+    & img{
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      border: 1px solid #f0f0f0;
+    }
+  }
+  & .author{
+    margin-bottom: 14px;
+    & .avatar, & .name{
+      display: inline-block;
+      vertical-align: middle;
+    }
+    & .avatar{
+      width: 32px;
+      height: 32px;
+      margin: 0 5px 0 0;
+      cursor: pointer;
+      & img{
+        width: 100%;
+        height: 100%;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+      }
+    }
+    & .name{
+      & span{
+        display: inline-block;
+        padding-left: 3px;
+        color: #969696;
+      }
+    }
+  }
+  & .title{
+    margin: -7px 0 4px;
+    display: inherit;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #333;
+    &:hover{
+      color: #2f2f2f;
+      text-decoration: underline;
+    }
+    &:visited{
+      color: #969696;
+    }
+  }
+  & .abstract{
+    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 24px;
+  }
+  & .meta{
+    & .collection-tag{
+      color: #ea6f5a;
+      padding: 2px 6px;
+    }
+    & :matches(a, span){
+      margin-right: 10px;
+      color: #b4b4b4;
+    }
+  }
+}

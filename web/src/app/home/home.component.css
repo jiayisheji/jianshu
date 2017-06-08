@@ -1,0 +1,15 @@
+.container {
+  width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.g-main{
+  float: left;
+  width: 66.666667%;
+}
+.g-aside{
+  float: left;
+  width: 29.16667%;
+}

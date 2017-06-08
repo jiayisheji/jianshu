@@ -1,0 +1,4 @@
+@import "../../root.css";
+.g-login{
+  @apply --sign-bg;
+}

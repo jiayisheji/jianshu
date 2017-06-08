@@ -1,0 +1,30 @@
+<main class="g-login">
+  <h1 class="m-logo"><a href="/">简书</a></h1>
+  <section class="m-main">
+    <h3 class="m-title">
+      <a class="active" routerLink="/login">登录</a>
+      <b>·</b>
+      <a routerLink="/register">注册</a>
+    </h3>
+    <div>
+      <form [formGroup]="loginForm" novalidate autocomplete="off" (submit)="loginSubmit()">
+        <div class="input-prepend">
+          <input type="text" formControlName="username" />
+          <!--<p *ngIf="loginForm.from.controls.errors?.username">error message</p>-->
+        </div>
+        <div class="input-prepend">
+          <input type="password" formControlName="password" placeholder="密码" [(ngModel)]="login.password">
+        </div>
+        <div class="input-prepend">
+          <label><input type="checkbox" name="" id="">记住我</label>
+          <a routerLink="/forgot">找回密码？</a>
+        </div>
+        <div class="input-prepend">
+          <button type="submit" class="u-btn u-btn-primary u-btn-lg u-btn-block">登录</button>
+        </div>
+      </form>
+    </div>
+    <p>Form value: {{ loginForm.value }}</p>
+    <p>Form status: {{ loginForm.status }}</p>
+  </section>
+</main>
