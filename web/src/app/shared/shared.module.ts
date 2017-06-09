@@ -11,6 +11,7 @@ import { ServerErrorComponent } from './server-error/server-error.component';
 import { ArticleItemComponent } from './article-item/article-item.component';
 import { ArticlePlaceholderComponent } from './article-placeholder/article-placeholder.component';
 import { UserPlaceholderComponent } from './user-placeholder/user-placeholder.component';
+import { RecommendUsersComponent } from './recommend-users/recommend-users.component';
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { UserPlaceholderComponent } from './user-placeholder/user-placeholder.co
     ServerErrorComponent,
     ArticleItemComponent,
     ArticlePlaceholderComponent,
-    UserPlaceholderComponent
+    UserPlaceholderComponent,
+    RecommendUsersComponent
   ],
   exports: [
     HeaderComponent,
@@ -37,7 +39,8 @@ import { UserPlaceholderComponent } from './user-placeholder/user-placeholder.co
     NavbarComponent,
     ArticleItemComponent,
     ArticlePlaceholderComponent,
-    UserPlaceholderComponent
+    UserPlaceholderComponent,
+    RecommendUsersComponent
   ]
 })
 export class SharedModule { }
