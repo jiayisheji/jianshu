@@ -1,7 +1,7 @@
-<ul>
-  <li *ngFor="let item of articleList">
-    <app-article-item [item]="item"></app-article-item>
-  </li>
+<ul appInfinitescroll style="height: 170px !important;overflow-y: scroll" (OnScrollMethod)="nextPage()" [scrollDistance]="3" [scrollWindow]="false">
+    <li *ngFor="let item of articleList">
+        <app-article-item [item]="item"></app-article-item>
+    </li>
 </ul>
 
 <app-article-placeholder *ngIf="loading"></app-article-placeholder>

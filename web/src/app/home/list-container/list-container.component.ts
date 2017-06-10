@@ -55,7 +55,9 @@ export class ListContainerComponent implements OnInit {
       this.articleList = articleList;
     }, 3000);
   }
-
+  nextPage() {
+    console.log('Reached Bottom!!');
+  }
   loadMore() {
     this.loading = true;
     setTimeout(() => {

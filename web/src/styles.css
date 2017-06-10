@@ -70,6 +70,16 @@ body {
   margin-bottom: 20px;
   border: 1px solid transparent;
   overflow: hidden;
+  & .w-navbar{
+    display: block;
+    min-width: 768px;
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+  &.navbar-default {
+    background-color: #fff;
+    border-color: #f0f0f0
+  }
 }
 
 audio,canvas,progress,video {
@@ -492,7 +502,9 @@ p {
   float: right;
 }
 .f-cb:matches(::after, ::before) {
-  content: "";display:table;clear:both;
+  content: "";
+  display:table;
+  clear:both;
 }
 
 /**
@@ -609,4 +621,13 @@ p {
     display: block;
     width: 100%;
   }
+}
+
+
+.g-container {
+  width: 960px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
 }
