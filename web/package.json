@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^4.1.0",
     "@angular/router": "^4.1.0",
     "core-js": "^2.4.1",
+    "ng2-markdown-to-html": "^1.2.1",
     "ng2-validation": "^4.2.0",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"

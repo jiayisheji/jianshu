@@ -19,7 +19,8 @@
         "prefix": "app",
         "styles": [
             "icon.css",
-            "styles.css"
+            "styles.css",
+            "../node_modules/prismjs/themes/prism-okaidia.css"
         ],
         "scripts": [],
         "environmentSource": "environments/environment.ts",
