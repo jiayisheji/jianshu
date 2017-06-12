@@ -1,6 +1,6 @@
-<ul appInfinitescroll style="height: 170px !important;overflow-y: scroll" (OnScrollMethod)="nextPage()" [scrollDistance]="3" [scrollWindow]="false">
+<ul>
     <li *ngFor="let item of articleList">
-        <app-article-item [item]="item"></app-article-item>
+        <app-article-item [item]="item" [class.thumbnails]="item.images"></app-article-item>
     </li>
 </ul>
 

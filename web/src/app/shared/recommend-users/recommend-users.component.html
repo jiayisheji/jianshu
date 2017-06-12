@@ -1,22 +1,20 @@
-<div class="recommend-users">
-    <div class="title">
-        <h3>推荐作者</h3>
-        <div class="reload">
-            <span class="page-count"><span>{{count}}</span>/<span>{{total}}</span></span>
-            <div class="page-change">
-                <a (click)="previousHandler()"><i class="icon-previous-s"></i></a>
-                <a (click)="nextHandler()"><i class="icon-next-s"></i></a>
-            </div>
+<div class="title">
+    <h3>推荐作者</h3>
+    <div class="reload">
+        <span class="page-count"><span>{{count}}</span>/<span>{{total}}</span></span>
+        <div class="page-change">
+            <a (click)="previousHandler()"><i class="icon-previous-s"></i></a>
+            <a (click)="nextHandler()"><i class="icon-next-s"></i></a>
         </div>
     </div>
-    <ul class="list">
-        <li *ngFor="let item of list">
-            <a [routerLink]="['/user', item._id]" class="avatar"><img [src]="item.avatar"></a>
-            <a class="follow" (click)="followHandler(item)"><i class="icon-follow"></i>关注</a>
-            <a [routerLink]="['/user', item._id]" class="name">{{item.nickname}}</a>
-            <p>写了<span>{{item.total_wordage}}</span>字 · <span>{{item.total_likes_count}}</span>喜欢</p>
-        </li>
-    </ul>
-    <a routerLink="/recommendations/users" class="find-more">
-    查看全部<i class="iconfont ic-link"></i></a>
 </div>
+<ul class="list">
+    <li *ngFor="let item of list">
+        <a [routerLink]="['/user', item._id]" class="avatar"><img [src]="item.avatar"></a>
+        <a class="follow" (click)="followHandler(item)"><i class="icon-follow"></i>关注</a>
+        <a [routerLink]="['/user', item._id]" class="name">{{item.nickname}}</a>
+        <p>写了<span>{{item.total_wordage}}</span>字 · <span>{{item.total_likes_count}}</span>喜欢</p>
+    </li>
+</ul>
+<a routerLink="/recommendations/users" class="find-more">
+查看全部<i class="iconfont ic-link"></i></a>

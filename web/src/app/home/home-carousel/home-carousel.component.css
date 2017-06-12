@@ -1,0 +1,33 @@
+.carousel-inner{
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 272px;
+}
+.carousel-control{
+    position: absolute;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    width: 40px;
+    top: 40%;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+    background-color: rgba(0,0,0,.4);
+    transition: background-color 0.5s;
+    &:hover{
+        background-color: rgba(0,0,0,.6);
+    }
+    &.left{
+        border-top-right-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+    &.right{
+        left: auto;
+        right: 0;
+        border-top-left-radius: 6px;
+        border-bottom-left-radius: 6px;
+    }
+}
