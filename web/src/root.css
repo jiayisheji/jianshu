@@ -5,6 +5,36 @@
   --white: #fff;
 }
 
+:root{
+  --navbar-height: 56px;
+}
+
+:root{
+  --block: {
+    display: block;
+  };
+  --high-full-screen: {
+    height: 100%;
+  };
+  --wide-full-screen: {
+    width: 100%;
+  };
+  --block-full-screen: {
+    @apply --block;
+    @apply --wide-full-screen;
+    @apply --high-full-screen;
+  }
+}
+/**
+  一级路由组件块
+ */
+:root{
+  --app-boxs: {
+    @apply --block-full-screen;
+    padding-top: var(--navbar-height);
+    min-width: 768px;
+  };
+}
 
 :root{
   --navbar-height: 56px;

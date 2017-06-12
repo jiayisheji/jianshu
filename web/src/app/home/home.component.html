@@ -1,18 +1,18 @@
 <header class="g-navbar navbar-default navbar-fixed-top">
-    <app-navbar class="w-navbar"></app-navbar>
+    <app-navbar class="f-cb"></app-navbar>
 </header>
 <main class="g-container f-cb">
     <app-home-carousel></app-home-carousel>
-    <article class="g-main">
+    <article class="g-main f-fl">
         <app-recommend-collection></app-recommend-collection>
         <app-list-container></app-list-container>
     </article>
-    <aside class="g-aside">
+    <aside class="g-aside f-fr">
         <div class="board">
             <a routerLink="/recommendations/articles">
                 <img src="//cdn2.jianshu.io/assets/web/banner-s-1-b8ff9ec59f72ea88ecc8c42956f41f78.png" alt="Banner s 1">
             </a>
-            <a target="_blank" href="/u/d9edcb44e2f2?utm_medium=index-banner-s&amp;utm_source=desktop"><img src="//cdn2.jianshu.io/assets/web/banner-s-2-0ca33954547a07153f9cccd5eddbad42.png" alt="Banner s 2"></a>
+            <a [routerLink]="['/user', '593cef410f675f04dc608846']"><img src="//cdn2.jianshu.io/assets/web/banner-s-2-0ca33954547a07153f9cccd5eddbad42.png" alt="Banner s 2"></a>
             <a routerLink="/trending/weekly"><img src="//cdn2.jianshu.io/assets/web/banner-s-3-7123fd94750759acf7eca05b871e9d17.png" alt="Banner s 3"></a>
             <a routerLink="/trending/monthly"><img src="//cdn2.jianshu.io/assets/web/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png" alt="Banner s 4"></a>
             <a routerLink="/publications"><img src="//cdn2.jianshu.io/assets/web/banner-s-5-2e1d9a955935a69fecc6e8ab2a8d3dcc.png" alt="Banner s 5"></a>

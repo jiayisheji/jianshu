@@ -1,4 +1,5 @@
-.article-placeholder {
+:host {
+  display: block;
   position: relative;
   padding: 0 2px 0 0;
   margin-bottom: 50px;

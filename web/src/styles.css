@@ -1,23 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-:root{
-  --navbar-height: 56px;
-}
 
-:root{
-  --block: {
-    display: block;
-  };
-  --high-full-screen: {
-    height: 100%;
-  };
-  --wide-full-screen: {
-    width: 100%;
-  };
-  --block-full-screen: {
-    @apply --block;
-    @apply --high-full-screen;
-  }
-}
+@import "./root.css";
+
 
 
 html {
@@ -27,7 +11,7 @@ html {
 }
 
 
-body, html, app-root, app-register, app-login{
+body, html{
   @apply --block-full-screen;
 }
 
@@ -35,13 +19,6 @@ body {
   margin: 0
 }
 
-@custom-selector :--app-block app-home;
-
-:--app-block{
-  @apply --block-full-screen;
-  padding-top: var(--navbar-height);
-  min-width: 768px;
-}
 
 .m-logo{
   margin: 0;
@@ -55,31 +32,21 @@ body {
   }
 }
 
+.avatar{
+  width: 32px;
+  height: 32px;
+  display: block;
+  cursor: pointer;
+  & img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+  }
+}
 @custom-selector :--block article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary;
 :--block {
   @apply --block;
-}
-
-.g-navbar{
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 1030;
-  min-height: 50px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  overflow: hidden;
-  & .w-navbar{
-    display: block;
-    min-width: 768px;
-    max-width: 1440px;
-    margin: 0 auto;
-  }
-  &.navbar-default {
-    background-color: #fff;
-    border-color: #f0f0f0
-  }
 }
 
 audio,canvas,progress,video {
@@ -97,6 +64,7 @@ audio:not([controls]) {
 }
 
 a {
+  cursor: pointer;
   background-color: transparent
 }
 
@@ -506,7 +474,9 @@ p {
   display:table;
   clear:both;
 }
-
+[role=button] {
+    cursor: pointer;
+}
 /**
 按钮组件
  */

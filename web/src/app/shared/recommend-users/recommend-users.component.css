@@ -1,4 +1,5 @@
-.recommend-users{
+:host{
+    display: block;
     position: relative;
     margin-bottom: 20px;
     padding-top: 0;

@@ -1,0 +1,7 @@
+@import "../../root.css";
+:host{
+  @apply --block-full-screen;
+}
+.g-login{
+  @apply --sign-bg;
+}

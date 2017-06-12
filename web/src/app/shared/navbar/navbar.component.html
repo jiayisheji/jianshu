@@ -1,22 +1,22 @@
 <h1 class="m-logo f-fl">
-    <a href="/">简书</a>
+    <a routerLink="/">简书</a>
 </h1>
 <nav class="g-container" role="navigation">
     <ul class="m-nav f-fl" *ngIf="isLogin">
         <li class="active">
-            <a href="/">
+            <a routerLink="/">
                 <i class="icon-navigation-discover menu-icon"></i>
                 <span class="menu-text">发现</span>
             </a>
         </li>
         <li class="">
-            <a href="/subscriptions">
+            <a routerLink="/subscriptions">
                 <i class="icon-navigation-follow menu-icon"></i>
                 <span class="menu-text">关注</span>
             </a>
         </li>
         <li class="notification">
-            <a data-hover="dropdown" href="/notifications" class="notification-btn">
+            <a data-hover="dropdown" routerLink="/notifications" class="notification-btn">
                 <i class="icon-navigation-notification menu-icon"></i>
                 <span class="menu-text">消息</span>
             </a>
@@ -33,13 +33,13 @@
     </ul>
     <ul class="m-nav f-fl" *ngIf="!isLogin">
         <li class="">
-            <a href="/">
+            <a routerLink="/">
                 <i class="icon-navigation-discover menu-icon"></i>
                 <span class="menu-text">首页</span>
             </a>
         </li>
         <li class="">
-            <a class="app-download-btn" href="/apps">
+            <a class="app-download-btn" routerLink="/apps">
                 <i class="icon-navigation-download menu-icon"></i>
                 <span class="menu-text">下载App</span>
             </a>
