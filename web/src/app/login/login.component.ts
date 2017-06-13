@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from './login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit  {
+  private error: any;
   loginForm: FormGroup;
   login = {
     username: '',
@@ -28,7 +30,8 @@ export class LoginComponent implements OnInit  {
   };
   constructor(
     private router: Router,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder,
+    private loginService: LoginService) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -57,8 +60,12 @@ export class LoginComponent implements OnInit  {
     if (!this.loginForm) { return; }
     console.log('onValueChanged', this.loginForm, data);
   }
-  loginSubmit(): void {
-    this.router.navigate(['/home']);
-    console.log(this.loginForm.get('password').errors);
+  loginSubmit(loginForm: any): void {
+    this.loginService.login(loginForm.value)
+      .subscribe(
+        user => this.router.navigate(['/']),
+        error => this.error = error
+      );
+    ;
   }
 }

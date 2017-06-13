@@ -13,7 +13,7 @@ export class RegisterService {
                     .catch(this.handleError);
   }
   private extractData(res: Response) {
-    return res.json() || { };
+    return res.json() || {};
   }
   private handleError (error: Response | any) {
     // In a real world app, you might use a remote logging infrastructure

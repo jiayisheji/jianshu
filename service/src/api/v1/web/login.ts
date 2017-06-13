@@ -109,11 +109,15 @@ export function webLogin(app) {
                     // 检查密码是否正确
                     user.comparePassword(req.body.password, (err, isMatch) => {
                         if (isMatch && !err) {
+                            var token = jwt.sign({username: user.username}, 'learnRestApiwithNickjs',{
+                                expiresIn: 10080  // token到期时间设置
+                            });
                             res.json({
                                 code: 0,
                                 message: "ok",
                                 data: {
-                                    username: user.username
+                                    token: token,
+                                    user: user
                                 }
                             });
                         } else {

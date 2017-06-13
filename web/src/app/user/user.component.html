@@ -1,134 +1,128 @@
-<div class="container person">
-  <div class="row">
-    <div class="col-xs-16 main">
-      <div class="main-top">
-        <a class="avatar" href="/u/c1fed915ed12">
-          <img
-            src="//upload.jianshu.io/users/upload_avatars/1669869/21cc1916b6a4.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
-            alt="240">
-        </a>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <a class="btn btn-hollow" href="/notifications#/chats/new?mail_to=1669869">发简信</a>
+<header class="g-navbar navbar-default navbar-fixed-top">
+    <app-navbar class="f-cb"></app-navbar>
+</header>
+<main class="g-container">
+    <article class="g-main f-fl">
+        <div class="main-top">
+            <a class="avatar" href="/u/c1fed915ed12">
+                <img src="//upload.jianshu.io/users/upload_avatars/1669869/21cc1916b6a4.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240" alt="240">
+            </a>
+            <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
+            <a class="btn btn-hollow" href="/notifications#/chats/new?mail_to=1669869">发简信</a>
 
-        <div class="title">
-          <a class="name" href="/u/c1fed915ed12">顾一宸</a>
-          <span class="author-tag"><i class="iconfont ic-write"></i> 签约作者</span>
+            <div class="title">
+                <a class="name" href="/u/c1fed915ed12">顾一宸</a>
+                <span class="author-tag"><i class="iconfont ic-write"></i> 签约作者</span>
+            </div>
+            <div class="info">
+                <ul>
+                    <li>
+                        <div class="meta-block">
+                            <a href="/users/c1fed915ed12/following">
+                                <p>30</p>
+                                关注 <i class="iconfont ic-arrow"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta-block">
+                            <a href="/users/c1fed915ed12/followers">
+                                <p>20548</p>
+                                粉丝 <i class="iconfont ic-arrow"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta-block">
+                            <a href="/u/c1fed915ed12">
+                                <p>227</p>
+                                文章 <i class="iconfont ic-arrow"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta-block">
+                            <p>590231</p>
+                            <div>字数</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="meta-block">
+                            <p>53106</p>
+                            <div>收获喜欢</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="info">
-          <ul>
-            <li>
-              <div class="meta-block">
-                <a href="/users/c1fed915ed12/following">
-                  <p>30</p>
-                  关注 <i class="iconfont ic-arrow"></i>
-                </a></div>
-            </li>
-            <li>
-              <div class="meta-block">
-                <a href="/users/c1fed915ed12/followers">
-                  <p>20548</p>
-                  粉丝 <i class="iconfont ic-arrow"></i>
-                </a></div>
-            </li>
-            <li>
-              <div class="meta-block">
-                <a href="/u/c1fed915ed12">
-                  <p>227</p>
-                  文章 <i class="iconfont ic-arrow"></i>
-                </a></div>
-            </li>
-            <li>
-              <div class="meta-block">
-                <p>590231</p>
-                <div>字数</div>
-              </div>
-            </li>
-            <li>
-              <div class="meta-block">
-                <p>53106</p>
-                <div>收获喜欢</div>
-              </div>
-            </li>
-          </ul>
+
+        <router-outlet></router-outlet>
+    </article>
+    <aside class="g-aside f-fr">
+        <h3 class="title">个人介绍</h3>
+        <div class="description">
+            <p class="js-intro">简书签约作者，微博签约自媒体。<br>专注于情感治愈和励志分享，写有态度又有温度的文字。<br>没有星光的夜晚，就让我对你说晚安。<br>微信公众号：顾一宸（ID：guyichen6）。<br>新浪微博：@顾一宸。<br>关于转载问题：请统一简信联系我的经纪人加油小毛虫。
+            </p>
+            <a class="social-icon-sprite social-icon-weibov" target="_blank" href="http://weibo.com/u/5838538045"></a>
+            <a class="social-icon-sprite social-icon-weixin" data-toggle="popover" data-placement="bottom" data-html="true" data-trigger="hover" href="javascript:void(0);" data-content="<div class=&quot;qrcode&quot;><div class=&quot;arrow-top&quot;></div><img src=&quot;//upload.jianshu.io/users/qrcodes/1669869/%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/320/h/320&quot; alt=&quot;320&quot; /></div>"
+                data-original-title="" title=""></a>
         </div>
-      </div>
-
-      <router-outlet></router-outlet>
-    </div>
-
-    <div class="col-xs-7 col-xs-offset-1 aside">
-      <div class="title">个人介绍</div>
-      <div class="description">
-        <div class="js-intro">简书签约作者，微博签约自媒体。<br>专注于情感治愈和励志分享，写有态度又有温度的文字。<br>没有星光的夜晚，就让我对你说晚安。<br>微信公众号：顾一宸（ID：guyichen6）。<br>新浪微博：@顾一宸。<br>关于转载问题：请统一简信联系我的经纪人加油小毛虫。
-        </div>
-        <a class="social-icon-sprite social-icon-weibov" target="_blank" href="http://weibo.com/u/5838538045"></a>
-        <a class="social-icon-sprite social-icon-weixin" data-toggle="popover" data-placement="bottom" data-html="true"
-           data-trigger="hover" href="javascript:void(0);" data-content="
-  <div class=&quot;qrcode&quot;>
-    <div class=&quot;arrow-top&quot;></div>
-    <img src=&quot;//upload.jianshu.io/users/qrcodes/1669869/%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/320/h/320&quot; alt=&quot;320&quot; />
-  </div>
-" data-original-title="" title=""></a>
-
-      </div>
-      <ul class="list user-dynamic">
-        <li>
-          <a href="/users/c1fed915ed12/subscriptions">
-            <i class="iconfont ic-collection"></i> <span>他关注的专题/文集</span>
-          </a></li>
-        <li>
-          <a href="/users/c1fed915ed12/liked_notes">
-            <i class="iconfont ic-like"></i> <span>他喜欢的文章</span>
-          </a></li>
-      </ul>
-      <!-- 专题和文集 -->
-      <div>
-        <div><!----> <!----></div>
+        <ul class="list user-dynamic">
+            <li>
+                <a href="/users/c1fed915ed12/subscriptions">
+                    <i class="iconfont ic-collection"></i> <span>他关注的专题/文集</span>
+                </a>
+            </li>
+            <li>
+                <a href="/users/c1fed915ed12/liked_notes">
+                    <i class="iconfont ic-like"></i> <span>他喜欢的文章</span>
+                </a>
+            </li>
+        </ul>
+        <!-- 专题和文集 -->
         <div>
-          <div class="title">他参与管理的专题</div>
-          <ul class="list">
-            <li><a href="/c/72daf22c68f9" target="_blank" class="avatar-collection"><img
-              src="//upload.jianshu.io/collections/images/367981/android.graphics.Bitmap_2bebf481.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a>
-              <a href="/c/72daf22c68f9" target="_blank" class="name">文章</a></li>
-            <li><!----> <!----></li>
-          </ul>
+            <div>
+                <!---->
+                <!---->
+            </div>
+            <div>
+                <div class="title">他参与管理的专题</div>
+                <ul class="list">
+                    <li>
+                        <a href="/c/72daf22c68f9" target="_blank" class="avatar-collection"><img src="//upload.jianshu.io/collections/images/367981/android.graphics.Bitmap_2bebf481.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a>
+                        <a href="/c/72daf22c68f9" target="_blank" class="name">文章</a></li>
+                    <li>
+                        <!---->
+                        <!---->
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="title">他的文集</div>
+                <ul class="list">
+                    <li><a [routerLink]="['/article', '1']"><i class="iconfont ic-search-notebook"></i></a> <a [routerLink]="['/article', '1']" class="name">生活杂感</a></li>
+                    <li><a href="/nb/3545945" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a [routerLink]="['/books', '1']" class="name">爱之徜徉离之悲伤</a></li>
+                    <li><a href="/nb/3452143" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="/nb/3452143" target="_blank" class="name">我的黑客生涯</a></li>
+                    <li><a href="/nb/3836326" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="/nb/3836326" target="_blank" class="name">时事热点</a></li>
+                    <li><a href="/nb/4460515" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="/nb/4460515" target="_blank" class="name">干货分享</a></li>
+                    <li><a href="/nb/5277672" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="/nb/5277672" target="_blank" class="name">书评</a></li>
+                    <li><a href="/nb/3417454" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="/nb/3417454" target="_blank" class="name">情感天地</a></li>
+                    <li><a href="/nb/3417455" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a href="/nb/3417455" target="_blank" class="name">影评</a></li>
+                    <li>
+                        <!---->
+                        <!---->
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div>
-          <div class="title">他的文集</div>
-          <ul class="list">
-            <li><a [routerLink]="['/article', '1']"><i class="iconfont ic-search-notebook"></i></a> <a
-              [routerLink]="['/article', '1']" class="name">生活杂感</a></li>
-            <li><a href="/nb/3545945" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              [routerLink]="['/books', '1']" class="name">爱之徜徉离之悲伤</a></li>
-            <li><a href="/nb/3452143" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              href="/nb/3452143" target="_blank" class="name">我的黑客生涯</a></li>
-            <li><a href="/nb/3836326" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              href="/nb/3836326" target="_blank" class="name">时事热点</a></li>
-            <li><a href="/nb/4460515" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              href="/nb/4460515" target="_blank" class="name">干货分享</a></li>
-            <li><a href="/nb/5277672" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              href="/nb/5277672" target="_blank" class="name">书评</a></li>
-            <li><a href="/nb/3417454" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              href="/nb/3417454" target="_blank" class="name">情感天地</a></li>
-            <li><a href="/nb/3417455" target="_blank"><i class="iconfont ic-search-notebook"></i></a> <a
-              href="/nb/3417455" target="_blank" class="name">影评</a></li>
-            <li><!----> <!----></li>
-          </ul>
+        <div class="user-action">
+            <a class="js-block-button" data-user-id="1669869" href="javascript:void(null);">加入黑名单</a> ·
+            <a class="js-report-button" data-reportable-id="1669869" data-reportable-type="user">举报用户</a>
         </div>
-      </div>
-      <div class="user-action">
-        <a class="js-block-button" data-user-id="1669869" href="javascript:void(null);">加入黑名单</a>
-        ·
-        <a class="js-report-button" data-reportable-id="1669869" data-reportable-type="user">举报用户</a>
-      </div>
-    </div>
-
-  </div>
-  <div class="side-tool">
-    <ul>
-      <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部"
-          style="display: none;"><a href="#" class="function-button"><i class="iconfont ic-backtop"></i></a></li><!---->
-      <!----> <!----></ul>
-  </div>
-</div>
-
+        <div class="side-tool">
+            <ul>
+                <li data-placement="left" data-toggle="tooltip" data-container="body" data-original-title="回到顶部" style="display: none;"><a href="#" class="function-button"><i class="iconfont ic-backtop"></i></a></li>
+            </ul>
+        </div>
+    </aside>
+</main>
