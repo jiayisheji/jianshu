@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit  {
   private error: any;
@@ -35,7 +36,10 @@ export class LoginComponent implements OnInit  {
 
   ngOnInit(): void {
     this.createForm();
-    this.onValueChanged();
+    if(this.loginService.isLogin()){
+      this.router.navigate(['/']);
+    }
+    //this.onValueChanged();
   }
 
   createForm(): void {
@@ -60,12 +64,13 @@ export class LoginComponent implements OnInit  {
     if (!this.loginForm) { return; }
     console.log('onValueChanged', this.loginForm, data);
   }
-  loginSubmit(loginForm: any): void {
+  loginSubmit(loginForm: any): any {
+    console.log(loginForm);
+    
     this.loginService.login(loginForm.value)
       .subscribe(
-        user => this.router.navigate(['/']),
+        user => user.code === 0 && this.router.navigate(['/']),
         error => this.error = error
       );
-    ;
   }
 }

@@ -29,7 +29,7 @@ export const ROUTER_CONFIG: Routes = [
   { path: 'apps', loadChildren: 'app/apps/apps.module#AppsModule' },
   { path: '404', component: NotFoundComponent },
   { path: '500', component: ServerErrorComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/' },
+  //{ path: '', pathMatch: 'full', redirectTo: '/' },
   { path: '**', component: NotFoundComponent }
 ];
 
