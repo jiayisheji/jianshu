@@ -53,9 +53,10 @@
  - [ ] forget            找回密码
  - [ ] home              首页
  - [ ] article/:id       文章详情
+ - [ ] books/:id         文集详情
  - [ ] apps              app下载
  - [ ] search            搜索结果展示列表页面
- - [ ] theme/:id         专题列表页 
+ - [ ] collections/      专题列表页 
  - [ ] recommend         新上榜
  - [ ] trending          热门
      - [ ] weekly        7日热门
@@ -67,7 +68,6 @@
  - [ ] settings          系统设置
      - [ ] basic         基本设置
      - [ ] profile       个人资料
-     - [ ] weiboAuth     微博认证
      - [ ] blacklist     黑名单
      - [ ] misc          账号管理
  - [ ] subscriptions     关注
