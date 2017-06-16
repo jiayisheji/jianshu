@@ -12,7 +12,7 @@ MongoDB开源，高性能的NoSQL数据库；支持索引、集群、复制和�
 把MongoDB安装在E盘根目录下mongodb里, 进入mongodb，创建data，logs两个文件夹，分别存放数据库文件和日志文件
 
 ## 创建一个config文件
-打开目录“E:\mongodb\bin”，并在此目录下新建一个mongo.config文件，文件内容如下
+打开目录“E:\mongodb\”，并在此目录下新建一个mongo.config文件，文件内容如下
 ```
 #数据库路径
 dbpath=E:\mongodb\data
