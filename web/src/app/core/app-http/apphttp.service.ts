@@ -1,4 +1,4 @@
-import { Injectable, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {
     Http,
     Jsonp,
@@ -7,11 +7,11 @@ import {
     Request,
     Response,
     RequestMethod,
-    RequestOptions, 
+    RequestOptions,
     RequestOptionsArgs
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-
+import { AuthorizationService } from '../authorization-service/authorization.service'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -36,143 +36,140 @@ function isUndefined(value) {
  * @param value 
  */
 function isEmpty(value) {
-    return typeof value === 'undefined' || value === null || value === '';
-}
-
-/**
- * 定义apphttp 接口
- */
-export interface AppHttpInterceptor {
-    request?: (option: RequestOptions) => RequestOptions | void;
-    response?: (response: Observable<any>, request?: RequestOptions) => Observable<any> | void;
+    return isUndefined(value) || value === null || value === '';
 }
 
 @Injectable()
 export class AppHttpProvider {
-    private interceptors: AppHttpInterceptor[];
-
-    constructor() {
-        this.interceptors = [];
+    // api请求根地址
+    private baseUrl: string = 'http://localhost:3000/api/v1';
+    private headers:any = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json, text/javascript, */*;'
     }
+    constructor(private http: Http, private authorizationService: AuthorizationService) { }
 
-    /**
-     * 获取拦截器
-     */
-    getInterceptors() {
-        return this.interceptors;
-    }
-    /**
-     * 添加拦截器
-     * @param interceptor 
-     */
-    addInterceptor(interceptor: AppHttpInterceptor): AppHttpProvider {
-        this.interceptors.push(interceptor);
-        return this;
-    }
-    addRequestInterceptor(interceptor: (res: RequestOptions) => RequestOptions): AppHttpProvider {
-        return this.addInterceptor({
-            request: (request: RequestOptions): RequestOptions => {
-                return interceptor(request) || request;
-            }
-        });
-    }
-
-    addResponseInterceptor(interceptor: (res: any) => any): AppHttpProvider {
-        return this.addInterceptor({
-            response: (response: Observable<any>): Observable<any> => {
-                return response.map(res => {
-                    return interceptor(res) || res;
-                });
-            }
-        });
-    }
-
-    addResponseErrorInterceptor(interceptor: (res: any) => any): AppHttpProvider {
-        return this.addInterceptor({
-            response: (response: Observable<any>): Observable<any> => {
-                return response.catch(res => {
-                    return interceptor(res) || res;
-                });
-            }
-        });
-    }
-
-
-    handleRequest(req: RequestOptions): RequestOptions {
-        return this.interceptors
-            .filter(item => !!item.request)
-            .reduce((req, item) => {
-                return <RequestOptions>(item.request(req) || req);
-            }, req);
-    }
-
-    handleResponse(res: Observable<any>, request?: RequestOptions): Observable<any> {
-        return this.interceptors
-            .filter(item => !!item.response)
-            .reverse()
-            .reduce((stream, item) => {
-                return <Observable<any>>(item.response(stream, request) || res);
-            }, res);
-    }
-
-    baseUrl(host: string, excludes: RegExp[] = []): AppHttpProvider {
-        this.interceptors.push({
-            request: (request: RequestOptions): RequestOptions => {
-                if (/^https?:/.test(request.url)) {
-                    return request;
-                }
-
-                let excludeUrl = excludes.some(t => t.test(request.url));
-                if (excludeUrl) {
-                    return request;
-                }
-
-                host = host.replace(/\/$/, "");
-                let url = request.url.replace(/^\//, "");
-                request.url = `${host}/${url}`;
-                return request;
-            }
-        });
-        return this;
-    }
-
-    /**
-     * 头信息
-     * @param headers 
-     */
-    headers(headers = {}): AppHttpProvider {
-        return this.addInterceptor({
-            request: (request: RequestOptions): void => {
-                request.headers = request.headers || new ngHeaders();
-                for (let key in headers) {
-                    if (headers.hasOwnProperty(key)) {
-                        request.headers.set(key, headers[key]);
+    // get 请求
+    get<T>(url: string, parame?: any, options?: RequestOptions): Observable<T> {
+        let headers:any = {};
+        const currentUser = <any>this.authorizationService.getCurrentUser();
+        
+        if (currentUser && currentUser.token) {
+            console.log(currentUser);
+            
+            headers = new Headers({
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/javascript, */*;',
+                'Authorization': 'Bearer ' + currentUser.token
+            });
+        }else{
+            headers = new Headers(this.headers); 
+        }
+        let option = new RequestOptions({headers: headers});
+        let search = new URLSearchParams();
+        for(let key of Object.keys(parame)){
+            if (isObject(parame[key])) {
+                for (let k of parame[key]) {
+                    if (parame[key].hasOwnProperty(k)) {
+                        search.set(encodeURIComponent(k), encodeURIComponent(parame[key][k]));
                     }
                 }
+            } else if (!isEmpty(parame[key])) {
+                search.set(encodeURIComponent(key), encodeURIComponent(parame[key].toString()));
+            } else {
+                search.set(encodeURIComponent(key), '');
             }
-        });
+        }
+        search.set(encodeURIComponent('t'), (new Date).getTime().toString());
+        option.search = search;
+        option.url = this.baseUrl + url;
+        option.method = RequestMethod.Get;
+        option = Object.assign({}, option, options);
+
+        return this.http.get(option.url)
+            .map(this.fun)
+            .catch(this.handleError);
+    };
+     
+    fun(res: Response){
+        console.log(res);
+        return res.json() || {}
+    } 
+
+    // post 请求
+    post<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
+        let headers:any = new Headers(this.headers); 
+        const currentUser = <any>this.authorizationService.getCurrentUser();
+        if (currentUser && currentUser.token) {
+            headers.set('Authorization', 'Bearer ' + currentUser.token)
+        }
+        let option = new RequestOptions({headers: headers});
+        option.method = RequestMethod.Post;
+        option.url = this.baseUrl + url;
+        option = Object.assign({}, option, options);
+        return this.http.post(option.url, body, option)
+            .map((res: Response) => res.json() || {})
+            .catch(this.handleError);
     }
 
-    json(): AppHttpProvider {
-        this.interceptors.push({
-            request: (request: RequestOptions): void => {
-                request.headers = request.headers || new ngHeaders();
-                request.headers.set('Content-Type', 'application/json');
-                request.headers.set('Accept', 'application/json, text/javascript, */*;');
+    // put 请求
+    put<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
+        let option:any = options || {};
+        option.method = RequestMethod.Post;
+        return this.ajax<T>(url, 'Put', body, option);
+    }
 
-                if (request.body) {
-                    request.body = JSON.stringify(request.body);
-                }
-            },
-            response: (response: Observable<any>): Observable<any> => {
-                return response.map(res => {
-                    let type = res.headers.get('Content-Type') || res.headers.get('content-type');
-                    if (type && type.indexOf('json') !== -1) {
-                        return res.json && res.json();
-                    }
+    // delete 请求
+    delete<T>(url: string, options?: RequestOptions): Observable<T> {
+        let option:any = options || {};
+        option.method = RequestMethod.Delete;
+        return this.ajax<T>(url, 'Delete', undefined, option);
+    }
+
+    ajax<T>(url: string, method: string, body: any, option?: RequestOptions): Observable<any> {
+        let optionsArgs: any = [];
+        let headers:any = new Headers({'Content-Type': 'application/json'}); 
+        headers.set('Content-Type', 'application/json')
+        headers.set('Accept', 'application/json, text/javascript, */*;')
+        const currentUser = <any>this.authorizationService.getCurrentUser();
+        if (currentUser && currentUser.token) {
+            headers.set('Authorization', 'Bearer ' + currentUser.token)
+        }
+        let requestMethod = RequestMethod[method];
+        let search = option.search;
+        console.log(headers);
+        let options = new RequestOptions(<any>{
+                    method: method,  
+                    url: this.baseUrl + url,
+                    headers,
+                    body,
+                    search
                 });
-            }
-        });
-        return this;
+        if (isUndefined(body)) {
+            optionsArgs = [this.baseUrl + url, options];
+        } else {
+            optionsArgs = [this.baseUrl + url, body, options];
+        }
+        console.log(options);
+        
+        return 
+    }
+
+    /**
+     * 错误消息拦截
+     * @param error 
+     */
+    private handleError(error: Response | any) {
+        let errorMessage: string;
+        console.log('handleError', error);
+        return errorMessage;
     }
 }
+
+
+export const APP_HTTP_PROVIDERS: Array<any> = [
+    {
+        provide: AppHttpProvider,
+        useClass: AppHttpProvider
+    }
+];
