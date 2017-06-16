@@ -61,7 +61,7 @@ MongoDB server version: 3.4.1
 6. 开始认证 db.auth("root","123456") 
 7. 如果返回1表示认证通过，0表示失败 如果失败重新认证一遍
 
-## 创建一个项目数据库
+## 创建一个项目数据库(必须要创建一个数据库，不然没法玩耍)
 1. 创建一个数据库： use jianshu
 2. 在当前数据库上面： db.createUser({user:"jiayi",pwd:"123456",roles:["userAdmin"]})
 3. 切换到 use admin
