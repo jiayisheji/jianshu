@@ -12,7 +12,7 @@ MongoDB开源，高性能的NoSQL数据库；支持索引、集群、复制和�
 把MongoDB安装在E盘根目录下mongodb里, 进入mongodb，创建data，logs两个文件夹，分别存放数据库文件和日志文件
 
 ## 创建一个config文件
-打开目录“E:\mongodb\bin”，并在此目录下新建一个mongo.config文件，文件内容如下
+打开目录“E:\mongodb\”，并在此目录下新建一个mongo.config文件，文件内容如下
 ```
 #数据库路径
 dbpath=E:\mongodb\data
@@ -60,6 +60,13 @@ MongoDB server version: 3.4.1
 5. 再次进入存放管理员信息的数据库 use admin
 6. 开始认证 db.auth("root","123456") 
 7. 如果返回1表示认证通过，0表示失败 如果失败重新认证一遍
+
+## 创建一个项目数据库(必须要创建一个数据库，不然没法玩耍)
+1. 创建一个数据库： use jianshu
+2. 在当前数据库上面： db.createUser({user:"jiayi",pwd:"123456",roles:["userAdmin"]})
+3. 切换到 use admin
+4. 认证 db.auth("jiayi","123456")
+5. 如果返回1表示认证通过，0表示失败 如果失败重新认证一遍
 
 ## 连接Robomongo软件
 1. [下载Robomongo](http://blog.robomongo.org/robomongo-0-9-0-final/)
@@ -179,7 +186,7 @@ db.eval("存储过程ID()");
 ## 使用mongoose
 ```
 import * as mongoose from 'mongoose';
-mongoose.connect('mongodb://localhost/jianshu');
+mongoose.connect(`mongodb://${config.user}:${config.psw}@${config.host}:${config.dbport}/${config.dbs}`);
 let db = mongoose.connection;
 db.on('error', function () {
     throw new Error('unable to connect to database at ' + config.db);
@@ -187,5 +194,11 @@ db.on('error', function () {
 db.once('open', function (callback) {
     console.log('数据库启动了')
 });
+
+${config.user}  连接数据库的管理员账号  jiayi
+${config.psw}  连接数据库的管理员密码   123456
+${config.host} 连接数据库的地址  本地默认是localhost
+${config.dbport} 连接数据库的端口  本地默认是27017
+${config.dbs} 连接数据库的名称 本次项目是jianshu
 ```
 如果控制台出现'数据库启动了'，就表示node已经连接上了MongoDB。
