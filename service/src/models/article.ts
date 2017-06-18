@@ -1,73 +1,47 @@
 /**
- * Created by jiayi on 2017/5/24.
+ * 文章表
+ * Created by jiayi on 2017/6/18.
  */
 /**
  * 引入依赖
  */
-import {Document, Schema, Model, model} from "mongoose";
-/**
- * 引入注解
- */
-import {IArticle} from "./interfaces/article";
+import * as mongoose from "mongoose";
 
 /**
- * 给Model添加注解
+ * 定义接口
  */
-export interface IArticleModel extends IArticle, Document {
-}
-/**
- * 定义Schema
- * @type {"mongoose".Schema}
- */
-export const ArticleSchema: Schema = new Schema({
-    title: {    // 标题必填
-        type: String,
-        required: true
-    },
-    content: {    // 正文必填
-        type: String,
-        required: true
-    },
-    author: {   // 作者
-        type: Schema.Types.ObjectId,    // 引用类型
-        ref: 'User'                     // 关联用户表
-    },
-    category: {   // 文集
-        type: Schema.Types.ObjectId,    // 引用类型
-        ref: 'Category'                // 关联文集表
-    },
-    abstract: {    // 简介
-        type: String,
-        required: true
-    },
-    published: {   // 是否发布
-        type: Boolean,
-        'default': false
-    },
-    created: {     // 发布时间
+export type ArticleModel = mongoose.Document & {
+    created: Date,   // 创建时间
+    updated: Date,   // 更新时间
+
+};
+
+const articleSchema = new mongoose.Schema({
+    created: {     // 创建时间
         type: Date,
-        'default': Date.now
+        'default': new Date
     },
     updated: {     // 更新时间
         type: Date,
-        'default': Date.now
-    },
-    views_count: {   // 阅读
-        type: Number,
-        'default': 0
-    },
-    comments_count: {     // 评论
-        type: Number,
-        'default': 0
-    },
-    likes_count: {    // 点赞
-        type: Number,
-        'default': 0
+        'default': new Date
     }
+}, { timestamps: true });
+
+/**
+ * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
+ */
+articleSchema.pre("save", function save(next) {
+
 });
 
 /**
- * 导出Model
- * @type {Model<IArticleModel>}
+ * 校验用户输入密码是否正确
+ * @method comparePassword
+ * @param password {String}  验证密码
+ * @param callback {Function}  回调函数
  */
-export const Article: Model<IArticleModel> = model<IArticleModel>("Article", ArticleSchema);
+articleSchema.methods.comparePassword = function(candidatePassword?: string, callback?: any): any {
+
+};
+
+export default mongoose.model("Article", articleSchema);

@@ -1,5 +1,4 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { AppHttpProvider } from './app.service';
 import { AuthorizationService } from './core/authorization-service/authorization.service'
 import { LoadingService } from  './core/loading/loading.service';
 import { Response } from '@angular/http';
@@ -11,12 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private appHttpProvider: AppHttpProvider, 
+  constructor(//private appHttpProvider: AppHttpProvider, 
               private authorizationService: AuthorizationService,
               private viewContainer: ViewContainerRef,
               private router: Router,
               private  loadService: LoadingService) {
-  loadService.defaultViewContainerRef = viewContainer;
+  /*loadService.defaultViewContainerRef = viewContainer;
   appHttpProvider
       .baseUrl('http://localhost:3000/api/v1')
       .json()
@@ -47,7 +46,7 @@ export class AppComponent {
       const currentUser = <any>authorizationService.getCurrentUser();
       if (currentUser && currentUser.token) {
         appHttpProvider.headers({ Authorization: 'Bearer ' + currentUser.token }); 
-      }
+      }*/
   } 
 
 

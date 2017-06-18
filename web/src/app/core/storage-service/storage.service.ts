@@ -317,5 +317,5 @@ export const APP_STORAGE_PROVIDERS: Array<any> = [
     {
         provide: StorageService,
         useClass: StorageService
-    },
+    }
 ];

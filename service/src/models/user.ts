@@ -1,133 +1,172 @@
 /**
- * Created by jiayi on 2017/5/25.
+ * 用户表
+ * Created by jiayi on 2017/6/18.
  */
 /**
  * 引入依赖
  */
 import * as bcrypt from 'bcrypt';
-import {Document, Schema, Model, model} from "mongoose";
-/**
- * 引入注解
- */
-import {IUser} from "./interfaces/user";
+import * as mongoose from "mongoose";
 
 /**
- * 给Model添加注解
+ * 定义接口
  */
-export interface IUserModel extends IUser, Document {
-    comparePassword?: any;
-}
+export type UserModel = mongoose.Document & {
+    createdAt: Date,   // 创建时间
+    updatedAt: Date,   // 更新时间
+    username: string, // 登陆账号
+    password: string, // 登陆密码
+    tokens: AuthToken[],  // 第三方认证
+    auths: AuthList[],  // 实名认证
+    profile: {        // 个人资料
+        gender: string,   // 性别
+        location: string,  // 地址
+        intro: string,   // 个人介绍
+        qrcode: string,   // 个人二维码
+        homepage: string,   // 个人主页
+        country_code: string   // 来自哪个国家
+    },
+    basic: {   // 基本设置
+        nickname: string,   // 昵称
+        avatar: string,    // 头像
+        locale: string,    // 阅读语言
+        chats_notify: boolean,   // 简信接收设置
+        email_notify: string    // 提醒邮件通知	
+    },
+    token: string    // 登陆前面
+    comparePassword: (candidatePassword: string, callback: (err: any, isMatch: boolean) => {}) => void,  // 验证密码
+    gravatar: (size: number) => string   //获取头像
+};
 
 /**
- * 定义Schema
- * @type {"mongoose".Schema}
+ * 实名认证
  */
-export const UserSchema: Schema = new Schema({
-    created: {     // 创建时间
-        type: Date,
-        'default': new Date
-    },
-    nickname: {    // 昵称
-        type: String,
-        unique: true, // 不可重复约束
-        require: true // 不可为空约束
-    },
+export type AuthList = {
+    key: string,   // 认证名称 mobile 手机 email 邮箱 realname 实名认证 identity
+    value: string,  // 认证内容
+    status: string    // 认证状态 0 未认证 1 已认证 2 已注销
+};
+
+/**
+ * 社交认证
+ */
+export type AuthToken = {
+    accessToken: string,
+    kind: string
+};
+
+const userSchema = new mongoose.Schema({
     username: {    // 登陆账号
         type: String,
         unique: true, // 不可重复约束
+        match: /^\d{11}/,
         require: true // 不可为空约束
     },
     password: {    // 登陆密码
         type: String,
         require: true // 不可为空约束
     },
-    avatar: {    // 头像   默认随机生成一个
-        type: String
+    tokens: [{
+        accessToken: String,
+        kind: String
+    }],
+    auths: [{
+        key: String,   // 认证名称 mobile 手机 email 邮箱 realname 实名认证 identity
+        value: String,  // 认证内容
+        status: String    // 认证状态 0 未认证 1 已认证 2 已注销
+    }],
+    profile: {
+        gender: {
+            type: Number,
+            required: true,
+            enum: [0, 1, 2],
+            'default': 0
+        },
+        location: String,
+        intro: String,
+        qrcode: String,
+        homepage: String,
+        country_code: {
+            type: String,
+            'default': 'cn'
+        }
     },
-    gender: {    // 性别 0 保密 1 男 2 女
-        type: Number,
-        required: true,
-        enum: [0, 1, 2],
-        'default': 0
+    basic: {
+        nickname: {    // 昵称
+            type: String,
+            minlength: 2,   // 最小2个字符
+            maxlength: 10,  // 最大10个字符
+            unique: true,  // 不可重复约束
+            require: true  // 不可为空约束
+        },
+        avatar: String,
+        locale: {
+            type: String,
+            'default': 'zh-CN'
+        },
+        chats_notify: {
+            type: Boolean,
+            'default': true
+        },
+        email_notify: {
+            type: String,
+            'default': 'none',
+            enum: ['none', 'later', 'instantly']
+        }
     },
-    intro: {     // 个人简介
-        type: String
-    },
-    homepage: {   // 个人主页
-        type: String
-    },
-    email: {     // 电子邮件
-        type: String
-    },
-    mobile: {     // 手机  
-        type: String,
-        require: true
-    },
-    email_auth: { // 电子邮件认证 不认证不能设置提醒邮件通知
-        type: Boolean,
-        'default': false
-    },
-    mobile_auth: {  // 手机 认证 不认证不能发表文章
-        type: Boolean,
-        'default': false
-    },
-    country_code: {  // 所属国家
-        type: String,
-        'default': 'cn'
-    },
-    locale: {  // 语言设置  zh-CN 中文简体 zh-TW 中文繁體
-        type: String,
-        'default': 'zh-CN'
-    },
-    chats_notify: {  // 简信接受设置  true 接收所有简信 false 只接收我关注的用户的简信
-        type: Boolean,
-        'default': true
-    },
-    email_notify: {   // 提醒邮件通知  none-不接收 later-每天未读汇总 instantly-所有动态  (如果没有邮箱验证就是不接受，如果邮箱有验证就是所有动态)
-        type: String,
-        'default': 'none',
-        enum: ['none', 'later', 'instantly']
-    },
-    qrcode: {     // 社交二维码
-        type: String
-    },
-    token: {     // 登陆验证签名
-        type: String
-    }
-});
+    token: String
+}, {timestamps: true});
 
-// 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
-UserSchema.pre('save', function (next) {
-    let user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
+/**
+ * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
+ */
+userSchema.pre("save", function save(next) {
+    const user = this;
+    if (!user.isModified("password")) {
+        return next();
+    }
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) {
+            return next(err);
+        }
+        bcrypt.hash(user.password, salt, null, (err: mongoose.Error, hash) => {
+            console.log(user.password)
             if (err) {
                 return next(err);
             }
-            bcrypt.hash(user.password, salt, function (err, hash) {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
+            user.password = hash;
+            user.auths.push({
+                key: 'mobile',
+                value: user.username,
+                status: '1'
             });
+            next();
         });
-    } else {
-        return next();
-    }
+    });
 });
 
-// 校验用户输入密码是否正确
-UserSchema.methods.comparePassword = function(password?: string, callback?: any): any {
-    bcrypt.compare(password, this.password, (err, isMatch) => {
+/**
+ * 校验用户输入密码是否正确
+ * @method comparePassword
+ * @param password {String}  验证密码
+ * @param callback {Function}  回调函数
+ */
+userSchema.methods.comparePassword = function (candidatePassword?: string, callback?: any): any {
+    bcrypt.compare(candidatePassword, this.password, (err: any, isMatch: boolean) => {
         if (err) {
             return callback(err);
         }
         callback(null, isMatch);
     });
 };
+
 /**
- * 导出Model
- * @type {Model<IUserModel>}
+ * 校验用户输入密码是否正确
+ * @method gravatar
+ * @param size {Number}  验证密码
  */
-export const User: Model<IUserModel> = model<IUserModel>("User", UserSchema);
+userSchema.methods.gravatar = function (size: number) {
+    return size;
+};
+
+export default mongoose.model("User", userSchema);

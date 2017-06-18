@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Cacheable } from '../storage-service/storage.service';
-import { AppHttp, AppHttpProvider, BaseUrl, GET, POST, PUT, DELETE, Query, Path, Body } from  '../../app.service';
+import { AppHttpProvider } from  '../app-http/apphttp.service';
 export class Article {
   layout: string;
   title: string;
@@ -23,47 +23,32 @@ export interface SearchResult<T> {
 }
 
 
-export abstract class ArticleService extends AppHttp {
+export abstract class ArticleService {
 
   abstract getArticles(pageIndex, pageSize, keyword?: string): Observable<SearchResult<Article>>;
 
-  abstract getArticleByUrl(articleUrl: string): Observable<Article>;
+  abstract setArticles(body: any): Observable<any>;
 
-  abstract updateMarkdown(articleUrl: string, article: Article): Observable<any> ;
-
-  abstract  deleteArticle(articleUrl: string): Observable<any> ;
 }
 
 @Injectable()
 export class OnlineArticleService extends ArticleService {
 
-  constructor(protected http: Http, protected appHttpProvider: AppHttpProvider) {
+  constructor(protected ajax: AppHttpProvider, private http: Http) {
     super();
   }
 
   @Cacheable({ pool: 'articles' })
-  @GET('article')
-  getArticles(@Query('pageIndex') pageIndex = 1,
-              @Query('pageSize') pageSize = 20,
-              @Query('keyword') keyword?: string): Observable<SearchResult<Article>> {
-    return null;
+  getArticles(pageIndex = 1, pageSize = 20, keyword?: string): Observable<SearchResult<Article>> {
+    return this.ajax.get('/article/5933fa3183e1e940b468743d/conmments', {page: pageIndex, pageSize: pageSize, keyword:keyword});
   }
 
-  @GET('article/:id')
-  getArticleByUrl(@Path('id') articleUrl: string): Observable<Article> {
-    return null;
+  setArticles(body): Observable<SearchResult<Article>> {
+    return this.ajax.post('/article/5933fa3183e1e940b468743d/conmments', body);
   }
-
-  @POST('article/:id')
-  updateMarkdown(@Path('id') articleUrl: string, @Body article: Article): Observable<any> {
-    return null;
+  private handleError(error){
+    return error;
   }
-
-  @DELETE('article/:id')
-  deleteArticle(@Path('id') articleUrl: string): Observable<any> {
-    return null;
-  }
-
 }
 
 

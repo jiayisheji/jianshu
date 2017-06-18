@@ -7,7 +7,6 @@ import { NgModule } from '@angular/core';
 import { ROUTING } from './app.routes';
 // App is our top level component
 import { AppComponent } from './app.component';
-import { APP_HTTP_PROVIDERS } from './app.service';
 import { CoreModule } from './core';
 import { SharedModule } from './shared';
 
@@ -25,7 +24,6 @@ const APP_PROVIDERS = [];
     ROUTING
   ],
   providers: [
-    ...APP_HTTP_PROVIDERS,
     ...APP_PROVIDERS
   ],
   bootstrap: [AppComponent]

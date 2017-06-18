@@ -7,13 +7,18 @@ import { ArticleService } from '../core/article-service/article.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private articleService: ArticleService) { }
+  constructor(private articleService:ArticleService) { }
 
   ngOnInit() {
     this.articleService.getArticles(1, 20, '')
       .subscribe(
         user => console.log(user)
       );
+    this.articleService.setArticles({
+      content: '111'
+    }).subscribe(
+      user => console.log(user)
+    );
   }
   
 }

@@ -12,37 +12,24 @@ import * as logger from 'logger';
 import * as favicon from 'favicon';
 import * as methodOverride from 'method-override';
 import * as cookieParser from 'cookie-parser';
-import * as session from 'express-session';
-import * as passport from 'passport';
-import * as passportBearer from 'passport-http-bearer';
-const Strategy = passportBearer.Strategy;
-
-
-
+import * as expressValidator from 'express-validator';
+import * as passport from "passport";
 
 /**
  * 引入配置
  */
-import config = require('./config');
+import config = require('./config/config');
 
 /**
  * 导入路由
  */
-import * as routesAdmin from "./routes/admin";
+/*import * as routesAdmin from "./routes/admin";
 import * as routesWeb from "./routes/web";
-
+*/
 /**
  * api接口
  */
-import * as api from "./api/index";
-
-/**
- * 引入数据库模型
- */
-const models = glob.sync(config.root + '/models/*.js');
-models.forEach(function (model) {
-    require(model);
-});
+import * as api from "./controllers/api";
 
 /**
  * 引入express配置
@@ -84,39 +71,37 @@ function extendAPIOutput( req, res, next){
 
 app.use(extendAPIOutput);
 
+import * as jwt from 'jsonwebtoken';
+import * as passportBearer from 'passport-http-bearer';
+const Strategy = passportBearer.Strategy;
+
 
 // 初始化passport模块
 app.use(passport.initialize());
-/**
- * 设置解析数据中间件，默认json传输
- */
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+
+import {default as User} from "./models/User";
+
+passport.use('user', new Strategy(function (token, done) {
+    jwt.verify(token, 'jiayishejijianshu', function(err, decoded) {
+        if(!decoded){
+            return done(null, false);
+        }
+        User.findOne({
+            username: decoded.username,
+            token: token
+        }).exec((err, user: any) => {
+                if (err) {
+                    return done(err);
+                }
+                if (!user) {
+                    return done(null, false, {message: "账号和密码不存在"});
+                }
+                return done(null, user);
+            });
+    });
 }));
 
-
-import {User} from './models/user';
-passport.use('user', new Strategy(function(token, done) {
-        User.findOne({
-            token: token
-        }, function(err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false);
-            }
-            return done(null, user);
-        });
-    }
-));
-
-import {Admin} from './models/Admin';
+/*import {Admin} from './models/Admin';
 passport.use('admin', new Strategy(function(token, done) {
     Admin.findOne({
         token: token
@@ -130,19 +115,53 @@ passport.use('admin', new Strategy(function(token, done) {
             return done(null, user);
         });
     }
-));
-//require('./config/express')(app, config);
+));*/
+
+
+
+
+/**
+ * 设置解析数据中间件，默认json传输
+ */
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+            , root    = namespace.shift()
+            , formParam = root;
+
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param : formParam,
+            msg   : msg,
+            value : value
+        };
+    },
+    customValidators: {
+        isArray: function(value) {
+            return Array.isArray(value);
+        },
+        gte: function(param, num) {
+            return param >= num;
+        }
+    }
+}));
+///require('./config/express')(app, config);
 /**
  * 启动app
  */
 /**
  * web相关路由
  */
-routesWeb.web(app);
+//routesWeb.web(app);
 /**
  * admin相关路由
  */
-routesAdmin.admin(app);
+//routesAdmin.admin(app);
 
 /**
  * api接口
@@ -151,6 +170,7 @@ api.index(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+    // console.log(req);
     let err: any = new Error('Not Found');
     err.status = 404;
     next(err);

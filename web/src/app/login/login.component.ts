@@ -36,9 +36,9 @@ export class LoginComponent implements OnInit  {
 
   ngOnInit(): void {
     this.createForm();
-    if(this.loginService.isLogin()){
+    /*if(this.loginService.isLogin()){
       this.router.navigate(['/']);
-    }
+    }*/
     //this.onValueChanged();
   }
 
@@ -66,7 +66,6 @@ export class LoginComponent implements OnInit  {
   }
   loginSubmit(loginForm: any): any {
     console.log(loginForm);
-    
     this.loginService.login(loginForm.value)
       .subscribe(
         user => user.code === 0 && this.router.navigate(['/']),

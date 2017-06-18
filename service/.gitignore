@@ -1,6 +1,8 @@
 .DS_Store
 node_modules/
 build/
+dist/
+src - 副本/
 npm-debug.log
 test/unit/coverage
 test/e2e/reports

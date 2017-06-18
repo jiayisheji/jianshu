@@ -23,6 +23,7 @@
     "ejs": "^2.5.5",
     "express": "^4.14.1",
     "express-session": "^1.15.3",
+    "express-validator": "^3.2.0",
     "favicon": "0.0.2",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
@@ -37,9 +38,14 @@
     "slug": "^0.9.1"
   },
   "scripts": {
-    "start": "npm run build && npm run dev",
+    "start": "npm run build && npm run watch",
     "dev": "supervisor -w build ./build/app.js",
-    "build": "tsc"
+    "build": "npm run build-ts && npm run tslint",
+    "serve": "node dist/app.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,cyan.bold,green.bold\" \"npm run watch-ts\" \"nodemon dist/app.js\"",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "devDependencies": {
     "@types/express": "^4.0.35",
@@ -47,9 +53,8 @@
     "@types/mongodb": "^2.2.2",
     "@types/mongoose": "^4.7.5",
     "@types/node": "^7.0.5",
+    "concurrently": "^3.4.0",
     "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-typescript": "^3.1.4",
     "merge2": "^1.0.3",
     "typescript": "^2.3.2"
   },

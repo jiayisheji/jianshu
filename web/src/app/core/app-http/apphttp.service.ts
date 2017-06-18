@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {
     Http,
     Jsonp,
-    Headers as ngHeaders,
+    Headers,
     URLSearchParams,
     Request,
     Response,
@@ -43,27 +43,18 @@ function isEmpty(value) {
 export class AppHttpProvider {
     // api请求根地址
     private baseUrl: string = 'http://localhost:3000/api/v1';
-    private headers:any = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json, text/javascript, */*;'
-    }
     constructor(private http: Http, private authorizationService: AuthorizationService) { }
 
     // get 请求
     get<T>(url: string, parame?: any, options?: RequestOptions): Observable<T> {
-        let headers:any = {};
+        let headers = new Headers({'Content-Type': 'application/json'});
         const currentUser = <any>this.authorizationService.getCurrentUser();
-        
         if (currentUser && currentUser.token) {
             console.log(currentUser);
-            
             headers = new Headers({
                 'Content-Type': 'application/json',
-                'Accept': 'application/json, text/javascript, */*;',
                 'Authorization': 'Bearer ' + currentUser.token
             });
-        }else{
-            headers = new Headers(this.headers); 
         }
         let option = new RequestOptions({headers: headers});
         let search = new URLSearchParams();
@@ -98,7 +89,7 @@ export class AppHttpProvider {
 
     // post 请求
     post<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
-        let headers:any = new Headers(this.headers); 
+        let headers = new Headers({'Content-Type': 'application/json'});
         const currentUser = <any>this.authorizationService.getCurrentUser();
         if (currentUser && currentUser.token) {
             headers.set('Authorization', 'Bearer ' + currentUser.token)
@@ -113,24 +104,23 @@ export class AppHttpProvider {
     }
 
     // put 请求
-    put<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
+    /*put<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
         let option:any = options || {};
         option.method = RequestMethod.Post;
         return this.ajax<T>(url, 'Put', body, option);
-    }
+    }*/
 
     // delete 请求
-    delete<T>(url: string, options?: RequestOptions): Observable<T> {
+   /* delete<T>(url: string, options?: RequestOptions): Observable<T> {
         let option:any = options || {};
         option.method = RequestMethod.Delete;
         return this.ajax<T>(url, 'Delete', undefined, option);
-    }
+    }*/
 
-    ajax<T>(url: string, method: string, body: any, option?: RequestOptions): Observable<any> {
+/*    ajax<T>(url: string, method: string, body: any, option?: RequestOptions): Observable<any> {
         let optionsArgs: any = [];
         let headers:any = new Headers({'Content-Type': 'application/json'}); 
         headers.set('Content-Type', 'application/json')
-        headers.set('Accept', 'application/json, text/javascript, */*;')
         const currentUser = <any>this.authorizationService.getCurrentUser();
         if (currentUser && currentUser.token) {
             headers.set('Authorization', 'Bearer ' + currentUser.token)
@@ -153,7 +143,7 @@ export class AppHttpProvider {
         console.log(options);
         
         return 
-    }
+    }*/
 
     /**
      * 错误消息拦截
@@ -162,6 +152,9 @@ export class AppHttpProvider {
     private handleError(error: Response | any) {
         let errorMessage: string;
         console.log('handleError', error);
+        if(error.status === 401){
+            errorMessage = "没有权限";
+        }
         return errorMessage;
     }
 }
