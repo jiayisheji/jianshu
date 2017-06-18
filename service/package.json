@@ -17,6 +17,7 @@
     "express"
   ],
   "dependencies": {
+    "async": "^2.4.1",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.17.1",
     "cookie-parser": "^1.4.3",

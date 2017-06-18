@@ -17,7 +17,7 @@
 - 调整api设计思路。
 - 重新设计user表
 - 重新写登陆注册API接口
-
+- 新增文集全套API
 ## Bug Fixes
 
 ### Notes
