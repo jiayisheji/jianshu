@@ -1,9 +1,15 @@
+/**
+ * 前后API接口
+ * Created by jiayi on 2017/6/18.
+ */
 
+/**
+ * 引入依赖
+ */
 import * as Express from 'express';
-import * as glob from 'glob';
 const Router = Express.Router();
-
 import * as passport from "passport";
+
 /**
  * web 控制器
  */
@@ -28,11 +34,10 @@ Router.get("/books/:id", BooksController.GetBooKs);
 Router.get("/books", BooksController.GetAllBooKs);
 
 // 专题分类
-// Router.post("/collections", passport.authenticate('user', {session: false}), CorpusController.AddCorpus);
-// Router.put("/collections/:id", passport.authenticate('user', {session: false}), CorpusController.UploadBooks);
-// Router.delete("/collections/:id", passport.authenticate('user', {session: false}), CorpusController.RemoveCorpus);
-// Router.get("/collections/:id", CorpusController.GetCorpus);
-// Router.get("/collections", CorpusController.GetAllCorpus);
+Router.post("/collections", passport.authenticate('user', {session: false}), CorpusController.AddCorpus);
+Router.put("/collections/:id", passport.authenticate('user', {session: false}), CorpusController.UploadCorpus);
+Router.get("/collections/:id", CorpusController.GetCorpus);
+Router.get("/collections", CorpusController.GetAllCorpus);
 
 
 /**

@@ -11,6 +11,14 @@
 ### Notes（注释）
 ```
 
+## 1.0.0beta3 （2017-06-20）
+### Features
+- 新增专题全套API
+## Bug Fixes
+- 使用slug代替_id输出
+### Notes
+
+
 ## 1.0.0beta2 （2017-06-18）
 ### Features
 - 重新梳理思路，完善目录结构
