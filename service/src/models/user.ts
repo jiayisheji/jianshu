@@ -34,7 +34,7 @@ export type UserModel = mongoose.Document & {
         email_notify: string    // 提醒邮件通知	
     },
     token: string    // 登陆前面
-    comparePassword: (candidatePassword: string, callback: (err: any, isMatch: boolean) => {}) => void,  // 验证密码
+    comparePassword: (candidatePassword: string, callback: (err: any, isMatch: boolean) => Object|undefined) => void,  // 验证密码
     gravatar: (size: number) => string   //获取头像
 };
 
