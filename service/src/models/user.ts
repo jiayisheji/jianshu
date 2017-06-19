@@ -12,30 +12,32 @@ import * as mongoose from "mongoose";
  * 定义接口
  */
 export type UserModel = mongoose.Document & {
+    slug: String,
+    _id: String,
     createdAt: Date,   // 创建时间
     updatedAt: Date,   // 更新时间
-    username: string, // 登陆账号
-    password: string, // 登陆密码
+    username: String, // 登陆账号
+    password: String, // 登陆密码
     tokens: AuthToken[],  // 第三方认证
     auths: AuthList[],  // 实名认证
     profile: {        // 个人资料
-        gender: string,   // 性别
-        location: string,  // 地址
-        intro: string,   // 个人介绍
-        qrcode: string,   // 个人二维码
-        homepage: string,   // 个人主页
-        country_code: string   // 来自哪个国家
+        gender: String,   // 性别
+        location: String,  // 地址
+        intro: String,   // 个人介绍
+        qrcode: String,   // 个人二维码
+        homepage: String,   // 个人主页
+        country_code: String   // 来自哪个国家
     },
     basic: {   // 基本设置
-        nickname: string,   // 昵称
-        avatar: string,    // 头像
-        locale: string,    // 阅读语言
-        chats_notify: boolean,   // 简信接收设置
-        email_notify: string    // 提醒邮件通知	
+        nickname: String,   // 昵称
+        avatar: String,    // 头像
+        locale: String,    // 阅读语言
+        chats_notify: Boolean,   // 简信接收设置
+        email_notify: String    // 提醒邮件通知
     },
-    token: string    // 登陆前面
-    comparePassword: (candidatePassword: string, callback: (err: any, isMatch: boolean) => {}) => void,  // 验证密码
-    gravatar: (size: number) => string   //获取头像
+    token: String    // 登陆前面
+    comparePassword: (candidatePassword: String, callback: (err: any, isMatch: boolean) => any) => void,  // 验证密码
+    gravatar: (size: number) => String   //获取头像
 };
 
 /**
@@ -56,6 +58,9 @@ export type AuthToken = {
 };
 
 const userSchema = new mongoose.Schema({
+    slug: {
+      type: String
+    },
     username: {    // 登陆账号
         type: String,
         unique: true, // 不可重复约束
@@ -135,6 +140,7 @@ userSchema.pre("save", function save(next) {
                 return next(err);
             }
             user.password = hash;
+            user.slug = user._id;
             user.auths.push({
                 key: 'mobile',
                 value: user.username,

@@ -11,7 +11,7 @@ const Schema = mongoose.Schema;
  * 定义接口
  */
 export type BooksModel = mongoose.Document & {
-    title: string,
+    title: String,
     owner: any,
     createdAt: Date,
     updatedAt: Date,
@@ -42,9 +42,12 @@ const booksSchema = new Schema({
 /**
  *
  */
-/*booksSchema.pre("save", function save(next) {
 
-});*/
+booksSchema.pre("save", function save(next) {
+    const books = this;
+    books.slug = books._id;
+    return next();
+});
 
 /**
  * 校验用户输入密码是否正确
