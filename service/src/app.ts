@@ -12,24 +12,18 @@ import * as logger from 'logger';
 import * as favicon from 'favicon';
 import * as methodOverride from 'method-override';
 import * as cookieParser from 'cookie-parser';
-import * as expressValidator from 'express-validator';
-import * as passport from "passport";
+import expressValidator = require('express-validator');
+import * as winston from 'winston';
+import * as expressWinston from 'express-winston';
 
 /**
  * 引入配置
  */
 import config = require('./config/config');
-
 /**
- * 导入路由
+ * 全部路由
  */
-/*import * as routesAdmin from "./routes/admin";
-import * as routesWeb from "./routes/web";
-*/
-/**
- * api接口
- */
-import * as api from "./controllers/api";
+import {default as  routes} from "./routes/index";
 
 /**
  * 引入express配置
@@ -49,76 +43,9 @@ app.use('/admin', express.static('public/admin'));
 app.set('views', './views'); // 放模板文件的目录
 app.set('view engine', 'ejs');  // 模板引擎
 
-function extendAPIOutput( req, res, next){
-    // 响应成功
-    res.apiSuccess = function (data) {
-        res.json({
-            code: 0,
-            message: "ok",
-            data: data
-        });
-    }
-    // 响应失败
-    // 响应成功
-    res.apiError = function (err) {
-        res.json({
-            code: err.code,
-            message: err.message
-        });
-    }
-    next();
-}
-
-app.use(extendAPIOutput);
-
-import * as jwt from 'jsonwebtoken';
-import * as passportBearer from 'passport-http-bearer';
-const Strategy = passportBearer.Strategy;
-
-
 // 初始化passport模块
+import {default as  passport} from "./config/passport";
 app.use(passport.initialize());
-
-import {default as User} from "./models/User";
-
-passport.use('user', new Strategy(function (token, done) {
-    jwt.verify(token, 'jiayishejijianshu', function(err, decoded) {
-        if(!decoded){
-            return done(null, false);
-        }
-        User.findOne({
-            username: decoded.username,
-            token: token
-        }).exec((err, user: any) => {
-                if (err) {
-                    return done(err);
-                }
-                if (!user) {
-                    return done(null, false, {message: "账号和密码不存在"});
-                }
-                return done(null, user);
-            });
-    });
-}));
-
-/*import {Admin} from './models/Admin';
-passport.use('admin', new Strategy(function(token, done) {
-    Admin.findOne({
-        token: token
-        }, function(err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (!user) {
-                return done(null, false);
-            }
-            return done(null, user);
-        });
-    }
-));*/
-
-
-
 
 /**
  * 设置解析数据中间件，默认json传输
@@ -150,23 +77,41 @@ app.use(expressValidator({
         }
     }
 }));
-///require('./config/express')(app, config);
 /**
- * 启动app
+ * 路由挂载到app上
  */
-/**
- * web相关路由
- */
-//routesWeb.web(app);
-/**
- * admin相关路由
- */
-//routesAdmin.admin(app);
+routes(app);
 
 /**
- * api接口
+ * 成功日志
  */
-api.index(app);
+app.use(expressWinston.logger({
+    transports: [
+        new (winston.transports.Console)({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/success.log'
+        })
+    ]
+}));
+
+/**
+ * 错误日志
+ */
+app.use(expressWinston.errorLogger({
+    transports: [
+        new winston.transports.Console({
+            json: true,
+            colorize: true
+        }),
+        new winston.transports.File({
+            filename: 'logs/error.log'
+        })
+    ]
+}));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

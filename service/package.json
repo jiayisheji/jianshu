@@ -25,6 +25,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.3",
     "express-validator": "^3.2.0",
+    "express-winston": "^2.4.0",
     "favicon": "0.0.2",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
@@ -36,7 +37,8 @@
     "passport-local": "^1.0.0",
     "redis": "^2.7.1",
     "session": "^0.1.0",
-    "slug": "^0.9.1"
+    "slug": "^0.9.1",
+    "winston": "^2.3.1"
   },
   "scripts": {
     "start": "npm run build && npm run watch",
