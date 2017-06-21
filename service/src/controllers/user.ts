@@ -13,9 +13,23 @@ import { WriteError } from "mongodb";
 import * as _ from "lodash";
 
 /**
+ * 定义类接口
+ */
+interface userInterface {
+    login(req: Request, res: Response, next: NextFunction);
+
+    logout(req: Request, res: Response, next: NextFunction);
+
+    register(req: Request, res: Response, next: NextFunction);
+
+    find(req: Request, res: Response, next: NextFunction);
+
+    checkNickname(req: Request, res: Response, next: NextFunction);
+}
+/**
  * 模板控制器
  */
-export class UserController{
+class UserController implements userInterface{
     constructor(){}
     /**
      * POST /login

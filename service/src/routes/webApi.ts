@@ -33,10 +33,10 @@ Router.get("/books/:id", BooksController.find);
 Router.get("/books", BooksController.search);
 
 // 专题分类
-Router.post("/collections", passport.authenticate('user', {session: false}), CorpusController.AddCorpus);
-Router.put("/collections/:id", passport.authenticate('user', {session: false}), CorpusController.UploadCorpus);
-Router.get("/collections/:id", CorpusController.GetCorpus);
-Router.get("/collections", CorpusController.GetAllCorpus);
+Router.post("/collections", passport.authenticate('user', {session: false}), CorpusController.save);
+Router.put("/collections/:id", passport.authenticate('user', {session: false}), CorpusController.updata);
+Router.get("/collections/:id", CorpusController.find);
+Router.get("/collections", CorpusController.search);
 
 /**
  * 导出路由
