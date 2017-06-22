@@ -5,9 +5,8 @@
 import * as async from "async";
 import * as passport from "passport";
 import * as jwt from 'jsonwebtoken';
-import { default as User, UserModel, AuthToken } from "../models/User";
+import { default as User, UserModel, AuthToken } from "../models/user";
 import { LocalStrategyInfo } from "passport-local";
-import { default as Template, TemplateModel} from "../models/Template";
 import { Request, Response, NextFunction } from "express";
 import { WriteError } from "mongodb";
 import * as _ from "lodash";

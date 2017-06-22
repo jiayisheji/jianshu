@@ -37,6 +37,7 @@ app.use('/web', express.static('public/web'));
 app.use('/app', express.static('public/app'));
 app.use('/admin', express.static('public/admin'));
 
+
 /**
  * 设置模板
  */
@@ -115,7 +116,6 @@ app.use(expressWinston.errorLogger({
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    // console.log(req);
     let err: any = new Error('Not Found');
     err.status = 404;
     next(err);

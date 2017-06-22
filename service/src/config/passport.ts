@@ -9,7 +9,7 @@ const Strategy = passportBearer.Strategy;
 /**
  * 注册web端用户权限
  */
-import {default as User} from "../models/User";
+import {default as User} from "../models/user";
 passport.use('user', new Strategy(function (token, done) {
     jwt.verify(token, 'jiayishejijianshu', function(err, decoded) {
         if(!decoded){

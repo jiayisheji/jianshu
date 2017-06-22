@@ -4,7 +4,7 @@
  */
 import * as async from "async";
 import * as _ from 'lodash';
-import {default as Books, BooksModel} from "../models/Books";
+import {default as Books, BooksModel} from "../models/books";
 import {Request, Response, NextFunction} from "express";
 
 /**

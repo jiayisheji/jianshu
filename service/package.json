@@ -41,7 +41,7 @@
     "winston": "^2.3.1"
   },
   "scripts": {
-    "start": "npm run build && npm run watch",
+    "start": "npm run watch",
     "dev": "supervisor -w build ./build/app.js",
     "build": "npm run build-ts && npm run tslint",
     "serve": "node dist/app.js",

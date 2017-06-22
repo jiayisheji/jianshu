@@ -3,7 +3,7 @@
  * Created by jiayi on 2017/6/20.
  */
 import * as async from "async";
-import {default as Template, TemplateModel} from "../models/Template";
+import {default as Template, TemplateModel} from "../models/template";
 import {Request, Response, NextFunction} from "express";
 import {WriteError} from "mongodb";
 import * as _ from "lodash";
