@@ -53,80 +53,72 @@ class UserController implements userInterface{
                 errorMessage: '密码不能为空' // Error message for the parameter
             },
         })
-
-        req.getValidationResult().then(function (result: any) {
-            console.log(result.array())
-            console.log(result.mapped())
-            if(!result.isEmpty()){
-                let message = "未知错误";
-                if(result.mapped().username && result.mapped().password){
-                    message = "用户名和密码不合法"
-                }else if(result.mapped().username){
-                    message = result.mapped().username.msg
-                }else if(result.mapped().password){
-                    message = result.mapped().password.msg
+        const errors = req.validationErrors();
+        if (errors) {
+            res.json({
+                "meta": {
+                    "code": 422,
+                    "message": "用户名和密码不正确"
                 }
+            });
+            return;
+        }
+        try {
+            const user:any = await User.findOne({username: req.body.username});
+            if (!user) {
                 res.json({
                     "meta": {
                         "code": 422,
-                        "message": message
+                        "message": '用户不存在'
                     }
                 });
-                return ;
             }
-            User.findOne({
-                username: req.body.username
-            }).exec((err:any, user: UserModel) => {
-                if (err) { return next(err); }
-                if (!user) {
+            user.comparePassword(req.body.password, (err:Error, isMatch: boolean) => {
+                if (err) {
+                    return next(err);
+                };
+                if (isMatch) {
+                    var token = jwt.sign({ username: user.username }, 'jiayishejijianshu', {
+                        expiresIn: "7 days"  // token到期时间设置 1000, "2 days", "10h", "7d"
+                    });
+                    user.token = token;
+                    user.save(function (err:any) {
+                        if (err) {
+                            return next(err);
+                        }
+                        res.json({
+                            "meta": {
+                                "code": 200,
+                                "message": "登陆成功"
+                            },
+                            "data": {
+                                token,
+                                "user": {
+                                    "nickname": user.basic.nickname,
+                                    "avatar": user.basic.avatar,
+                                    "_id": user._id
+                                }
+                            }
+                        });
+                    });
+                } else {
                     res.json({
                         "meta": {
                             "code": 422,
-                            "message": '用户不存在'
+                            "message": "登陆失败,密码错误!"
                         }
                     });
                 }
-                user.comparePassword(req.body.password, (err:Error, isMatch: boolean) => {
-                    if (err) {
-                        return next(err);
-                    };
-                    if (isMatch) {
-                        var token = jwt.sign({ username: user.username }, 'jiayishejijianshu', {
-                            expiresIn: "7 days"  // token到期时间设置 1000, "2 days", "10h", "7d"
-                        });
-                        user.token = token;
-                        user.save(function (err:any) {
-                            if (err) {
-                                return next(err);
-                            }
-                            res.json({
-                                "meta": {
-                                    "code": 200,
-                                    "message": "登陆成功"
-                                },
-                                "data": {
-                                    "token": token,
-                                    "user": {
-                                        "nickname": user.basic.nickname,
-                                        "avatar": user.basic.avatar,
-                                        "_id": user._id
-                                    }
-                                }
-                            });
-                        });
-                    } else {
-                        res.json({
-                            "meta": {
-                                "code": 422,
-                                "message": "登陆失败,密码错误!"
-                            }
-                        });
-                    }
-                });
             });
-        }, function (errors: any) {
-            console.log(errors)
-        });
+        } catch (err) {
+            console.log('登陆信息失败', err);
+            res.json({
+                "meta": {
+                    "code": 404,
+                    "message": '没有找到指定用户'
+                }
+            });
+        }
     }
 
     /**
@@ -272,144 +264,65 @@ class UserController implements userInterface{
                 errorMessage: '密码不能为空' // Error message for the parameter
             }
         });
-
-        req.getValidationResult().then(function (result: any) {
-            console.log(result.array())
-            console.log(result.mapped())
-            if(!result.isEmpty()){
-                let message = "未知错误";
-                if(result.mapped().nickname && result.mapped().username && result.mapped().password){
-                    message = "昵称，用户名和密码不合法"
-                }else if(result.mapped().username){
-                    message = result.mapped().username.msg
-                }else if(result.mapped().password){
-                    message = result.mapped().password.msg
-                }else if(result.mapped().nickname){
-                    message = result.mapped().nickname.msg
+        const errors = req.validationErrors();
+        if (errors) {
+            res.json({
+                "meta": {
+                    "code": 422,
+                    "message": "昵称、用户名和密码不正确"
                 }
-                res.json({
-                    "meta": {
-                        "code": 422,
-                        "message": message
-                    }
-                });
-                return ;
+            });
+            return;
+        }
+        const user:any = await User.findOne({
+            $or: [
+                {
+                    username: req.body.username
+                },
+                {
+                    'basic.nickname': req.body.nickname
+                }
+            ]
+        });
+        if(user){
+            res.json({
+                "meta": {
+                    "code": 422,
+                    "message": "已经被注册"
+                }
+            });
+            return;
+        }
+        var token = jwt.sign({ username: req.body.username.username }, 'jiayishejijianshu', {
+            expiresIn: "7 days"  // token到期时间设置 1000, "2 days", "10h", "7d"
+        });
+        var newUser = new User({
+            basic: {
+                nickname: req.body.nickname
+            },
+            username: req.body.username,
+            password: req.body.password,
+            token: token
+        });
+        // 保存用户账号
+        newUser.save((err, users:UserModel) => {
+            if (err) {
+                return next(err);
             }
-            User.findOne({
-                $or: [
-                    {
-                        username: req.body.username
-                    },
-                    {
-                        'basic.nickname': req.body.nickname
+            res.json({
+                "meta": {
+                    "code": 200,
+                    "message": "成功创建新用户!"
+                },
+                "data": {
+                    token,
+                    "user": {
+                        "nickname": users.basic.nickname,
+                        "avatar": users.basic.avatar,
+                        "_id": users._id
                     }
-                ]
-            }).exec((err:any, user: UserModel) => {
-                if (err) {
-                    return next(err);
-                };
-                if(!user){
-                    var newUser = new User({
-                        basic: {
-                            nickname: req.body.nickname
-                        },
-                        username: req.body.username,
-                        password: req.body.password
-                    });
-                    // 保存用户账号
-                    newUser.save((err) => {
-                        if (err) {
-                            return next(err);
-                        }
-                        (req as any).login();
-                        res.json({
-                            code: 0,
-                            message: "ok",
-                            data: {
-                                message: '成功创建新用户!'
-                            }
-                        });
-                    });
-                } else {
-                    res.json({
-                        "meta": {
-                            "code": 422,
-                            "message": "已经被注册"
-                        }
-                    });
                 }
             });
-            /*
-            // 保存用户账号
-            newUser.save((err) => {
-                if (err) {
-                    res.json({
-                        code: 110,
-                        message: "用户已经注册",
-                        data: {}
-                    });
-                }
-                res.json({
-                    code: 0,
-                    message: "ok",
-                    data: {
-                        message: '成功创建新用户!'
-                    }
-                });
-            });
-    */
-            /*User.findOne({
-                username: req.body.username
-            }).exec((err:any, user: UserModel) => {
-                if (err) { return next(err); }
-                if (!user) {
-                    res.json({
-                        "meta": {
-                            "code": 422,
-                            "message": '用户不存在'
-                        }
-                    });
-                }
-                user.comparePassword(req.body.password, (err:Error, isMatch: boolean) => {
-                    if (err) {
-                        return next(err);
-                    };
-                    if (isMatch) {
-                        var token = jwt.sign({ username: user.username }, 'jiayishejijianshu', {
-                            expiresIn: "7 days"  // token到期时间设置 1000, "2 days", "10h", "7d"
-                        });
-                        user.token = token;
-                        user.save(function (err:any) {
-                            if (err) {
-                                return next(err);
-                            }
-                            res.json({
-                                "meta": {
-                                    "code": 200,
-                                    "message": "登陆成功"
-                                },
-                                "data": {
-                                    "token": token,
-                                    "user": {
-                                        "nickname": user.basic.nickname,
-                                        "avatar": user.basic.avatar,
-                                        "_id": user._id
-                                    }
-                                }
-                            });
-                        });
-                    } else {
-                        res.json({
-                            "meta": {
-                                "code": 422,
-                                "message": "登陆失败,密码错误!"
-                            }
-                        });
-                    }
-                });
-            });*/
-        }, function (errors: any) {
-            console.log(errors)
         });
     }
 

@@ -12,31 +12,32 @@ import * as mongoose from "mongoose";
  * 定义接口
  */
 export type UserModel = mongoose.Document & {
-    slug: String,
-    _id: String,
-    createdAt: Date,   // 创建时间
-    updatedAt: Date,   // 更新时间
-    username: String, // 登陆账号
-    password: String, // 登陆密码
-    tokens: AuthToken[],  // 第三方认证
-    auths: AuthList[],  // 实名认证
+    slug: String;
+    _id: String;
+    createdAt: Date;   // 创建时间
+    updatedAt: Date;   // 更新时间
+    username: String; // 登陆账号
+    password: String; // 登陆密码
+    status: Number;  // 用户状态
+    tokens: AuthToken[];  // 第三方认证
+    auths: AuthList[];  // 实名认证
     profile: {        // 个人资料
-        gender: String,   // 性别
-        location: String,  // 地址
-        intro: String,   // 个人介绍
-        qrcode: String,   // 个人二维码
-        homepage: String,   // 个人主页
+        gender: String;   // 性别
+        location: String;  // 地址
+        intro: String;   // 个人介绍
+        qrcode: String;   // 个人二维码
+        homepage: String;   // 个人主页
         country_code: String   // 来自哪个国家
-    },
+    };
     basic: {   // 基本设置
-        nickname: String,   // 昵称
-        avatar: String,    // 头像
-        locale: String,    // 阅读语言
-        chats_notify: Boolean,   // 简信接收设置
+        nickname: String;   // 昵称
+        avatar: String;    // 头像
+        locale: String;    // 阅读语言
+        chats_notify: Boolean;   // 简信接收设置
         email_notify: String    // 提醒邮件通知
-    },
+    };
     token: String    // 登陆前面
-    comparePassword: (candidatePassword: String, callback: (err: any, isMatch: boolean) => any) => void,  // 验证密码
+    comparePassword: (candidatePassword: String, callback: (err: any, isMatch: boolean) => any) => void;  // 验证密码
     gravatar: (size: number) => String   //获取头像
 };
 
@@ -64,12 +65,17 @@ const userSchema = new mongoose.Schema({
     username: {    // 登陆账号
         type: String,
         unique: true, // 不可重复约束
-        match: /^\d{11}/,
         require: true // 不可为空约束
     },
     password: {    // 登陆密码
         type: String,
         require: true // 不可为空约束
+    },
+    status: {  // 用户状态  0 不存在（注销） 1 启用 2 黑名单
+        type: Number,
+        required: true,
+        enum: [0, 1, 2],
+        default: 0
     },
     tokens: [{
         accessToken: String,
@@ -125,7 +131,7 @@ const userSchema = new mongoose.Schema({
 /**
  * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
  */
-userSchema.pre("save", function save(next) {
+userSchema.pre("save", function(next) {
     const user = this;
     if (!user.isModified("password")) {
         return next();
@@ -134,13 +140,13 @@ userSchema.pre("save", function save(next) {
         if (err) {
             return next(err);
         }
-        bcrypt.hash(user.password, salt, null, (err: mongoose.Error, hash) => {
-            console.log(user.password)
+        bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) {
                 return next(err);
             }
             user.password = hash;
             user.slug = user._id;
+            user.status = 1;
             user.auths.push({
                 key: 'mobile',
                 value: user.username,

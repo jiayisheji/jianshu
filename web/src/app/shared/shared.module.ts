@@ -12,7 +12,7 @@ import { ArticleItemComponent } from './article-item/article-item.component';
 import { ArticlePlaceholderComponent } from './article-placeholder/article-placeholder.component';
 import { UserPlaceholderComponent } from './user-placeholder/user-placeholder.component';
 import { RecommendUsersComponent } from './recommend-users/recommend-users.component';
-import { InfinitescrollDirective } from './infinitescroll/infinitescroll.directive';
+//import { InfinitescrollDirective } from './infinitescroll/infinitescroll.directive';
 
 @NgModule({
   imports: [
@@ -32,8 +32,8 @@ import { InfinitescrollDirective } from './infinitescroll/infinitescroll.directi
     ArticleItemComponent,
     ArticlePlaceholderComponent,
     UserPlaceholderComponent,
-    RecommendUsersComponent,
-    InfinitescrollDirective
+    RecommendUsersComponent
+    //InfinitescrollDirective
   ],
   exports: [
     HeaderComponent,
@@ -42,8 +42,8 @@ import { InfinitescrollDirective } from './infinitescroll/infinitescroll.directi
     ArticleItemComponent,
     ArticlePlaceholderComponent,
     UserPlaceholderComponent,
-    RecommendUsersComponent,
-    InfinitescrollDirective
+    RecommendUsersComponent
+    //InfinitescrollDirective
   ]
 })
 export class SharedModule { }

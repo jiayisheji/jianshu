@@ -11,6 +11,16 @@
 ### Notes（注释）
 ```
 
+## 1.0.0beta5 （2017-06-23）
+- 新增控制器类接口
+### Features
+## Bug Fixes
+- 修改npm run statr启动问题
+- 修改控制器命名
+- 修改模型文件大小写
+- 修复注册不能save卡顿问题，原因：加密密码hash函数未执行
+### Notes
+
 ## 1.0.0beta4 （2017-06-21)
 - 调整项目目录，分离配置信息
 - 完善路由，模型，控制器
@@ -22,7 +32,6 @@
 ## Bug Fixes
 - 修改`express-validator`包引用方式，tslint老是报错看着不爽
 ### Notes
-
 
 ## 1.0.0beta3 （2017-06-20）
 ### Features

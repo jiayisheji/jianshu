@@ -20,12 +20,6 @@ npm install
 
 启动数据库
 
-启动服务器
-```
-npm start
-```
-浏览器打开 `http://localhost:3000`
-
 # TypeScript + Node 
 这是一个TypeScript + Node项目
 
@@ -34,15 +28,36 @@ npm start
 npm install -g typescript
 ```
 
+第一次启动服务器（无dist目录）
+```
+npm start
+```
+> **Note!** 默认是没有js文件，需要启动Typescript编译命令tsc去编译一次生成dist目录，
+这是编译之后的js文件。tsc不能在npm里写&&与其他目录一起运行，因为它编译完成就直接监听文件变化，不会停止，直到你关闭位置。所有需要2步完成
+
+一定要看到 `时间 - Compilation complete. Watching for file changes. `接下来就可以运行
+```
+npm dev
+```
+浏览器打开 `http://localhost:3000`
+
+第二次启动服务器（有dist目录）
+```
+npm watch
+```
+浏览器打开 `http://localhost:3000`
+
+> **Note!** 两种方式修改文件都会自动重启node，只需要关心`Express server listening on port 3000`即可。
+
 ## 项目结构
 这是TypeScript + Node项目结构，有源目录和发布目录
 
 TypeScript (`.ts`) 文件在 `src` 里，编译成JavaScript (`.js`) 在 `dist`中 .
-The `test` and `views` folders remain top level as expected. 
+
 
 项目的完整文件夹结构如下:
 
-> **Note!** 可以使用以下命令发布 `npm run build` or `yarn run build` 
+> **Note!** 可以使用以下命令发布 `npm run build` 
 
 | 名字 | 描述 |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
@@ -52,16 +67,19 @@ The `test` and `views` folders remain top level as expected.
 | **src/config**           | 项目配置   |
 | **src/controllers**      | 项目控制器                            |
 | **src/models**           | 项目模型（Mongoose schemas）  |
-| **src/api**              | 项目API接口  |
 | **src/routes**           | 项目路由配置  |
-| **src/public**           | 项目静态资源           |
 | **src/types**            | 存放[DefinitelyTyped](https://github.com/Microsoft/TypeScript-Node-Starter/blob/master/README.md#)里没有的自定义`.d.ts`文件          |
-| **src**/app.ts        | 项目启动文件                                                               |
+| **src/app.ts          | 项目启动文件                                                               |
+| **public**               | 项目静态资源           |
+| **logs**                 | 项目日志           |
 | **test**                 | 测试         |
 | **views**                | 视图文件                 |                  |
 | package.json             | 包含npm依赖项的文件和[build scripts](#what-if-a-library-isnt-on-definitelytyped)                          |
 | tsconfig.json            | 用于编译TypeScript编写的服务器代码的配置设置                               |                                  |
 | tslint.json              | TSLint代码样式检查的配置设置                                                |
+| API接口文档.md              | API接口文档                                                |
+| CHANGELOG.md              | 项目版本历史                                                |
+| TYPEStTATUS.md            | 项目类型状态定义说明                                                |
 
 ## 构建项目
 这和JavaScript项目不一样，需要编译，如果编辑就需要有编译配置

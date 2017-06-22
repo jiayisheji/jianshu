@@ -80,7 +80,6 @@ class CorpusController implements corpusInterface {
                 }
             });
         }
-        ;
     }
 
     /**
@@ -99,7 +98,7 @@ class CorpusController implements corpusInterface {
             return;
         }
         try {
-            const corpus = await Corpus.findOne({_id: req.params.id}, {_id: 0, __v: 0, 'editors._id': 0})
+            const corpus = await Corpus.findOne({_id: req.params.id}, {_id: 0, __v: 0})
                 .populate({path: 'owner', select: {slug: 1, nickname: 1, avatar: 1, _id: 0}})
                 .populate({path: 'editors.editor', select: {slug: 1, nickname: 1, avatar: 1, _id: 0}});
             res.json({
@@ -110,7 +109,7 @@ class CorpusController implements corpusInterface {
                 "data": formatData(corpus)
             });
         } catch (err) {
-            console.log('通过专题ID获取文集信息失败', err);
+            console.log('通过专题ID获取专题信息失败', err);
             res.json({
                 "meta": {
                     "code": 422,
@@ -118,7 +117,6 @@ class CorpusController implements corpusInterface {
                 }
             });
         }
-        ;
     }
 
     /**
@@ -177,7 +175,6 @@ class CorpusController implements corpusInterface {
                 }
             });
         }
-        ;
     }
 
     /**
@@ -206,7 +203,6 @@ class CorpusController implements corpusInterface {
                 }
             });
         }
-        ;
     }
 
     /**
@@ -241,7 +237,6 @@ class CorpusController implements corpusInterface {
                 }
             });
         }
-        ;
     }
 }
 
