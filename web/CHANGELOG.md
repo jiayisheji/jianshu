@@ -10,6 +10,13 @@
 ### Bug Fixes（修复bug）
 ### Notes（注释）
 ```
+## 1.0.0beta2 （2017-06-24）
+### Features
+- 重构目录。
+- 注册登录API联调成功。
+### Bug Fixes
+
+### Notes
 
 ## 1.0.0beta1 （2017-06-08）
 ### Features
