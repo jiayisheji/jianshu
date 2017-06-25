@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { StorageType, StorageService } from  '../storage-service/storage.service';
+import { StorageType, StorageService } from  '../storage';
 
 const isBlank = (obj) => {
     return obj === null || obj === undefined;
