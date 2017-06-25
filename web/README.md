@@ -7,7 +7,7 @@
 
 进入目录
 ```
-cd service
+cd web
 ```
 安装依赖
 ```
@@ -74,8 +74,8 @@ angular-cli本身是基于webpack打包构建工具，更多更详细的代理�
 | **node_modules**         | 包含所有的npm依赖项                                                            |
 | **src**                  | 源代码                               |
 | **src/app**              | 项目主要业务代码   |
-| **src/app/app开头文件.ts**          | 项目跟组件和跟模板代码   |
-| **src/app/pages**              | 项目根据路由定义   |
+| **src/app/app开头文件.ts**          | 项目根组件和跟模板代码   |
+| **src/app/pages**              | 项目根据路由定义业务模块   |
 | **src/app/core**              | 项目核心目录（共享服务、模块）   |
 | **src/app/shared**              | 项目共享组件、指令目录   |
 | **src/assets**           | 项目静态资源                            |

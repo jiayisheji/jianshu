@@ -14,14 +14,14 @@ import { SharedModule } from './shared';
 const APP_PROVIDERS = [];
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     CoreModule,
     SharedModule,
     ROUTING
+  ],
+  declarations: [
+    AppComponent
   ],
   providers: [
     ...APP_PROVIDERS
