@@ -10,7 +10,7 @@ export class HomeCarouselComponent implements OnInit {
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
-    console.log('app-home-carousel', this.element);
+    // console.log('app-home-carousel', this.element);
   }
 
 }

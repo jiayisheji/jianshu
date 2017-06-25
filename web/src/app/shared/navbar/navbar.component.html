@@ -15,7 +15,7 @@
                 <span class="menu-text">关注</span>
             </a>
         </li>
-        <li class="notification">
+        <li class="notification" dropdown>
             <a data-hover="dropdown" routerLink="/notifications" class="notification-btn">
                 <i class="icon-navigation-notification menu-icon"></i>
                 <span class="menu-text">消息</span>
@@ -44,6 +44,21 @@
                 <span class="menu-text">下载App</span>
             </a>
         </li>
+      <li class="notification" dropdown>
+        <a data-hover="dropdown" routerLink="/notifications" class="notification-btn">
+          <i class="icon-navigation-notification menu-icon"></i>
+          <span class="menu-text">消息</span>
+        </a>
+        <ul class="dropdown-menu" style="display: none;">
+          <li><a href="/notifications#/comments"><i class="icon-comments"></i> <span>评论</span> <!----></a></li>
+          <li><a href="/notifications#/chats"><i class="icon-chats"></i> <span>简信</span> <!----></a></li>
+          <li><a href="/notifications#/requests"><i class="icon-requests"></i> <span>投稿请求</span> <!----></a></li>
+          <li><a href="/notifications#/likes"><i class="icon-likes"></i> <span>喜欢和赞</span> <!----></a></li>
+          <li><a href="/notifications#/follows"><i class="icon-follows"></i> <span>关注</span> <!----></a></li>
+          <li><a href="/notifications#/money"><i class="icon-money"></i> <span>赞赏</span> <!----></a></li>
+          <li><a href="/notifications#/others"><i class="icon-others"></i> <span>其他消息</span> <!----></a></li>
+        </ul>
+      </li>
     </ul>
     <div class="m-search f-fl">
         <input type="text" name="q" id="q" [(ngModel)]="search" placeholder="搜索" class="search-input">

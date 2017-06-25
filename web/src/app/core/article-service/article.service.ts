@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { Cacheable } from '../storage-service/storage.service';
-import { AppHttpProvider } from  '../app-http/apphttp.service';
+import { Cacheable } from '../storage';
+import { AppHttpProvider } from  '../ajax';
 export class Article {
   layout: string;
   title: string;
@@ -55,6 +55,6 @@ export class OnlineArticleService extends ArticleService {
 export const ARTICLE_STORAGE_PROVIDERS: Array<any> = [
   {
     provide: ArticleService,
-    useClass: OnlineArticleService 
+    useClass: OnlineArticleService
   }
 ];

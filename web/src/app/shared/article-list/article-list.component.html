@@ -1,4 +1,4 @@
-<ul>
+<ul infinite-scroll>
   <li *ngFor="let item of articleList">
     <app-article-item [item]="item" [class.thumbnails]="item.images"></app-article-item>
   </li>

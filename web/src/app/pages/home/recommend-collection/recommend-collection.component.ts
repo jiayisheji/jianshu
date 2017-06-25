@@ -53,7 +53,7 @@ export class RecommendCollectionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(collections);
+    // console.log(collections);
   }
 
 }
