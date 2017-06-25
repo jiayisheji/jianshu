@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef } from '@angular/core';
-import { AuthorizationService } from './core/authorization-service/authorization.service'
+import { AuthorizationService } from './core/authorization'
 import { LoadingService } from  './core/loading/loading.service';
 import { Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(//private appHttpProvider: AppHttpProvider, 
+  constructor(//private appHttpProvider: AppHttpProvider,
               private authorizationService: AuthorizationService,
               private viewContainer: ViewContainerRef,
               private router: Router,
@@ -34,7 +34,7 @@ export class AppComponent {
         },
         response: (stream) => {
           (<any>stream).subscribe(() => null, () => loadService.hide(), () => loadService.hide())
-        }  
+        }
       })
       .addResponseErrorInterceptor((err: Response) => {
         if (err.status === 401 && (err.url.indexOf('/login') === -1)) {
@@ -45,11 +45,11 @@ export class AppComponent {
       });
       const currentUser = <any>authorizationService.getCurrentUser();
       if (currentUser && currentUser.token) {
-        appHttpProvider.headers({ Authorization: 'Bearer ' + currentUser.token }); 
+        appHttpProvider.headers({ Authorization: 'Bearer ' + currentUser.token });
       }*/
-  } 
+  }
 
 
-  
-     
+
+
 }

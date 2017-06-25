@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { AuthorizationService } from '../../core/authorization-service/authorization.service';
-import { AppHttpProvider } from '../../core/app-http/apphttp.service';
+import { AuthorizationService } from '../../core/authorization';
+import { AppHttpProvider } from '../../core/ajax';
 
 @Injectable()
 export class LoginService {

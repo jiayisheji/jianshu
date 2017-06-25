@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthorizationService } from '../../core/authorization-service/authorization.service';
+import { AuthorizationService } from '../../core/authorization';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

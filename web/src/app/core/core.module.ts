@@ -2,21 +2,37 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 //import { UTILS_STORAGE_PROVIDERS } from './utils-service/utils.service';
 import { ARTICLE_STORAGE_PROVIDERS } from './article-service/article.service';
-import { APP_STORAGE_PROVIDERS } from './storage-service/storage.service';
-import { APP_HTTP_PROVIDERS } from './app-http/apphttp.service';
-import { AuthorizationService } from './authorization-service/authorization.service';
+/**
+ * 数据缓存）
+ */
+import { StorageModule } from './storage';
+/**
+ * 认证
+ */
+import { AuthorizationModule } from './authorization';
 import { LoadingModule } from './loading';
+/**
+ * 包装http
+ */
+import { AjaxModule } from './ajax';
+
+/**
+ * 滚动加载
+ */
+import { InfinitescrollModule } from './infinitescroll'
+
 @NgModule({
   imports: [
     HttpModule,
-    LoadingModule
+    LoadingModule,
+    AjaxModule,
+    StorageModule,
+    AuthorizationModule,
+    InfinitescrollModule
   ],
   providers: [
-    APP_HTTP_PROVIDERS,
-    AuthorizationService,
     //UTILS_STORAGE_PROVIDERS,
     ARTICLE_STORAGE_PROVIDERS,
-    APP_STORAGE_PROVIDERS
   ],
   declarations: [],
   exports: [
