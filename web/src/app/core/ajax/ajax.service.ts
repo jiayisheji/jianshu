@@ -11,13 +11,13 @@ import {
     RequestOptionsArgs
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { AuthorizationService } from '../authorization-service/authorization.service'
+import { AuthorizationService } from '../authorization'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 /**
  * 是否是对象
- * @param value 
+ * @param value
  */
 function isObject(value): boolean {
     return value !== null && typeof value === 'object';
@@ -25,7 +25,7 @@ function isObject(value): boolean {
 
 /**
  * 是否是undefined
- * @param value 
+ * @param value
  */
 function isUndefined(value) {
     return typeof value === 'undefined';
@@ -33,7 +33,7 @@ function isUndefined(value) {
 
 /**
  * 是否是空
- * @param value 
+ * @param value
  */
 function isEmpty(value) {
     return isUndefined(value) || value === null || value === '';
@@ -42,8 +42,16 @@ function isEmpty(value) {
 @Injectable()
 export class AppHttpProvider {
     // api请求根地址
-    private baseUrl: string = 'http://localhost:3000/api/v1';
+    private baseUrl: string = '';
     constructor(private http: Http, private authorizationService: AuthorizationService) { }
+
+    // 设置根请求地址
+    setBaseUrl(url: string): void{
+      if(isEmpty(url)){
+        throw Error('没有设置请求地址');
+      }
+      this.baseUrl = url;
+    }
 
     // get 请求
     get<T>(url: string, parame?: any, options?: RequestOptions): Observable<T> {
@@ -81,11 +89,11 @@ export class AppHttpProvider {
             .map(this.fun)
             .catch(this.handleError);
     };
-     
+
     fun(res: Response){
         console.log(res);
         return res.json() || {}
-    } 
+    }
 
     // post 请求
     post<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
@@ -119,7 +127,7 @@ export class AppHttpProvider {
 
 /*    ajax<T>(url: string, method: string, body: any, option?: RequestOptions): Observable<any> {
         let optionsArgs: any = [];
-        let headers:any = new Headers({'Content-Type': 'application/json'}); 
+        let headers:any = new Headers({'Content-Type': 'application/json'});
         headers.set('Content-Type', 'application/json')
         const currentUser = <any>this.authorizationService.getCurrentUser();
         if (currentUser && currentUser.token) {
@@ -129,7 +137,7 @@ export class AppHttpProvider {
         let search = option.search;
         console.log(headers);
         let options = new RequestOptions(<any>{
-                    method: method,  
+                    method: method,
                     url: this.baseUrl + url,
                     headers,
                     body,
@@ -141,13 +149,13 @@ export class AppHttpProvider {
             optionsArgs = [this.baseUrl + url, body, options];
         }
         console.log(options);
-        
-        return 
+
+        return
     }*/
 
     /**
      * 错误消息拦截
-     * @param error 
+     * @param error
      */
     private handleError(error: Response | any) {
         let errorMessage: string;
