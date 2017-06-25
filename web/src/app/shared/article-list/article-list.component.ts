@@ -1,6 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-
-
+import { Component, OnInit, Input } from '@angular/core';
 const articleList: any[] = [
   {
     id: 1,
@@ -38,17 +36,19 @@ const articleList: any[] = [
     }
   }
 ];
-
 @Component({
-  selector: 'app-list-container',
-  templateUrl: './list-container.component.html',
-  styleUrls: ['./list-container.component.css']
+  selector: 'app-article-list',
+  templateUrl: './article-list.component.html',
+  styleUrls: ['./article-list.component.css']
 })
-export class ListContainerComponent implements OnInit {
-  public articleList: Array<any>;
-  loading: boolean = true;
+export class ArticleListComponent implements OnInit {
+  @Input('request') request: string = "/";
 
+  public articleList: Array<any>;
+  public loading: boolean = true;
+  constructor() { }
   ngOnInit() {
+    console.log(this.request)
     this.loading = true;
     setTimeout(() => {
       this.loading = false;
