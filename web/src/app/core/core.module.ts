@@ -15,37 +15,24 @@ import { LoadingModule } from './loading';
  * 包装http
  */
 import { AjaxModule } from './ajax';
-
-/**
- * 滚动加载
- */
-import { InfinitescrollModule } from './infinitescroll';
-
-import { InfiniteScrollDirective } from './infinitescroll/infinitescroll.directive';
-import { DropdownDirective } from './dropdown/dropdown.directive';
 @NgModule({
   imports: [
     HttpModule,
     LoadingModule,
     AjaxModule,
     StorageModule,
-    AuthorizationModule,
-    //InfinitescrollModule
+    AuthorizationModule
   ],
   providers: [
     //UTILS_STORAGE_PROVIDERS,
     ARTICLE_STORAGE_PROVIDERS,
   ],
   declarations: [
-    InfiniteScrollDirective,
-    DropdownDirective
   ],
   exports: [
     AjaxModule,
     StorageModule,
-    AuthorizationModule,
-    InfiniteScrollDirective,
-    DropdownDirective
+    AuthorizationModule
   ]
 })
 export class CoreModule { }

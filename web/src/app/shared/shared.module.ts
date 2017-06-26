@@ -13,7 +13,12 @@ import { ArticlePlaceholderComponent } from './article-placeholder/article-place
 import { UserPlaceholderComponent } from './user-placeholder/user-placeholder.component';
 import { RecommendUsersComponent } from './recommend-users/recommend-users.component';
 import { ArticleListComponent } from './article-list/article-list.component';
+/**
+ * 滚动加载
+ */
+import { InfinitescrollModule } from '../shared/infinitescroll';
 
+import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +27,7 @@ import { ArticleListComponent } from './article-list/article-list.component';
     ReactiveFormsModule,
     HttpModule,
     JsonpModule,
+    InfinitescrollModule
   ],
   declarations: [
     HeaderComponent,
@@ -33,7 +39,8 @@ import { ArticleListComponent } from './article-list/article-list.component';
     ArticlePlaceholderComponent,
     UserPlaceholderComponent,
     RecommendUsersComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    DropdownDirective
   ],
   exports: [
     HeaderComponent,
@@ -43,7 +50,8 @@ import { ArticleListComponent } from './article-list/article-list.component';
     ArticlePlaceholderComponent,
     UserPlaceholderComponent,
     RecommendUsersComponent,
-    ArticleListComponent
+    ArticleListComponent,
+    DropdownDirective
   ]
 })
 export class SharedModule { }

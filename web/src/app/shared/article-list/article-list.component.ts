@@ -43,7 +43,8 @@ const articleList: any[] = [
 })
 export class ArticleListComponent implements OnInit {
   @Input('request') request: string = "/";
-
+  public isScrolled: boolean = false;
+  public isScroll: boolean = false;
   public articleList: Array<any>;
   public loading: boolean = true;
   constructor() { }
@@ -55,30 +56,22 @@ export class ArticleListComponent implements OnInit {
       this.articleList = articleList;
     }, 3000);
   }
-  nextPage() {
-    console.log('Reached Bottom!!');
+  onScrollDown(data){
+    this.loading = true;
+    this.isScroll = true;
+    console.log('Reached Bottom!!!', data);
+    setTimeout(() => {
+      this.articleList = [...this.articleList, ...articleList];
+      console.log(this.articleList);
+      if(this.articleList.length >= 20){
+        this.isScrolled = true;
+      }else{
+        this.isScroll = false;
+      }
+      this.loading = false;
+    }, 1000);
   }
   loadMore() {
     this.loading = true;
-    setTimeout(() => {
-      this.loading = false;
-      this.articleList.push({
-        id: 2,
-        title: '父母的这些套路，你到底懂不懂',
-        abstract: '《请回答1988》里，大女儿宝拉给爸爸买了件衬衫，死活不好意思送出去，只能让妈妈转交。爸爸穿着紧绷的衣服，一个劲儿地说合适。 大结局，情节再次呼应。 这一次，爸爸穿着宝拉买的...',
-        author: {
-          id: 1,
-          nickname: '槽值',
-          time: '2017-05-21T17:40:13+08:00',
-          avatar: '//upload.jianshu.io/users/upload_avatars/6126137/e83c6b36-be36-4308-8ff4-41c32fc26705?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96'
-        },
-        meta: {
-          collectionTag: '世间事',
-          read: 258,
-          comments: 1,
-          like: 100
-        }
-      });
-    }, 3000);
   }
 }

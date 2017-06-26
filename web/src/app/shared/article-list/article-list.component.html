@@ -1,8 +1,15 @@
-<ul infinite-scroll>
+<ul class="infiniteScroll"
+    infiniteScroll
+    [infiniteScrollDisabled]="isScroll"
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="500"
+    (scrolled)="onScrollDown(data)">
   <li *ngFor="let item of articleList">
     <app-article-item [item]="item" [class.thumbnails]="item.images"></app-article-item>
   </li>
 </ul>
 <app-article-placeholder *ngIf="loading"></app-article-placeholder>
-{{loading}}
-<button (click)="loadMore()" class="u-btn u-btn-block u-btn-lg u-btn-default">阅读更多</button>
+<div *ngIf="isScrolled">
+  我是有底线的
+</div>
+<button *ngIf="!isScrolled" (click)="loadMore()" class="u-btn u-btn-block u-btn-lg u-btn-default">阅读更多</button>

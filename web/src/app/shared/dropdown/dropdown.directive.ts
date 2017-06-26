@@ -9,7 +9,6 @@ export class DropdownDirective {
   @Input() private activeCss: string = 'open';
 
   constructor(private elmRef: ElementRef, private renderer: Renderer) {
-    console.log('click')
   }
 
   @HostListener('document:click', ['$event'])
