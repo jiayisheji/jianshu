@@ -1,10 +1,19 @@
-.carousel-inner{
+:host{
+  display: block;
+  position: relative;
+  z-index: 1000;
+  border-radius: 0 0 6px 6px;
+  overflow: hidden;
+  margin-bottom: 40px;
+
+  & .carousel-inner{
     position: relative;
     overflow: hidden;
     width: 100%;
     height: 272px;
-}
-.carousel-control{
+  }
+
+  & .carousel-control{
     position: absolute;
     font-size: 20px;
     height: 50px;
@@ -18,16 +27,18 @@
     background-color: rgba(0,0,0,.4);
     transition: background-color 0.5s;
     &:hover{
-        background-color: rgba(0,0,0,.6);
+      background-color: rgba(0,0,0,.6);
     }
     &.left{
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
     }
     &.right{
-        left: auto;
-        right: 0;
-        border-top-left-radius: 6px;
-        border-bottom-left-radius: 6px;
+      left: auto;
+      right: 0;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
     }
+  }
 }
+

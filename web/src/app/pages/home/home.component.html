@@ -12,28 +12,26 @@
     </article>
     <aside class="g-aside f-fr">
         <div class="board">
-            <a routerLink="/recommendations/articles">
-                <img src="//cdn2.jianshu.io/assets/web/banner-s-1-b8ff9ec59f72ea88ecc8c42956f41f78.png" alt="Banner s 1">
-            </a>
-            <a [routerLink]="['/user', '593cef410f675f04dc608846']"><img src="//cdn2.jianshu.io/assets/web/banner-s-2-0ca33954547a07153f9cccd5eddbad42.png" alt="Banner s 2"></a>
-            <a routerLink="/trending/weekly"><img src="//cdn2.jianshu.io/assets/web/banner-s-3-7123fd94750759acf7eca05b871e9d17.png" alt="Banner s 3"></a>
-            <a routerLink="/trending/monthly"><img src="//cdn2.jianshu.io/assets/web/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png" alt="Banner s 4"></a>
-            <a routerLink="/publications"><img src="//cdn2.jianshu.io/assets/web/banner-s-5-2e1d9a955935a69fecc6e8ab2a8d3dcc.png" alt="Banner s 5"></a>
+            <a routerLink="/recommendations/articles"><img src="../assets/images/home/banner-s-1.png" alt="Banner s 1"></a>
+            <a [routerLink]="['/user', '593cef410f675f04dc608846']"><img src="../assets/images/home/banner-s-2.png" alt="Banner s 2"></a>
+            <a routerLink="/trending/weekly"><img src="../assets/images/home/banner-s-3.png" alt="Banner s 3"></a>
+            <a routerLink="/trending/monthly"><img src="../assets/images/home/banner-s-4.png" alt="Banner s 4"></a>
+            <a routerLink="/publications"><img src="../assets/images/home/banner-s-5.png" alt="Banner s 5"></a>
         </div>
 
         <!-- 首页右侧 App 下载提示 -->
         <div class="download">
-            <a routerLink="/apps"><img id="js-download-img" src="//cdn2.jianshu.io/assets/web/app_download-e9146ff3a117129153d283495b51f40e.png" alt="App download"></a>
+            <a routerLink="/apps"><img id="js-download-img" src="../assets/images/home/app_download.png" alt="App download"></a>
             <div class="link-btn" id="js-link-btn" style="display: block;">
-                <a class="col-xs-8 scan" data-toggle="popover" data-placement="top" data-html="true" data-trigger="hover" data-content="<img src=&quot;//cdn2.jianshu.io/assets/web/download-app-qrcode-0257cd2c1d094cba9caa7bdc9e5a1393.png&quot; alt=&quot;Download app qrcode&quot; />"
+                <a class="qrcode" data-toggle="popover" data-placement="top" data-html="true" data-trigger="hover" data-content="<img src=&quot;//cdn2.jianshu.io/assets/web/download-app-qrcode-0257cd2c1d094cba9caa7bdc9e5a1393.png&quot; alt=&quot;Download app qrcode&quot; />"
                     href="javascript:void(0)" data-original-title="" title="">
-                    <div><i class="iconfont ic-qrcode"></i><span>扫码</span></div>
+                    <span><i class="icon-qrcode"></i><span>扫码</span></span>
                 </a>
-                <a class="col-xs-8 android" href="http://downloads.jianshu.io/apps/haruki/Jianshu-2.3.1-17051515-1495076675.apk">
-                    <div><i class="iconfont ic-android"></i><span>安卓</span></div>
+                <a class="android" href="http://downloads.jianshu.io/apps/haruki/Jianshu-2.3.1-17051515-1495076675.apk">
+                    <span><i class="icon-android"></i><span>安卓</span></span>
                 </a>
-                <a class="col-xs-8 ios" href="https://itunes.apple.com/cn/app/jian-shu/id888237539">
-                    <div><i class="iconfont ic-ios"></i><span>iOS</span></div>
+                <a class="ios" href="https://itunes.apple.com/cn/app/jian-shu/id888237539">
+                    <span><i class="icon-ios"></i><span>iOS</span></span>
                 </a>
             </div>
         </div>
