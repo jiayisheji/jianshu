@@ -1,8 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { AuthorizationService } from './core/authorization'
-import { LoadingService } from  './core/loading/loading.service';
-import { Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { AppHttpProvider } from './core/ajax'
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
@@ -10,43 +8,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(//private appHttpProvider: AppHttpProvider,
+  constructor(private appHttpProvider: AppHttpProvider,
               private authorizationService: AuthorizationService,
-              private viewContainer: ViewContainerRef,
-              private router: Router,
-              private  loadService: LoadingService) {
-  /*loadService.defaultViewContainerRef = viewContainer;
-  appHttpProvider
-      .baseUrl('http://localhost:3000/api/v1')
-      .json()
-      .addInterceptor({
-        request: request => {
-          console.log('全局拦截器(request)', request);
-        },
-        response: (stream) => stream.map(response => {
-          console.log('全局拦截器(response)', response);
-          return response;
-        })
-      })
-      .addInterceptor({
-        request: () => {
-          loadService.show();
-        },
-        response: (stream) => {
-          (<any>stream).subscribe(() => null, () => loadService.hide(), () => loadService.hide())
-        }
-      })
-      .addResponseErrorInterceptor((err: Response) => {
-        if (err.status === 401 && (err.url.indexOf('/login') === -1)) {
-          router.navigateByUrl('/login');
-          return null;
-        }
-        return Observable.throw(err);
-      });
+              private router: Router) {
+      appHttpProvider.setBaseUrl('http://localhost:3000/api/v1');
+
       const currentUser = <any>authorizationService.getCurrentUser();
       if (currentUser && currentUser.token) {
-        appHttpProvider.headers({ Authorization: 'Bearer ' + currentUser.token });
-      }*/
+        appHttpProvider.setHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + currentUser.token
+        });
+      } else{
+        appHttpProvider.setHeaders({
+          'Content-Type': 'application/json'
+        });
+      }
   }
 
 

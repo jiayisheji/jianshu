@@ -14,7 +14,6 @@ body{
   min-height: 50px;
   margin-bottom: 20px;
   border: 1px solid transparent;
-  overflow: hidden;
   &.navbar-default {
     background-color: #fff;
     border-color: #f0f0f0

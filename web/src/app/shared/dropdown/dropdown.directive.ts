@@ -17,9 +17,15 @@ export class DropdownDirective {
     this.updateHostStatus();
   }
 
-  @HostListener('click', ['$event'])
-  onHostClick($event: Event) {
+  @HostListener('mouseenter', ['$event'])
+  onHostMouseenter($event: Event) {
+    $event.stopPropagation();
+    this.active = !this.active;
+    this.updateHostStatus();
+  }
 
+  @HostListener('mouseleave', ['$event'])
+  onHostMouseleave($event: Event) {
     $event.stopPropagation();
     this.active = !this.active;
     this.updateHostStatus();

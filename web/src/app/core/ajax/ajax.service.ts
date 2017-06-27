@@ -11,7 +11,6 @@ import {
     RequestOptionsArgs
 } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { AuthorizationService } from '../authorization'
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
@@ -42,8 +41,9 @@ function isEmpty(value) {
 @Injectable()
 export class AppHttpProvider {
     // api请求根地址
-    private baseUrl: string = '';
-    constructor(private http: Http, private authorizationService: AuthorizationService) { }
+    private baseUrl: string;
+    private headers: Headers;
+    constructor(private http: Http) { }
 
     // 设置根请求地址
     setBaseUrl(url: string): void{
@@ -53,105 +53,82 @@ export class AppHttpProvider {
       this.baseUrl = url;
     }
 
-    // get 请求
-    get<T>(url: string, parame?: any, options?: RequestOptions): Observable<T> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        const currentUser = <any>this.authorizationService.getCurrentUser();
-        if (currentUser && currentUser.token) {
-            console.log(currentUser);
-            headers = new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + currentUser.token
-            });
-        }
-        let option = new RequestOptions({headers: headers});
-        let search = new URLSearchParams();
-        for(let key of Object.keys(parame)){
-            if (isObject(parame[key])) {
-                for (let k of parame[key]) {
-                    if (parame[key].hasOwnProperty(k)) {
-                        search.set(encodeURIComponent(k), encodeURIComponent(parame[key][k]));
-                    }
-                }
-            } else if (!isEmpty(parame[key])) {
-                search.set(encodeURIComponent(key), encodeURIComponent(parame[key].toString()));
-            } else {
-                search.set(encodeURIComponent(key), '');
-            }
-        }
-        search.set(encodeURIComponent('t'), (new Date).getTime().toString());
-        option.search = search;
-        option.url = this.baseUrl + url;
-        option.method = RequestMethod.Get;
-        option = Object.assign({}, option, options);
-
-        return this.http.get(option.url)
-            .map(this.fun)
-            .catch(this.handleError);
-    };
-
-    fun(res: Response){
-        console.log(res);
-        return res.json() || {}
+    // 设置 Headers信息
+    setHeaders(headers: object = {}): void{
+      this.headers = new Headers(headers);
     }
 
-    // post 请求
-    post<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
-        let headers = new Headers({'Content-Type': 'application/json'});
-        const currentUser = <any>this.authorizationService.getCurrentUser();
-        if (currentUser && currentUser.token) {
-            headers.set('Authorization', 'Bearer ' + currentUser.token)
+    private getSearch(parame?: object): any{
+      let search = new URLSearchParams();
+      for(let key of Object.keys(parame)){
+        if (isObject(parame[key])) {
+          for (let k of parame[key]) {
+            if (parame[key].hasOwnProperty(k)) {
+              search.set(encodeURIComponent(k), encodeURIComponent(parame[key][k]));
+            }
+          }
+        } else if (!isEmpty(parame[key])) {
+          search.set(encodeURIComponent(key), encodeURIComponent(parame[key].toString()));
+        } else {
+          search.set(encodeURIComponent(key), '');
         }
-        let option = new RequestOptions({headers: headers});
-        option.method = RequestMethod.Post;
-        option.url = this.baseUrl + url;
-        option = Object.assign({}, option, options);
-        return this.http.post(option.url, body, option)
-            .map((res: Response) => res.json() || {})
-            .catch(this.handleError);
+      }
+      search.set(encodeURIComponent('t'), (new Date).getTime().toString());
+      return search;
+    }
+
+    // get 请求
+    //get(url: string, options?: RequestOptionsArgs) : Observable<Response>
+    get(url: string, parame?: object, options?: RequestOptionsArgs): Observable<Response> {
+        return this.ajax('Get', url, parame, options);
+    };
+
+    // post 请求
+    // post(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
+    post(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+      return this.ajax('Post', url, body, options);
     }
 
     // put 请求
-    /*put<T>(url: string, body: any, options?: RequestOptions): Observable<T> {
-        let option:any = options || {};
-        option.method = RequestMethod.Post;
-        return this.ajax<T>(url, 'Put', body, option);
-    }*/
+    //put(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
+    put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
+        return this.ajax('Put', url, body, options);
+    }
 
     // delete 请求
-   /* delete<T>(url: string, options?: RequestOptions): Observable<T> {
-        let option:any = options || {};
-        option.method = RequestMethod.Delete;
-        return this.ajax<T>(url, 'Delete', undefined, option);
-    }*/
+   // delete(url: string, options?: RequestOptionsArgs) : Observable<Response>
+   delete(url: string, options?: RequestOptionsArgs): Observable<Response> {
+        return this.ajax('Delete', url, {}, options);
+    }
 
-/*    ajax<T>(url: string, method: string, body: any, option?: RequestOptions): Observable<any> {
-        let optionsArgs: any = [];
-        let headers:any = new Headers({'Content-Type': 'application/json'});
-        headers.set('Content-Type', 'application/json')
-        const currentUser = <any>this.authorizationService.getCurrentUser();
-        if (currentUser && currentUser.token) {
-            headers.set('Authorization', 'Bearer ' + currentUser.token)
-        }
-        let requestMethod = RequestMethod[method];
-        let search = option.search;
-        console.log(headers);
-        let options = new RequestOptions(<any>{
-                    method: method,
-                    url: this.baseUrl + url,
-                    headers,
-                    body,
-                    search
-                });
-        if (isUndefined(body)) {
-            optionsArgs = [this.baseUrl + url, options];
-        } else {
-            optionsArgs = [this.baseUrl + url, body, options];
-        }
-        console.log(options);
+    private ajax(method: string, url: string, data: object = {}, options?: RequestOptionsArgs){
+      let option = new RequestOptions({headers: this.headers});
+      let type = method.toLocaleLowerCase();
+      if(method === 'Get'){
+        option.search = this.getSearch(data);
+      }
+      option.url = this.baseUrl + url;
+      option.method = RequestMethod[method];
+      option = Object.assign({}, option, options);
+      let parame;
+      if(method === 'Get' || method === 'Delete'){
+        parame = [option.url, option];
+      }else{
+        parame = [option.url, data, option];
+      }
+      return this.http[type](...parame)
+        .map(this.done)
+        .catch(this.handleError);
+    }
 
-        return
-    }*/
+  /**
+   * 请求成功处理函数
+   * @param {Response} res
+   * @returns {any|{}}
+   */
+    private done(res: Response){
+      return res.json() || {}
+    }
 
     /**
      * 错误消息拦截

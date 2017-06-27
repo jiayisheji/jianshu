@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 //import { UTILS_STORAGE_PROVIDERS } from './utils-service/utils.service';
-import { ARTICLE_STORAGE_PROVIDERS } from './article-service/article.service';
 /**
  * 数据缓存）
  */
@@ -25,7 +24,6 @@ import { AjaxModule } from './ajax';
   ],
   providers: [
     //UTILS_STORAGE_PROVIDERS,
-    ARTICLE_STORAGE_PROVIDERS,
   ],
   declarations: [
   ],

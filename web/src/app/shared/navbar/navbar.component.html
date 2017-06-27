@@ -16,18 +16,18 @@
             </a>
         </li>
         <li class="notification" dropdown>
-            <a data-hover="dropdown" routerLink="/notifications" class="notification-btn">
+            <a class="dropdown-toggle" routerLink="/notifications" class="notification-btn">
                 <i class="icon-navigation-notification menu-icon"></i>
                 <span class="menu-text">消息</span>
             </a>
-            <ul class="dropdown-menu" style="display: none;">
-                <li><a href="/notifications#/comments"><i class="icon-comments"></i> <span>评论</span> <!----></a></li>
-                <li><a href="/notifications#/chats"><i class="icon-chats"></i> <span>简信</span> <!----></a></li>
-                <li><a href="/notifications#/requests"><i class="icon-requests"></i> <span>投稿请求</span> <!----></a></li>
-                <li><a href="/notifications#/likes"><i class="icon-likes"></i> <span>喜欢和赞</span> <!----></a></li>
-                <li><a href="/notifications#/follows"><i class="icon-follows"></i> <span>关注</span> <!----></a></li>
-                <li><a href="/notifications#/money"><i class="icon-money"></i> <span>赞赏</span> <!----></a></li>
-                <li><a href="/notifications#/others"><i class="icon-others"></i> <span>其他消息</span> <!----></a></li>
+            <ul class="dropdown-menu">
+                <li><a href="/notifications#/comments"><i class="icon-comments"></i> <span>评论</span></a></li>
+                <li><a href="/notifications#/chats"><i class="icon-chats"></i> <span>简信</span></a></li>
+                <li><a href="/notifications#/requests"><i class="icon-requests"></i> <span>投稿请求</span></a></li>
+                <li><a href="/notifications#/likes"><i class="icon-likes"></i> <span>喜欢和赞</span></a></li>
+                <li><a href="/notifications#/follows"><i class="icon-follows"></i> <span>关注</span></a></li>
+                <li><a href="/notifications#/money"><i class="icon-money"></i> <span>赞赏</span></a></li>
+                <li><a href="/notifications#/others"><i class="icon-others"></i> <span>其他消息</span></a></li>
             </ul>
         </li>
     </ul>
@@ -44,72 +44,51 @@
                 <span class="menu-text">下载App</span>
             </a>
         </li>
-      <li class="notification" dropdown>
-        <a data-hover="dropdown" routerLink="/notifications" class="notification-btn">
-          <i class="icon-navigation-notification menu-icon"></i>
-          <span class="menu-text">消息</span>
-        </a>
-        <ul class="dropdown-menu" style="display: none;">
-          <li><a href="/notifications#/comments"><i class="icon-comments"></i> <span>评论</span> <!----></a></li>
-          <li><a href="/notifications#/chats"><i class="icon-chats"></i> <span>简信</span> <!----></a></li>
-          <li><a href="/notifications#/requests"><i class="icon-requests"></i> <span>投稿请求</span> <!----></a></li>
-          <li><a href="/notifications#/likes"><i class="icon-likes"></i> <span>喜欢和赞</span> <!----></a></li>
-          <li><a href="/notifications#/follows"><i class="icon-follows"></i> <span>关注</span> <!----></a></li>
-          <li><a href="/notifications#/money"><i class="icon-money"></i> <span>赞赏</span> <!----></a></li>
-          <li><a href="/notifications#/others"><i class="icon-others"></i> <span>其他消息</span> <!----></a></li>
-        </ul>
-      </li>
     </ul>
     <div class="m-search f-fl">
         <input type="text" name="q" id="q" [(ngModel)]="search" placeholder="搜索" class="search-input">
         <a class="search-btn" (click)="searchHandler()"><i class="icon-search"></i></a>
     </div>
 </nav>
-<a routerLink="/writer" class="f-fr u-btn u-btn-danger u-btn-lg"><i class="icon-write"></i> 写文章</a>
-<div class="m-user f-fr" *ngIf="isLogin">
-    <div data-hover="dropdown">
-        <a class="avatar" href="/u/431a1573bee6"><img src="//upload.jianshu.io/users/upload_avatars/2633430/8c9919ff-128b-491b-8e80-e4b69325d9d1.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt="120"></a>
+<a routerLink="/writer" class="f-fr u-btn u-btn-danger u-btn-md u-user-btn"><i class="icon-write"></i> 写文章</a>
+<div class="m-user f-fr" *ngIf="isLogin" dropdown>
+    <div class="dropdown-toggle">
+        <a class="avatar" [routerLink]="['/user', user.slug]"><img [src]="user.avatar" alt="120"></a>
     </div>
-    <ul class="dropdown-menu" style="display: none;">
+    <ul class="dropdown-menu">
         <li>
-            <a href="/u/431a1573bee6">
-                <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
+            <a [routerLink]="['/user', user.slug]">
+                <i class="icon-navigation-profile"></i><span>我的主页</span>
             </a>
         </li>
         <li>
-            <!-- TODO bookmarks_path -->
-            <a href="/bookmarks">
-                <i class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
+            <a routerLink="/bookmarks">
+                <i class="icon-navigation-mark"></i><span>收藏的文章</span>
             </a>
         </li>
         <li>
             <a href="/users/431a1573bee6/liked_notes">
-                <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
+                <i class="icon-navigation-like"></i><span>喜欢的文章</span>
             </a>
         </li>
         <li>
-            <a href="/wallet">
-                <i class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
+            <a routerLink="/settings">
+                <i class="icon-navigation-settings"></i><span>设置</span>
             </a>
         </li>
         <li>
-            <a href="/settings">
-                <i class="iconfont ic-navigation-settings"></i><span>设置</span>
+            <a routerLink="/faqs">
+                <i class="icon-navigation-feedback"></i><span>帮助与反馈</span>
             </a>
         </li>
         <li>
-            <a href="/faqs">
-                <i class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
-            </a>
-        </li>
-        <li>
-            <a rel="nofollow" data-method="delete" href="/sign_out">
-                <i class="iconfont ic-navigation-signout"></i><span>退出</span>
+            <a href="javascript:;" (click)="logout()">
+                <i class="icon-navigation-signout"></i><span>退出</span>
             </a>
         </li>
     </ul>
 </div>
 <div class="m-user f-fr" *ngIf="!isLogin">
-    <a routerLink="/register" class="f-fr u-btn u-btn-danger u-btn-lg transparent">注册</a>
-    <a routerLink="/login" class="f-fr u-btn u-btn-lg">登录</a>
+    <a routerLink="/register" class="f-fr u-btn u-btn-danger u-btn-md transparent u-user-btn">注册</a>
+    <a routerLink="/login" class="f-fr u-btn u-btn-md u-user-btn">登录</a>
 </div>

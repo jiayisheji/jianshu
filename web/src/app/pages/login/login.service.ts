@@ -21,11 +21,11 @@ export class LoginService {
    */
   login(loginInfo: {username: string; password: string }): Observable<any> {
     const authorizationService = this.authorizationService;
-    console.log(loginInfo);
+    console.log(loginInfo, authorizationService);
     return this.ajax.post('/login', loginInfo)
       .map((user: any) => {
         console.log(user);
-        if(user.code === 0){
+        if(user.meta.code === 200){
           authorizationService.setCurrentUser(user.data);
         }
         return user;

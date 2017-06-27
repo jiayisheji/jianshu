@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit  {
     console.log(loginForm);
     this.loginService.login(loginForm.value)
       .subscribe(
-        user => user.code === 0 && this.router.navigate(['/']),
+        user => user.meta.code === 200 && this.router.navigate(['/']),
         error => this.error = error
       );
   }

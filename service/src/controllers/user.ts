@@ -96,7 +96,7 @@ class UserController implements userInterface{
                                 "user": {
                                     "nickname": user.basic.nickname,
                                     "avatar": user.basic.avatar,
-                                    "_id": user._id
+                                    "slug": user.slug
                                 }
                             }
                         });
