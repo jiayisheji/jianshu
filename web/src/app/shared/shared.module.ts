@@ -43,6 +43,7 @@ import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
     DropdownDirective
   ],
   exports: [
+    CommonModule,
     HeaderComponent,
     FooterComponent,
     NavbarComponent,

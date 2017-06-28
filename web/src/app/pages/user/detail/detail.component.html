@@ -1,12 +1,12 @@
-<ul class="trigger-menu" data-pjax-container="#list-container">
-    <li class="active"><a href="/u/c1fed915ed12?order_by=shared_at"><i class="icon-articles"></i> 文章</a></li>
-    <li class=""><a href="/users/c1fed915ed12/timeline"><i class="icon-feed"></i> 动态</a></li>
-    <li class=""><a href="/u/c1fed915ed12?order_by=commented_at"><i class="icon-latestcomments"></i> 最新评论</a></li>
-    <li class=""><a href="/u/c1fed915ed12?order_by=top"><i class="icon-hot"></i> 热门</a></li>
+<ul class="trigger-menu">
+    <li *ngFor="let item of menu" [class.active]="item.active" (click)="setMenu(item)"><a href="javascript:;"><i [class]="item.icon"></i> {{item.label}}</a></li>
 </ul>
 <div id="list-container">
     <!-- 文章列表模块 -->
-    <ul class="note-list" infinite-scroll-url="/u/c1fed915ed12?order_by=shared_at">
+    <!--首页推荐文章列表-->
+
+    <app-article-list [request]="container.request" *ngIf="container.component == 'app-article-list'"></app-article-list>
+    <!--<ul class="note-list" infinite-scroll-url="/u/c1fed915ed12?order_by=shared_at">
         <li id="note-13131753" data-note-id="13131753" class="have-img">
             <a class="wrap-img" href="/p/1b61d1dcd1ef" target="_blank">
                 <img class="img-blur-done" src="//upload-images.jianshu.io/upload_images/1669869-0e9e0efc4f4f3991.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/375/h/300" alt="120">
@@ -280,6 +280,6 @@
             </div>
         </li>
 
-    </ul>
+    </ul>-->
 
 </div>

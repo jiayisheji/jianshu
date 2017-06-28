@@ -615,3 +615,10 @@ p {
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.icon-man{
+  color: #3194d0;
+}
+.icon-woman{
+  color: #ea6f5a;
+}
