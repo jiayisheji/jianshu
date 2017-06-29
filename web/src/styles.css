@@ -615,7 +615,18 @@ p {
   padding-left: 15px;
   padding-right: 15px;
 }
-
+.avatar-collection {
+  width: 48px;
+  height: 48px;
+  display: block;
+  cursor: pointer;
+  & img{
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10%;
+  }
+}
 .icon-man{
   color: #3194d0;
 }

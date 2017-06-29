@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoadingComponent } from './loading.component';
 import { LoadingService } from './loading.service';
 
+
 @NgModule({
   imports: [
     CommonModule,

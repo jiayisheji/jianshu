@@ -1,64 +1,39 @@
-<app-navbar class="g-navbar"></app-navbar>
-<div class="container collection">
-  <div class="row">
-    <div class="col-xs-16 main">
-      <div class="main-top">
-        <a class="avatar-collection" href="/nb/6802437">
-          <img src="//cdn2.jianshu.io/assets/default_avatar/avatar-notebook-default-640f7dde88592bdf6417d8ce1902636e.png" alt="Avatar notebook default">
-        </a>        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i> <span>关注</span></a>
-
-        <div class="title">
-          <a class="name" href="/nb/6802437">互联网</a>
-        </div>
-        <div class="info">
-          0篇文章 · 0字 · 2人关注
-        </div>
+<header class="g-navbar navbar-default navbar-fixed-top">
+  <app-navbar class="f-cb"></app-navbar>
+</header>
+<main class="g-container f-cb">
+  <article class="g-main f-fl">
+    <div class="main-top">
+      <a class="avatar-collection" [routerLink]="['/books', books.slug]">
+        <img src="../assets/images/avatar-notebook-default.png" alt="Avatar notebook default">
+      </a>
+      <a class="u-btn u-btn-success btn-follow"><i class="icon-follow"></i> <span>关注</span></a>
+      <div class="title">
+        <a class="name" [routerLink]="['/books', books.slug]">{{books.title}}</a>
       </div>
-      <ul class="trigger-menu" data-pjax-container="#list-container"><li class="active"><a href="/nb/6802437?order_by=added_at"><i class="iconfont ic-articles"></i> 最新发布</a></li><li class=""><a href="/nb/6802437?order_by=commented_at"><i class="iconfont ic-latestcomments"></i> 最新评论</a></li><li class=""><a href="/nb/6802437?order_by=seq"><i class="iconfont ic-catalog"></i> 目录</a></li></ul>
-      <div id="list-container"><!-- 文章列表模块 -->
-        <ul class="note-list" infinite-scroll-url="/nb/6802437?order_by=added_at">
-          <li id="note-2506345" data-note-id="2506345" class="">
-            <div class="content">
-              <div class="author">
-                <a class="avatar" target="_blank" href="/u/5SqsuF">
-                  <img src="//upload.jianshu.io/users/upload_avatars/6287/06c537002583.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="96">
-                </a>      <div class="name">
-                <a class="blue-link" target="_blank" href="/u/5SqsuF">刘淼</a>
-                <span class="time" data-shared-at="2016-08-07T18:07:24+08:00">2016.08.07 18:07</span>
-              </div>
-              </div>
-              <a class="title" target="_blank" href="/p/94b10558ce42">酒店预订网站Booking.com的细节设计</a>
-              <p class="abstract">
-                据说，Booking.com是全世界酒店预定网站中转化率最高的。也就是说，相比起别的预订网站，在同样的浏览量下，它能促使更多的网站访问者作出预定的决定，我试着体验了一下它的细...
-              </p>
-              <div class="meta">
-                <a target="_blank" href="/p/94b10558ce42">
-                  <i class="iconfont ic-list-read"></i> 330
-                </a>        <a target="_blank" href="/p/94b10558ce42#comments">
-                <i class="iconfont ic-list-comments"></i> 0
-              </a>      <span><i class="iconfont ic-list-like"></i> 5</span>
-              </div>
-            </div>
-          </li>
-
-        </ul>
+      <div class="info">
+        {{books.articles_count}}篇文章 · {{books.wordage}}字 · {{books.follows_count}}人关注
       </div>
     </div>
-    <div class="col-xs-7 col-xs-offset-1 aside">
-      <div class="share">
-        <span>分享至</span>
-        <a href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','', '推荐 刘淼 的文集《互联网》（ 分享自 @简书 ）','http://www.jianshu.com/nb/6802437?utm_campaign=maleskine&amp;utm_content=notebook&amp;utm_medium=reader_share&amp;utm_source=weibo','页面编码gb2312|utf-8默认gb2312'));"><i class="iconfont ic-share-weibo"></i></a>
-        <a data-action="weixin-share" data-notebook-id="6802437"><i class="iconfont ic-share-wechat"></i></a>
-        <a class="" href=""><i class="iconfont ic-share-more"></i></a>
-      </div>
-      <p class="title">文集作者</p>
-      <ul class="list collection-editor">
-        <li>
-          <a class="avatar" href="/u/5SqsuF">
-            <img src="//upload.jianshu.io/users/upload_avatars/6287/06c537002583.png?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96" alt="96">
-          </a>            <a class="name" href="/u/5SqsuF">刘淼</a>
-        </li>
-      </ul>
+    <ul class="trigger-menu">
+      <li *ngFor="let item of menu" [class.active]="item.active" (click)="setMenu(item)"><a href="javascript:;"><i [class]="item.icon"></i> {{item.label}}</a></li>
+    </ul>
+    <app-article-list [request]="container.request"></app-article-list>
+  </article>
+  <aside class="g-aside f-fr">
+    <div class="share">
+      <span>分享到</span>
+      <a class="option" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=1881139527',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','', '推荐 @滇中焱公子 的文集《长篇连载》（ 分享自 @简书 ）','http://www.jianshu.com/nb/9585684?utm_campaign=maleskine&amp;utm_content=notebook&amp;utm_medium=reader_share&amp;utm_source=weibo','页面编码gb2312|utf-8默认gb2312'));"><i class="icon-share-weibo"></i></a>
+      <a class="option" data-action="weixin-share" data-notebook-id="9585684"><i class="icon-share-wechat"></i></a>
+      <a class="option" tabindex="0" data-toggle="popover" data-placement="bottom" data-html="true" data-trigger="focus" href="javascript:void(0);" data-content="" data-original-title="" title=""><i class="icon-share-more"></i></a>
     </div>
-  </div>
-</div>
+    <dl>
+      <dt class="title">文集作者</dt>
+      <dd class="list collection-editor">
+        <a class="avatar" [routerLink]="['/user', books.author.slug]">
+          <img [src]="books.author.avatar" alt="96">
+        </a>            <a class="name" [routerLink]="['/user', books.author.slug]">{{books.author.nickname}}</a>
+      </dd>
+    </dl>
+  </aside>
+</main>
