@@ -13,12 +13,6 @@ Angular4常用书写方式
 
 
 
-
-
-
-
-
-
 ## html写法
 ### 无参数顶级路由
 网页常用的有login这样的登录页面，一般都是在顶级路由，常用都是`http://www.xxx.com/login`。
@@ -68,5 +62,21 @@ let lists = [1, 2, 3, 4, 5]
 <a href="/user/1/followers">我的粉丝</a>
 ```
 
+### 带查询路由写法
+网页常用的有/search?q=angular 这样的搜索页面，有些在顶级路由有些在其他路由，常用都是`http://www.xxx.com/search?q=angular`。
+无参数查询写法
+```
+那么在html里面该怎么写了。
+<a [routerLink]="[/search, {queryParams: {q: angular}}]">搜索Angular</a>
+会自动编译成
+<a href="/search?q=angular">搜索Angular</a>
+```
+有参数查询写法
+```
+那么在html里面该怎么写了。
+<a [routerLink]="[/article, '1', {queryParams: {keywords: angular}}]">查询文章列表关键词Angular</a>
+会自动编译成
+<a href="/article/1?keywords=angular">查询文章列表关键词Angular</a>
+```
 
 ## js写法
