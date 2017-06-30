@@ -30,16 +30,19 @@ Router.get("/user/:id", userController.find);
 
 // 文集增删改查
 Router.post("/books", passport.authenticate('user', {session: false}), BooksController.save);
-Router.put("/books/:id", passport.authenticate('user', {session: false}), BooksController.updata);
-Router.delete("/books/:id", passport.authenticate('user', {session: false}), BooksController.remove);
-Router.get("/books/:id", BooksController.find);
+Router.put("/books/:booksid", passport.authenticate('user', {session: false}), BooksController.updata);
+Router.delete("/books/:booksid", passport.authenticate('user', {session: false}), BooksController.remove);
+Router.get("/books/:booksid", BooksController.find);
 Router.get("/books", BooksController.search);
+Router.param('booksid', BooksController.byId);
+
 
 // 专题分类
 Router.post("/collections", passport.authenticate('user', {session: false}), CorpusController.save);
-Router.put("/collections/:id", passport.authenticate('user', {session: false}), CorpusController.updata);
-Router.get("/collections/:id", CorpusController.find);
+Router.put("/collections/:collectionsid", passport.authenticate('user', {session: false}), CorpusController.updata);
+Router.get("/collections/:collectionsid", CorpusController.find);
 Router.get("/collections", CorpusController.search);
+Router.param('collectionsid', CorpusController.byId);
 
 /**
  * 导出路由
