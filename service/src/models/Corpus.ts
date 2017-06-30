@@ -22,7 +22,7 @@ export type CorpusModel = mongoose.Document & {
     push: Boolean,
     verify: Boolean,
     slug: String,
-    getData: (data: Object|[Object], callback: (err: Error, results: Object|[Object]) => any) => void
+    //getData: (data: Object|[Object], callback: (err: Error, results: Object|[Object]) => any) => void
 };
 
 export type EditorsLsit = {
@@ -36,9 +36,6 @@ const corpusSchema = new Schema({
     title: {    // 标题必填
         type: String,
         required: true
-    },
-    slug: {
-        type: String
     },
     owner: {       // 所有者
         type: Schema.Types.ObjectId,    // 引用类型
@@ -70,42 +67,19 @@ const corpusSchema = new Schema({
 /**
  *
  */
-corpusSchema.pre("save", function save(next) {
+/*corpusSchema.pre("save", function save(next) {
     const corpus = this;
     corpus.slug = corpus._id;
     return next();
-});
-
-/**
- * 格式化单条数据
- * @param data
- * @returns {CorpusModel}
- */
-export function formatData(data: any): Object {
-    return {
-        "slug": data.slug,
-        "updatedAt": new Date(data.updatedAt).toLocaleString(),
-        "createdAt": new Date(data.createdAt).toLocaleString(),
-        "owner": data.owner,
-        "title": data.title,
-        "avatar": data.avatar,
-        "description": data.description,
-        "verify": data.verify,
-        "push": data.push,
-        "editors": _.map(data.editors, function (item: any): Object {
-            return item.editor;
-        })
-    };
-}
-
+});*/
 /**
  * 获取专题数据
  * @method getData
  * @param password {Object|Array}  验证密码
  * @param callback {Function}  回调函数
  */
-corpusSchema.methods.getData = function (data: Object, callback?: any): any {
+/*corpusSchema.methods.getData = function (data: Object, callback?: any): any {
     callback(null, formatData(data));
-};
+};*/
 
 export default mongoose.model("Corpus", corpusSchema);

@@ -23,6 +23,22 @@ interface corpusInterface {
 
     search(req: Request, res: Response, next: NextFunction);
 }
+
+interface userinfoInterface{
+    slug: string;
+    nickname?: string;
+    avatar?: string;
+}
+
+/**
+ * 获取关联用户信息
+ * @param data
+ * @returns {{userinfoInterface}}
+ */
+const getUserinfo = function (data: any): userinfoInterface {
+    return Object.assign({"slug": data._doc._id}, data._doc, {"_id": undefined})
+};
+
 /**
  * 格式化单条数据
  * @param data
@@ -33,17 +49,17 @@ const formatData = function (data: any): Object {
         "slug": data._id,
         "updatedAt": new Date(data.updatedAt).toLocaleString(),
         "createdAt": new Date(data.createdAt).toLocaleString(),
-        "owner": data.owner,
+        "owner": getUserinfo(data.owner),
         "title": data.title,
         "avatar": data.avatar,
         "description": data.description,
         "verify": data.verify,
         "push": data.push,
         "editors": _.map(data.editors, function (item: any): Object {
-            return item.editor;
+            return getUserinfo(item.editor);
         })
     };
-}
+};
 
 /**
  * 专题控制器
@@ -70,9 +86,9 @@ class CorpusController implements corpusInterface {
         }
         try {
             const corpus = await Corpus.findOne({_id: id})
-                .populate({path: 'owner', select: {slug: 1, nickname: 1, avatar: 1, _id: 0}})
-                .populate({path: 'editors.editor', select: {slug: 1, nickname: 1, avatar: 1, _id: 0}});
-            if(!corpus){
+                .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}})
+                .populate({path: 'editors.editor', select: {nickname: 1, avatar: 1, _id: 1}});
+            if (!corpus) {
                 return res.json({
                     "meta": {
                         "code": 404,
@@ -185,7 +201,7 @@ class CorpusController implements corpusInterface {
         }
         const corpus = Object.assign((req as any).corpus, req.body);
         corpus.save((err) => {
-            if(err){
+            if (err) {
                 return res.json({
                     "meta": {
                         "code": 422,
@@ -240,8 +256,8 @@ class CorpusController implements corpusInterface {
         try {
             const count = await Corpus.count(params);
             const corpus = await Corpus.find(params)
-                .populate({path: 'owner', select: {slug: 1, nickname: 1, avatar: 1, _id: 0}})
-                .populate({path: 'editors.editor', select: {slug: 1, nickname: 1, avatar: 1, _id: 0}})
+                .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}})
+                .populate({path: 'editors.editor', select: {nickname: 1, avatar: 1, _id: 1}})
                 .sort({'updatedAt': 'desc'})
                 .skip((Number(page) - 1) * Number(limit))
                 .limit(Number(limit));

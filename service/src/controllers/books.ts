@@ -4,6 +4,7 @@
  */
 import * as async from "async";
 import * as _ from 'lodash';
+import * as mongoose from "mongoose";
 import {default as Books, BooksModel} from "../models/books";
 import {Request, Response, NextFunction} from "express";
 
@@ -19,7 +20,39 @@ interface booksInterface {
 
     search(req: Request, res: Response, next: NextFunction);
 
+    byId(req: Request, res: Response, next: NextFunction, id: string);
+
     remove(req: Request, res: Response, next: NextFunction);
+}
+
+interface userinfoInterface{
+    slug: string;
+    nickname?: string;
+    avatar?: string;
+}
+
+/**
+ * 获取关联用户信息
+ * @param data
+ * @returns {{userinfoInterface}}
+ */
+const getUserinfo = function (data: any): userinfoInterface {
+    return Object.assign({"slug": data._doc._id}, data._doc, {"_id": undefined})
+};
+
+/**
+ * 格式化单条数据
+ * @param data
+ * @returns {CorpusModel}
+ */
+const formatData = function (data: any): Object {
+    return {
+        "slug": data._id,
+        "updatedAt": new Date(data.updatedAt).toLocaleString(),
+        "createdAt": new Date(data.createdAt).toLocaleString(),
+        "owner": getUserinfo(data.owner),
+        "title": data.title
+    };
 }
 
 /**
@@ -27,6 +60,40 @@ interface booksInterface {
  */
 class BooksController implements booksInterface {
     constructor() {
+    }
+
+    /**
+     * 获取查询id
+     * @param {e.Request} req
+     * @param {Response} res
+     * @param {e.NextFunction} next
+     * @returns {Promise<void>}
+     */
+    async byId(req: Request, res: Response, next: NextFunction, id: string) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.json({
+                "meta": {
+                    "code": 422,
+                    "message": '文集id不对'
+                }
+            });
+        }
+        try {
+            const books = await Books.findById(id)
+                .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}});
+            if(!books){
+                return res.json({
+                    "meta": {
+                        "code": 404,
+                        "message": '没有找到指定文集'
+                    }
+                });
+            }
+            (req as any).books = books;
+            next();
+        } catch (err) {
+            return next(err);
+        }
     }
 
     /**
@@ -82,13 +149,7 @@ class BooksController implements booksInterface {
                         "code": 200,
                         "message": '添加成功'
                     },
-                    'data': {
-                        'title': books.title,
-                        '_id': books._id,
-                        'owner': books.owner,
-                        'updatedAt': new Date(books.updatedAt).toLocaleString(),  // 解决-8小时问题
-                        'createdAt': new Date(books.createdAt).toLocaleString()
-                    }
+                    "data": formatData(books)
                 });
             });
         }, function (errors: any) {
@@ -101,49 +162,14 @@ class BooksController implements booksInterface {
      * 获取一个
      */
     async find(req: Request, res: Response, next: NextFunction) {
-        if (!req.params.id) {
-            res.json({
-                "meta": {
-                    "code": 422,
-                    "message": "缺少文集id"
-                }
-            });
-            return;
-        }
-        Books.findOne({_id: req.params.id})
-            .exec((err: any, books: BooksModel) => {
-                if (err) {
-                    res.json({
-                        "meta": {
-                            "code": 422,
-                            "message": '文集id不对'
-                        }
-                    });
-                    return;
-                }
-                if (!books) {
-                    res.json({
-                        "meta": {
-                            "code": 404,
-                            "message": '没有找到指定文集'
-                        }
-                    });
-                    return;
-                }
-                res.json({
-                    "meta": {
-                        "code": 200,
-                        "message": '查询成功'
-                    },
-                    "data": {
-                        'title': books.title,
-                        '_id': books._id,
-                        'owner': books.owner,
-                        'updatedAt': new Date(books.updatedAt).toLocaleString(),  // 解决-8小时问题
-                        'createdAt': new Date(books.createdAt).toLocaleString()
-                    }
-                });
-            });
+        const books = (req as any).books;
+        res.json({
+            "meta": {
+                "code": 200,
+                "message": '查询成功'
+            },
+            "data": formatData(books)
+        });
     }
 
     /**
@@ -235,6 +261,7 @@ class BooksController implements booksInterface {
             },
             function getLsit(count: number, done: Function) {
                 Books.find(params)
+                    .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}})
                     .sort({created: 'desc'})
                     .skip((page - 1) * limit)
                     .limit(limit).exec((err, books) => {
@@ -246,15 +273,8 @@ class BooksController implements booksInterface {
                             "code": 200,
                             "message": '获取全部成功'
                         },
-                        "data": _.map(books, function (item: BooksModel) {
-                            return {
-                                'title': item.title,
-                                '_id': item._id,
-                                'owner': item.owner,
-                                'updatedAt': new Date(item.updatedAt).toLocaleString(),  // 解决-8小时问题
-                                'createdAt': new Date(item.createdAt).toLocaleString()
-                            }
-                        })
+                        "data": _.map(books, formatData),
+                        "total": count
                     });
                 });
             }
@@ -268,60 +288,23 @@ class BooksController implements booksInterface {
      * 删除一个
      */
     async remove(req: Request, res: Response, next: NextFunction) {
-        if ((req as any).isAuthenticated()) {
-            res.json({
-                "meta": {
-                    "code": 403,
-                    "message": "未登陆"
-                }
-            });
-            return;
-        }
-        if (!req.params.id) {
-            res.json({
-                "meta": {
-                    "code": 422,
-                    "message": "缺少文集id"
-                }
-            });
-            return;
-        }
-        Books.findOneAndRemove({_id: req.params.id, owner: (req as any).user._id})
-            .exec((err: any, update: any) => {
-                if (err) {
-                    res.json({
-                        "meta": {
-                            "code": 422,
-                            "message": '文集id不对'
-                        }
-                    });
-                    return;
-                }
-                if (!update) {
-                    res.json({
-                        "meta": {
-                            "code": 404,
-                            "message": '没有找到指定文集'
-                        }
-                    });
-                    return;
-                }
-                if (!update.ok) {
-                    res.json({
-                        "meta": {
-                            "code": 200,
-                            "message": '删除失败'
-                        }
-                    });
-                    return;
-                }
-                res.json({
+        const books = (req as any).books;
+        books.remove((err) => {
+            if (err) {
+                return res.json({
                     "meta": {
                         "code": 200,
-                        "message": '删除成功'
+                        "message": '删除失败'
                     }
                 });
+            }
+            res.json({
+                "meta": {
+                    "code": 200,
+                    "message": '删除成功'
+                }
             });
+        });
     }
 }
 
