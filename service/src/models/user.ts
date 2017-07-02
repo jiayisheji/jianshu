@@ -29,6 +29,7 @@ export type UserModel = mongoose.Document & {
         homepage: String;   // 个人主页
         country_code: String   // 来自哪个国家
     };
+    author: String;   // 作者身份
     basic: {   // 基本设置
         nickname: String;   // 昵称
         avatar: String;    // 头像
@@ -76,6 +77,11 @@ const userSchema = new mongoose.Schema({
         required: true,
         enum: [0, 1, 2],
         default: 0
+    },
+    author: {    // 作者身份  0 普通作者 1 签约作者 2 金牌作者
+        type: String,
+        enum: ["0", "1", "2"],
+        default: "0"
     },
     tokens: [{
         accessToken: String,

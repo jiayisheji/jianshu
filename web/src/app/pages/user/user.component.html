@@ -4,7 +4,7 @@
 <main class="g-container f-cb">
   <article class="g-main f-fl">
     <div class="main-top">
-      <a class="avatar" href="/u/c1fed915ed12">
+      <a class="avatar" [routerLink]="['/user', '1']">
         <img
           src="//upload.jianshu.io/users/upload_avatars/1669869/21cc1916b6a4.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
           alt="240">
@@ -13,25 +13,25 @@
       <a class="u-btn u-btn-success transparent btn-follow" href="/notifications#/chats/new?mail_to=1669869">发简信</a>
 
       <div class="title">
-        <a class="name" href="/u/c1fed915ed12">顾一宸</a>
+        <a class="name" [routerLink]="['/user', '1']">顾一宸</a>
         <i class="icon-man"></i>
         <span class="author-tag"><i class="icon-write"></i> 签约作者</span>
       </div>
       <ul class="info">
         <li>
-            <a  class="meta-block" href="/users/c1fed915ed12/following">
+            <a  class="meta-block" [routerLink]="['/user', '1', 'following']">
               <p>30</p>
               关注 <i class="icon-arrow"></i>
             </a>
         </li>
         <li>
-            <a  class="meta-block" href="/users/c1fed915ed12/followers">
+            <a  class="meta-block" [routerLink]="['/user', '1', 'followers']">
               <p>20548</p>
               粉丝 <i class="icon-arrow"></i>
             </a>
         </li>
         <li>
-            <a  class="meta-block" href="/u/c1fed915ed12">
+            <a  class="meta-block" [routerLink]="['/user', '1']">
               <p>227</p>
               文章 <i class="icon-arrow"></i>
             </a>
@@ -68,12 +68,12 @@
     </dl>
     <dl class="user-dynamic">
       <dd class="list">
-        <a href="/users/c1fed915ed12/subscriptions">
+        <a [routerLink]="['/user', '1', 'subscriptions']">
           <i class="icon-collection"></i> <span>他关注的专题/文集</span>
         </a>
       </dd>
       <dd>
-        <a href="/users/c1fed915ed12/liked_notes">
+        <a [routerLink]="['/user', '1', 'liked_article']">
           <i class="icon-like"></i> <span>他喜欢的文章</span>
         </a>
       </dd>
@@ -82,17 +82,17 @@
     <dl>
       <dt class="title">他创建的专题</dt>
       <dd class="list">
-        <a href="/c/72daf22c68f9" target="_blank" class="avatar-collection"><img
+        <a [routerLink]="['/collections', '1']" class="avatar-collection"><img
           src="//upload.jianshu.io/collections/images/367981/android.graphics.Bitmap_2bebf481.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a>
-        <a href="/c/72daf22c68f9" class="name">文章</a>
+        <a [routerLink]="['/collections', '1']" class="name">文章</a>
       </dd>
     </dl>
     <dl>
       <dt class="title">他参与管理的专题</dt>
       <dd class="list">
-        <a href="/c/72daf22c68f9" target="_blank" class="avatar-collection"><img
+        <a [routerLink]="['/collections', '1']" class="avatar-collection"><img
           src="//upload.jianshu.io/collections/images/367981/android.graphics.Bitmap_2bebf481.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/96/h/96"></a>
-        <a href="/c/72daf22c68f9" class="name">文章</a>
+        <a [routerLink]="['/collections', '1']" class="name">文章</a>
       </dd>
     </dl>
     <dl>
