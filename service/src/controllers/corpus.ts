@@ -10,7 +10,7 @@ import * as _ from "lodash";
 /**
  * 定义类接口
  */
-interface corpusInterface {
+export type corpusInterface = {
     save(req: Request, res: Response, next: NextFunction);
 
     find(req: Request, res: Response, next: NextFunction);
@@ -22,44 +22,8 @@ interface corpusInterface {
     byId(req: Request, res: Response, next: NextFunction, id: string);
 
     search(req: Request, res: Response, next: NextFunction);
-}
-
-interface userinfoInterface{
-    slug: string;
-    nickname?: string;
-    avatar?: string;
-}
-
-/**
- * 获取关联用户信息
- * @param data
- * @returns {{userinfoInterface}}
- */
-const getUserinfo = function (data: any): userinfoInterface {
-    return Object.assign({"slug": data._doc._id}, data._doc, {"_id": undefined})
 };
 
-/**
- * 格式化单条数据
- * @param data
- * @returns {CorpusModel}
- */
-const formatData = function (data: any): Object {
-    return {
-        "slug": data._id,
-        "updatedAt": new Date(data.updatedAt).toLocaleString(),
-        "createdAt": new Date(data.createdAt).toLocaleString(),
-        "owner": getUserinfo(data.owner),
-        "title": data.title,
-        "avatar": data.avatar,
-        "description": data.description,
-        "verify": data.verify,
-        "push": data.push,
-        "editors": _.map(data.editors, function (item: any): Object {
-            return getUserinfo(item.editor);
-        })
-    };
-};
 
 /**
  * 专题控制器
@@ -80,19 +44,19 @@ class CorpusController implements corpusInterface {
             return res.json({
                 "meta": {
                     "code": 422,
-                    "message": '专题id不对'
+                    "message": "专题id不对"
                 }
             });
         }
         try {
             const corpus = await Corpus.findOne({_id: id})
-                .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}})
-                .populate({path: 'editors.editor', select: {nickname: 1, avatar: 1, _id: 1}});
+                .populate({path: "owner", select: {nickname: 1, avatar: 1, _id: 1}})
+                .populate({path: "editors.editor", select: {nickname: 1, avatar: 1, _id: 1}});
             if (!corpus) {
                 return res.json({
                     "meta": {
                         "code": 404,
-                        "message": '没有找到指定专题'
+                        "message": "有找到指定专题"
                     }
                 });
             }
@@ -109,17 +73,17 @@ class CorpusController implements corpusInterface {
      */
     async save(req: Request, res: Response, next: NextFunction) {
         req.checkBody({
-            'title': {
+            "title": {
                 notEmpty: true,
                 isLength: {
                     options: [{min: 1, max: 20}],
-                    errorMessage: '名称长度不是1-20位' // Error message for the validator, takes precedent over parameter message
+                    errorMessage: "名称长度不是1-20位" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '名称不能为空'
+                errorMessage: "名称不能为空"
             },
-            'avatar': {
+            "avatar": {
                 notEmpty: true, // won't validate if field is empty
-                errorMessage: '封面不能为空' // Error message for the parameter
+                errorMessage: "封面不能为空" // Error message for the parameter
             }
         });
         const errors = req.validationErrors();
@@ -138,18 +102,18 @@ class CorpusController implements corpusInterface {
             res.json({
                 "meta": {
                     "code": 200,
-                    "message": '添加成功'
+                    "message": "添加成功"
                 },
-                'data': {
-                    '_id': corpus._id
+                "data": {
+                    "slug": corpus._id
                 }
             });
         } catch (err) {
-            console.log('给用户添加专题', err);
+            console.log("给用户添加专题", err);
             res.json({
                 "meta": {
                     "code": 422,
-                    "message": '保存专题失败'
+                    "message": "保存专题失败"
                 }
             });
         }
@@ -164,9 +128,9 @@ class CorpusController implements corpusInterface {
         res.json({
             "meta": {
                 "code": 200,
-                "message": '查询成功'
+                "message": "查询成功"
             },
-            "data": formatData(corpus)
+            "data": corpus.formatData()
         });
     }
 
@@ -176,17 +140,17 @@ class CorpusController implements corpusInterface {
      */
     async updata(req: Request, res: Response, next: NextFunction) {
         req.checkBody({
-            'title': {
+            "title": {
                 notEmpty: true,
                 isLength: {
                     options: [{min: 1, max: 20}],
-                    errorMessage: '名称长度不是1-20位' // Error message for the validator, takes precedent over parameter message
+                    errorMessage: "名称长度不是1-20位" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '名称不能为空'
+                errorMessage: "名称不能为空"
             },
-            'avatar': {
-                notEmpty: true, // won't validate if field is empty
-                errorMessage: '封面不能为空' // Error message for the parameter
+            "avatar": {
+                notEmpty: true, // won"t validate if field is empty
+                errorMessage: "封面不能为空" // Error message for the parameter
             }
         });
         const errors = req.validationErrors();
@@ -205,14 +169,14 @@ class CorpusController implements corpusInterface {
                 return res.json({
                     "meta": {
                         "code": 422,
-                        "message": '修改失败'
+                        "message": "修改失败"
                     }
                 });
             }
             res.json({
                 "meta": {
                     "code": 201,
-                    "message": '修改成功'
+                    "message": "修改成功"
                 }
             });
         });
@@ -223,24 +187,24 @@ class CorpusController implements corpusInterface {
      * 获取专题数量
      */
     async count(req: Request, res: Response, next: NextFunction) {
-        let params: any = req.query;
+        const params: any = req.query;
         try {
             const count = await Corpus.count(params);
             res.json({
                 "meta": {
                     "code": 200,
-                    "message": '获取全部成功'
+                    "message": "获取全部成功"
                 },
                 "data": {
                     "total": count
                 }
             });
         } catch (err) {
-            console.log('通过文集ID获取文集信息失败', err);
+            console.log("通过文集ID获取文集信息失败", err);
             res.json({
                 "meta": {
                     "code": 404,
-                    "message": '没有找到指定专题'
+                    "message": "没有找到指定专题"
                 }
             });
         }
@@ -252,29 +216,29 @@ class CorpusController implements corpusInterface {
      */
     async search(req: Request, res: Response, next: NextFunction) {
         const {page = 1, limit = 10} = req.query;
-        let params: any = req.query;
+        const params: any = req.query;
         try {
             const count = await Corpus.count(params);
             const corpus = await Corpus.find(params)
-                .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}})
-                .populate({path: 'editors.editor', select: {nickname: 1, avatar: 1, _id: 1}})
-                .sort({'updatedAt': 'desc'})
+                .populate({path: "owner", select: {nickname: 1, avatar: 1, _id: 1}})
+                .populate({path: "editors.editor", select: {nickname: 1, avatar: 1, _id: 1}})
+                .sort({"updatedAt": "desc"})
                 .skip((Number(page) - 1) * Number(limit))
                 .limit(Number(limit));
             res.json({
                 "meta": {
                     "code": 200,
-                    "message": '获取全部成功'
+                    "message": "获取全部成功"
                 },
-                "data": _.map(corpus, formatData),
+                "data": _.map(corpus, (corpu: CorpusModel) => corpu.formatData()),
                 "total": count
             });
         } catch (err) {
-            console.log('通过获取全部专题信息失败', err);
+            console.log("通过获取全部专题信息失败", err);
             res.json({
                 "meta": {
                     "code": 404,
-                    "message": '没有找到指定专题'
+                    "message": "没有找到指定专题"
                 }
             });
         }
