@@ -3,7 +3,7 @@
  */
 
 export type userinfoInterface = {
-    slug: string;
+    slug?: string;
     nickname?: string;
     avatar?: string;
 };
@@ -14,7 +14,14 @@ export type userinfoInterface = {
  * @returns {{userinfoInterface}}
  */
 export function getUserinfo(user): userinfoInterface {
-    return Object.assign({"slug": user._doc._id}, user._doc, {"_id": undefined});
+    if (!user) {
+        return ;
+    }
+    return {
+        slug: user._id,
+        nickname: user.basic.nickname,
+        avatar: user.basic.avatar
+    };
 }
 
 /**

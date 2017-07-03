@@ -4,47 +4,45 @@
 <main class="g-container f-cb">
   <article class="g-main f-fl">
     <div class="main-top">
-      <a class="avatar" [routerLink]="['/user', '1']">
-        <img
-          src="//upload.jianshu.io/users/upload_avatars/1669869/21cc1916b6a4.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240"
-          alt="240">
+      <a class="avatar" [routerLink]="['/user', '595a4f28dd43e92554888e3f']">
+        <img [src]="user?.avatar" alt="240">
       </a>
       <a class="u-btn u-btn-success btn-follow"><i class="icon-follow"></i><span>关注</span></a>
       <a class="u-btn u-btn-success transparent btn-follow" href="/notifications#/chats/new?mail_to=1669869">发简信</a>
 
       <div class="title">
-        <a class="name" [routerLink]="['/user', '1']">顾一宸</a>
-        <i class="icon-man"></i>
-        <span class="author-tag"><i class="icon-write"></i> 签约作者</span>
+        <a class="name" [routerLink]="['/user', '595a4f28dd43e92554888e3f']">{{user?.nickname}}</a>
+        <i *ngIf="user?.gender != 0" [ngClass]="{'icon-man': user?.gender == 1, 'icon-woman': user?.gender == 2}"></i>
+        <span class="author-tag" *ngIf="user?.author != 0"><i class="icon-write"></i> {{user?.author}}</span>
       </div>
       <ul class="info">
         <li>
-            <a  class="meta-block" [routerLink]="['/user', '1', 'following']">
-              <p>30</p>
+            <a  class="meta-block" [routerLink]="['/user', '595a4f28dd43e92554888e3f', 'following']">
+              <p>{{user?.following_count}}</p>
               关注 <i class="icon-arrow"></i>
             </a>
         </li>
         <li>
-            <a  class="meta-block" [routerLink]="['/user', '1', 'followers']">
-              <p>20548</p>
+            <a  class="meta-block" [routerLink]="['/user', '595a4f28dd43e92554888e3f', 'followers']">
+              <p>{{user?.followers_count}}</p>
               粉丝 <i class="icon-arrow"></i>
             </a>
         </li>
         <li>
-            <a  class="meta-block" [routerLink]="['/user', '1']">
-              <p>227</p>
+            <a  class="meta-block" [routerLink]="['/user', '595a4f28dd43e92554888e3f']">
+              <p>{{user?.article_count}}</p>
               文章 <i class="icon-arrow"></i>
             </a>
         </li>
         <li>
           <div class="meta-block">
-            <p>590231</p>
+            <p>{{user?.total_wordage}}</p>
             字数
           </div>
         </li>
         <li>
           <div class="meta-block">
-            <p>53106</p>
+            <p>{{user?.total_likes_count}}</p>
             收获喜欢
           </div>
         </li>
@@ -68,12 +66,12 @@
     </dl>
     <dl class="user-dynamic">
       <dd class="list">
-        <a [routerLink]="['/user', '1', 'subscriptions']">
+        <a [routerLink]="['/user', '595a4f28dd43e92554888e3f', 'subscriptions']">
           <i class="icon-collection"></i> <span>他关注的专题/文集</span>
         </a>
       </dd>
       <dd>
-        <a [routerLink]="['/user', '1', 'liked_article']">
+        <a [routerLink]="['/user', '595a4f28dd43e92554888e3f', 'liked_article']">
           <i class="icon-like"></i> <span>他喜欢的文章</span>
         </a>
       </dd>

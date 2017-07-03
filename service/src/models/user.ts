@@ -5,7 +5,7 @@
 /**
  * 引入依赖
  */
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from "bcrypt";
 import * as mongoose from "mongoose";
 
 /**
@@ -39,7 +39,7 @@ export type UserModel = mongoose.Document & {
     };
     token: String    // 登陆前面
     comparePassword: (candidatePassword: String, callback: (err: any, isMatch: boolean) => any) => void;  // 验证密码
-    gravatar: (size: number) => String   //获取头像
+    gravatar: (size: number) => String   // 获取头像
 };
 
 /**
@@ -60,9 +60,6 @@ export type AuthToken = {
 };
 
 const userSchema = new mongoose.Schema({
-    slug: {
-      type: String
-    },
     username: {    // 登陆账号
         type: String,
         unique: true, // 不可重复约束
@@ -75,13 +72,13 @@ const userSchema = new mongoose.Schema({
     status: {  // 用户状态  0 不存在（注销） 1 启用 2 黑名单
         type: Number,
         required: true,
-        enum: [0, 1, 2],
-        default: 0
+        "enum": [0, 1, 2],
+        "default": 0
     },
     author: {    // 作者身份  0 普通作者 1 签约作者 2 金牌作者
         type: String,
-        enum: ["0", "1", "2"],
-        default: "0"
+        "enum": ["0", "1", "2"],
+        "default": "0"
     },
     tokens: [{
         accessToken: String,
@@ -93,11 +90,11 @@ const userSchema = new mongoose.Schema({
         status: String    // 认证状态 0 未认证 1 已认证 2 已注销
     }],
     profile: {
-        gender: {
+        gender: {  // 性别 0 保密 1 男 2 女
             type: Number,
             required: true,
-            enum: [0, 1, 2],
-            'default': 0
+            "enum": [0, 1, 2],
+            "default": 0
         },
         location: String,
         intro: String,
@@ -105,7 +102,7 @@ const userSchema = new mongoose.Schema({
         homepage: String,
         country_code: {
             type: String,
-            'default': 'cn'
+            "default": "cn"
         }
     },
     basic: {
@@ -119,16 +116,16 @@ const userSchema = new mongoose.Schema({
         avatar: String,
         locale: {
             type: String,
-            'default': 'zh-CN'
+            "default": "zh-CN"
         },
         chats_notify: {
             type: Boolean,
-            'default': true
+            "default": true
         },
         email_notify: {
             type: String,
-            'default': 'none',
-            enum: ['none', 'later', 'instantly']
+            "default": "none",
+            "enum": ["none", "later", "instantly"]
         }
     },
     token: String
@@ -151,12 +148,11 @@ userSchema.pre("save", function(next) {
                 return next(err);
             }
             user.password = hash;
-            user.slug = user._id;
             user.status = 1;
             user.auths.push({
-                key: 'mobile',
+                key: "mobile",
                 value: user.username,
-                status: '1'
+                status: "1"
             });
             next();
         });
@@ -166,7 +162,7 @@ userSchema.pre("save", function(next) {
 /**
  * 校验用户输入密码是否正确
  * @method comparePassword
- * @param password {String}  验证密码
+ * @param candidatePassword {String}  验证密码
  * @param callback {Function}  回调函数
  */
 userSchema.methods.comparePassword = function (candidatePassword?: string, callback?: any): any {

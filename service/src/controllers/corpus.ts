@@ -216,12 +216,12 @@ class CorpusController implements corpusInterface {
      */
     async search(req: Request, res: Response, next: NextFunction) {
         const {page = 1, limit = 10} = req.query;
-        const params: any = req.query;
+        const params: any = Object.assign(req.query, {t: undefined});
         try {
             const count = await Corpus.count(params);
             const corpus = await Corpus.find(params)
-                .populate({path: "owner", select: {nickname: 1, avatar: 1, _id: 1}})
-                .populate({path: "editors.editor", select: {nickname: 1, avatar: 1, _id: 1}})
+                .populate({path: "owner", select: {"basic.nickname": 1, "basic.avatar": 1, _id: 1}})
+                .populate({path: "editors.editor", select: {"basic.nickname": 1, "basic.avatar": 1, _id: 1}})
                 .sort({"updatedAt": "desc"})
                 .skip((Number(page) - 1) * Number(limit))
                 .limit(Number(limit));

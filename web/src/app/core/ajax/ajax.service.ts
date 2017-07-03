@@ -78,7 +78,7 @@ export class AppHttpProvider {
     }
 
     // get 请求
-    //get(url: string, options?: RequestOptionsArgs) : Observable<Response>
+    // get(url: string, options?: RequestOptionsArgs) : Observable<Response>
     get(url: string, parame?: object, options?: RequestOptionsArgs): Observable<Response> {
         return this.ajax('Get', url, parame, options);
     };
@@ -90,7 +90,7 @@ export class AppHttpProvider {
     }
 
     // put 请求
-    //put(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
+    // put(url: string, body: any, options?: RequestOptionsArgs) : Observable<Response>
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
         return this.ajax('Put', url, body, options);
     }

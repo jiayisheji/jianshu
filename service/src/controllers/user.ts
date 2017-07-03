@@ -4,55 +4,63 @@
  */
 import * as async from "async";
 import * as passport from "passport";
-import * as jwt from 'jsonwebtoken';
-import { default as User, UserModel, AuthToken } from "../models/user";
-import { LocalStrategyInfo } from "passport-local";
-import { Request, Response, NextFunction } from "express";
-import { WriteError } from "mongodb";
+import * as jwt from "jsonwebtoken";
+import {default as User, UserModel, AuthToken} from "../models/user";
+import {LocalStrategyInfo} from "passport-local";
+import {Request, Response, NextFunction} from "express";
+import {WriteError} from "mongodb";
 import * as _ from "lodash";
+import * as mongoose from "mongoose";
+import {Article} from "../../src - 副本/models/article";
 
 /**
  * 定义类接口
  */
-interface userInterface {
+export type userInterface = {
     login(req: Request, res: Response, next: NextFunction);
 
     logout(req: Request, res: Response, next: NextFunction);
 
     register(req: Request, res: Response, next: NextFunction);
 
-    find(req: Request, res: Response, next: NextFunction);
+    home(req: Request, res: Response, next: NextFunction);
 
     checkNickname(req: Request, res: Response, next: NextFunction);
-}
+
+    byId(req: Request, res: Response, next: NextFunction, id: string)
+};
+
 /**
  * 模板控制器
  */
-class UserController implements userInterface{
-    constructor(){}
+class UserController implements userInterface {
+    constructor() {
+    }
+
     /**
      * POST /login
      * 用户登陆
      */
-    async login(req: Request, res: Response, next: NextFunction){
+    async login(req: Request, res: Response, next: NextFunction) {
+        console.log(1);
         req.checkBody({
-            'username': {
+            "username": {
                 notEmpty: true,
                 isLength: {
-                    options: [{ min: 11, max: 11 }],
-                    errorMessage: '用户不是合法11位手机号' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 11, max: 11}],
+                    errorMessage: "用户不是合法11位手机号" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '用户名不能为空'
+                errorMessage: "用户名不能为空"
             },
-            'password': {
+            "password": {
                 notEmpty: true, // won't validate if field is empty
                 isLength: {
-                    options: [{ min: 6, max: 18 }],
-                    errorMessage: '密码长度不是6-18位' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 6, max: 18}],
+                    errorMessage: "密码长度不是6-18位" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '密码不能为空' // Error message for the parameter
+                errorMessage: "密码不能为空" // Error message for the parameter
             },
-        })
+        });
         const errors = req.validationErrors();
         if (errors) {
             res.json({
@@ -64,25 +72,25 @@ class UserController implements userInterface{
             return;
         }
         try {
-            const user:any = await User.findOne({username: req.body.username});
+            const user: any = await User.findOne({username: req.body.username});
             if (!user) {
                 res.json({
                     "meta": {
                         "code": 422,
-                        "message": '用户不存在'
+                        "message": "用户不存在"
                     }
                 });
             }
-            user.comparePassword(req.body.password, (err:Error, isMatch: boolean) => {
+            user.comparePassword(req.body.password, (err, isMatch: boolean) => {
                 if (err) {
                     return next(err);
-                };
+                }
                 if (isMatch) {
-                    var token = jwt.sign({ username: user.username }, 'jiayishejijianshu', {
+                    const token = jwt.sign({username: user.username}, "jiayishejijianshu", {
                         expiresIn: "7 days"  // token到期时间设置 1000, "2 days", "10h", "7d"
                     });
                     user.token = token;
-                    user.save(function (err:any) {
+                    user.save(function (err) {
                         if (err) {
                             return next(err);
                         }
@@ -111,11 +119,11 @@ class UserController implements userInterface{
                 }
             });
         } catch (err) {
-            console.log('登陆信息失败', err);
+            console.log("登陆信息失败", err);
             res.json({
                 "meta": {
                     "code": 404,
-                    "message": '没有找到指定用户'
+                    "message": "没有找到指定用户"
                 }
             });
         }
@@ -125,24 +133,22 @@ class UserController implements userInterface{
      * POST /logout
      * 检查注册昵称
      */
-    async checkNickname(req: Request, res: Response, next: NextFunction){
+    async checkNickname(req: Request, res: Response, next: NextFunction) {
         req.checkBody({
-            'nickname': {
+            "nickname": {
                 notEmpty: true,
                 isLength: {
-                    options: [{ min: 2, max: 10 }],
-                    errorMessage: '昵称长度不是2-10位' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 2, max: 10}],
+                    errorMessage: "昵称长度不是2-10位" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '昵称不能为空'
+                errorMessage: "昵称不能为空"
             }
         });
         req.getValidationResult().then(function (result: any) {
-            console.log(result.array())
-            console.log(result.mapped())
             if (!result.isEmpty()) {
                 let message = "未知错误";
                 if (result.mapped().nickname) {
-                    message = result.mapped().nickname.msg
+                    message = result.mapped().nickname.msg;
                 }
                 res.json({
                     "meta": {
@@ -153,11 +159,11 @@ class UserController implements userInterface{
                 return;
             }
             User.findOne({
-                'basic.nickname': req.body.nickname
+                "basic.nickname": req.body.nickname
             }).exec((err: any, user: UserModel) => {
                 if (err) {
                     return next(err);
-                };
+                }
                 if (!user) {
                     res.json({
                         "meta": {
@@ -181,24 +187,22 @@ class UserController implements userInterface{
      * POST /logout
      * 检查手机号
      */
-    async checkUsername(req: Request, res: Response, next: NextFunction){
+    async checkUsername(req: Request, res: Response, next: NextFunction) {
         req.checkBody({
-            'username': {
+            "username": {
                 notEmpty: true,
                 isLength: {
-                    options: [{ min: 11, max: 11 }],
-                    errorMessage: '用户不是合法11位手机号' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 11, max: 11}],
+                    errorMessage: "用户不是合法11位手机号" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '用户名不能为空'
+                errorMessage: "用户名不能为空"
             }
         });
         req.getValidationResult().then(function (result: any) {
-            console.log(result.array())
-            console.log(result.mapped())
             if (!result.isEmpty()) {
                 let message = "未知错误";
                 if (result.mapped().username) {
-                    message = result.mapped().username.msg
+                    message = result.mapped().username.msg;
                 }
                 res.json({
                     "meta": {
@@ -209,11 +213,11 @@ class UserController implements userInterface{
                 return;
             }
             User.findOne({
-                'username': req.body.username
-            }).exec((err: any, user: UserModel) => {
+                "username": req.body.username
+            }).exec((err, user: UserModel) => {
                 if (err) {
                     return next(err);
-                };
+                }
                 if (!user) {
                     res.json({
                         "meta": {
@@ -237,31 +241,31 @@ class UserController implements userInterface{
      * POST /register
      * 用户注册
      */
-    async register(req: Request, res: Response, next: NextFunction){
+    async register(req: Request, res: Response, next: NextFunction) {
         req.checkBody({
-            'nickname': {
+            "nickname": {
                 notEmpty: true,
                 isLength: {
-                    options: [{ min: 2, max: 10 }],
-                    errorMessage: '昵称长度不是2-10位' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 2, max: 10}],
+                    errorMessage: "昵称长度不是2-10位" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '昵称不能为空'
+                errorMessage: "昵称不能为空"
             },
-            'username': {
+            "username": {
                 notEmpty: true,
                 isLength: {
-                    options: [{ min: 11, max: 11 }],
-                    errorMessage: '用户不是合法11位手机号' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 11, max: 11}],
+                    errorMessage: "用户不是合法11位手机号" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '用户名不能为空'
+                errorMessage: "用户名不能为空"
             },
-            'password': {
-                notEmpty: true, // won't validate if field is empty
+            "password": {
+                notEmpty: true, // won"t validate if field is empty
                 isLength: {
-                    options: [{ min: 6, max: 18 }],
-                    errorMessage: '密码长度不是6-18位' // Error message for the validator, takes precedent over parameter message
+                    options: [{min: 6, max: 18}],
+                    errorMessage: "密码长度不是6-18位" // Error message for the validator, takes precedent over parameter message
                 },
-                errorMessage: '密码不能为空' // Error message for the parameter
+                errorMessage: "密码不能为空" // Error message for the parameter
             }
         });
         const errors = req.validationErrors();
@@ -274,17 +278,17 @@ class UserController implements userInterface{
             });
             return;
         }
-        const user:any = await User.findOne({
+        const user: any = await User.findOne({
             $or: [
                 {
                     username: req.body.username
                 },
                 {
-                    'basic.nickname': req.body.nickname
+                    "basic.nickname": req.body.nickname
                 }
             ]
         });
-        if(user){
+        if (user) {
             res.json({
                 "meta": {
                     "code": 422,
@@ -293,10 +297,10 @@ class UserController implements userInterface{
             });
             return;
         }
-        var token = jwt.sign({ username: req.body.username.username }, 'jiayishejijianshu', {
+        const token = jwt.sign({username: req.body.username.username}, "jiayishejijianshu", {
             expiresIn: "7 days"  // token到期时间设置 1000, "2 days", "10h", "7d"
         });
-        var newUser = new User({
+        const newUser = new User({
             basic: {
                 nickname: req.body.nickname
             },
@@ -305,7 +309,7 @@ class UserController implements userInterface{
             token: token
         });
         // 保存用户账号
-        newUser.save((err, users:UserModel) => {
+        newUser.save((err, users: UserModel) => {
             if (err) {
                 return next(err);
             }
@@ -331,19 +335,21 @@ class UserController implements userInterface{
      * GET /logout
      * 退出
      */
-    async logout(req: Request, res: Response, next: NextFunction){
-        if((req as any).isAuthenticated()){
-            User.update({_id: (req as any).user._id}, { token: undefined})
-                .exec((err:any, user: UserModel) => {
-                    if (err) { return next(err); }
+    async logout(req: Request, res: Response, next: NextFunction) {
+        if ((req as any).isAuthenticated()) {
+            User.update({_id: (req as any).user._id}, {token: undefined})
+                .exec((err: any, user: UserModel) => {
+                    if (err) {
+                        return next(err);
+                    }
                     if (!user) {
                         res.json({
                             "meta": {
                                 "code": 422,
-                                "message": '用户不存在'
+                                "message": "用户不存在"
                             }
                         });
-                        return ;
+                        return;
                     }
                     (req as any).logout();
                     res.json({
@@ -360,12 +366,66 @@ class UserController implements userInterface{
      * GET /user/:id
      * 获取一个
      */
-    async find(req: Request, res: Response, next: NextFunction) {
+    async home(req: Request, res: Response, next: NextFunction) {
+        const userinfo = (req as any).userinfo;
+        const article_count = await Article.count({author: userinfo._id});
+        res.json({
+            "meta": {
+                "code": 200,
+                "message": "查询成功"
+            },
+            "data": {
+                "nickname": userinfo.basic.nickname,
+                "avatar": userinfo.basic.avatar,
+                "slug": userinfo._id,
+                "author": userinfo.author,
+                "intro": userinfo.profile.intro,
+                "gender": userinfo.profile.gender,
+                article_count,
+                "total_wordage": 100,   // 总字数
+                "followers_count": 200,    // 粉丝数
+                "total_likes_count": 100,  // 收获喜欢
+                "following_count": 50  // 关注数
+            }
+        });
     }
 
+    /**
+     * 获取查询id
+     * @param {e.Request} req
+     * @param {Response} res
+     * @param {e.NextFunction} next
+     * @returns {Promise<void>}
+     */
+    async byId(req: Request, res: Response, next: NextFunction, id: string) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.json({
+                "meta": {
+                    "code": 400,
+                    "message": "用户id不对"
+                }
+            });
+        }
+        try {
+            const userinfo = await User.findOne({_id: id, status: 1});
+            if (!userinfo) {
+                return res.json({
+                    "meta": {
+                        "code": 404,
+                        "message": "有找到指定用户"
+                    }
+                });
+            }
+            (req as any).userinfo = userinfo;
+            next();
+        } catch (err) {
+            return next(err);
+        }
+    }
 
 }
+
 /**
  * 导出模块
  */
-export default new UserController()
+export default new UserController();
