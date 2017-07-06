@@ -7,7 +7,7 @@ import { FollowingComponent } from './following';
 import { ROUTER_CONFIG } from './user.routes';
 import { LikedArticleComponent } from './liked-article/liked-article.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
-
+import { UserDetailResolver } from './user-detail.service';
 @NgModule({
   imports: [
     SharedModule,
@@ -20,6 +20,9 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     FollowingComponent,
     LikedArticleComponent,
     SubscriptionsComponent
+  ],
+  providers: [
+    UserDetailResolver
   ]
 })
 export class UserModule { }

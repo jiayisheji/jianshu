@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {Route, Router, ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
+import {Injectable} from '@angular/core';
+import {Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
 import {AppHttpProvider} from '../../core/ajax';
-import {Observable} from 'rxjs/Observable';
-
+import {Observable, Subscribable} from 'rxjs/Observable';
+import 'rxjs/add/operator/first'
 /**
  * 定义user 接口
  */
@@ -35,33 +35,27 @@ export class User {
   }
 }
 
-@Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
-})
-export class UserComponent implements OnInit {
-  user: userInterceptor;
-  collections: object;
-
-  constructor(private ajax: AppHttpProvider, private route: ActivatedRoute, private router: Router) {
+@Injectable()
+export class UserDetailResolver implements Resolve<User> {
+  constructor(private ajax: AppHttpProvider, private router: Router) {
   }
 
-  ngOnInit() {
-    const param = '595a4f28dd43e92554888e3f';
-    this.route.data
-      .subscribe((data: {user: userInterceptor}) => {
-        console.log(data);
-        this.user = data.user;
-      });
-
-    console.log(this.route.data)
-
-    this.ajax.get('/collections', {userhome: param}).subscribe((data: any) => {
-      console.log(data);
-      if (data.meta.code === 200) {
-        this.collections = data.data;
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    return this.ajax.get(`/user/${route.params['id']}/home`).map((data: any) => {
+      if (data.meta && data.meta.code === 200) {
+        return data.data;
+      } else {
+        this.router.navigate(['/404']);
+        return false;
       }
-    });
+    }).first();
+    /*.subscribe((data: any) => {
+      if (data.meta && data.meta.code === 200) {
+        return data.data;
+      } else {
+        this.router.navigate(['/404']);
+        return false;
+      }
+    });*/
   }
 }

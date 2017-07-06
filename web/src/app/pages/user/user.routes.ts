@@ -13,10 +13,15 @@ import { LikedArticleComponent } from './liked-article/liked-article.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
 
+import { UserDetailResolver } from './user-detail.service';
+
 export const routes: Routes = [
   { path: '', component: NotFoundComponent },
   {
     path: ':id', component: UserComponent,
+    resolve: {
+      user: UserDetailResolver
+    },
     children: [
       { path: '', component: DetailComponent},
       { path: 'followers', component: FollowersComponent},
