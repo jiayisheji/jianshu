@@ -3,12 +3,12 @@
 </a>
 <div class="content">
     <div class="author">
-        <a class="avatar" [routerLink]="['/user', item.author.id]">
+        <a class="avatar" [routerLink]="['/user', item.author.slug]">
             <img [src]="item.author.avatar" *ngIf="item.author.avatar">
             <img src="../assets/images/avatar_defaul.png" *ngIf="!item.author.avatar">
         </a>
         <div class="name">
-            <a class="blue-link" [routerLink]="['/user', item.author.id]">{{item.author.nickname}}</a>
+            <a class="blue-link" [routerLink]="['/user', item.author.slug]">{{item.author.nickname}}</a>
             <span class="time">{{item.author.time | date:"yyyy/MM/dd"}}</span>
         </div>
     </div>

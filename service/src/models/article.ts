@@ -23,7 +23,8 @@ export type ArticleModel = mongoose.Document & {
     views_count: Number; // 阅读数
     comments_count: Number; // 评论数
     likes_count: Number;  // 喜欢数
-    wordage: Number; //字数
+    wordage: Number; // 字数
+    formatData: (data: ArticleModel, callback: (err: Error, results: Object) => any) => void
 };
 
 const articleSchema = new Schema({
@@ -34,12 +35,12 @@ const articleSchema = new Schema({
         type: String,
         minlength: 1,   // 最小1个字符
         maxlength: 20,  // 最大20个字符
-        //unique: true,  // 不可重复约束
+        // unique: true,  // 不可重复约束
         required: true
     },
     views_count: {   // 阅读量
       type: Number,
-      default: 0
+      "default": 0
     },
     content: { // 内容
         type: String,
@@ -53,31 +54,34 @@ const articleSchema = new Schema({
     },
     author: {   // 作者
         type: Schema.Types.ObjectId,    // 引用类型
-        ref: 'User'                     // 关联用户表
+        ref: "User"                     // 关联用户表
     },
     published: {   // 是否发布
         type: Boolean,
-        'default': false
+        "default": false
     }
 }, {timestamps: true});
 
 /**
  * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
  */
+/*
 articleSchema.pre("save", function save(next) {
     const article = this;
     article.slug = article._id;
     return next();
 });
+*/
 
 /**
- * 校验用户输入密码是否正确
- * @method comparePassword
- * @param password {String}  验证密码
- * @param callback {Function}  回调函数
+ * 格式化数据
+ * @method  formatData
+ * @param {ArticleModel} data
+ * @param callback
+ * @returns {ArticleModel}
  */
-articleSchema.methods.comparePassword = function (candidatePassword?: string, callback?: any): any {
-
+articleSchema.methods.formatData = function (data: ArticleModel, callback?: any): any {
+    return data;
 };
 
 export default mongoose.model("Article", articleSchema);
