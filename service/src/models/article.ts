@@ -6,6 +6,7 @@
  * 引入依赖
  */
 import * as mongoose from "mongoose";
+import {formatDate, getUserinfo} from "../controllers/utility";
 const Schema = mongoose.Schema;
 
 /**
@@ -14,23 +15,23 @@ const Schema = mongoose.Schema;
 export type ArticleModel = mongoose.Document & {
     createdAt: Date;   // 创建时间
     updatedAt: Date;   // 更新时间
+    corpus: [Object];  // 被收录专题
     title: String;    // 标题
-    slug: String;
-    content: String;
-    author: Object;
-    published: Boolean;
+    slug: String;     // 文章标示
+    content: String;  // 文章内容
+    books: Object;   // 属于那个文集
+    author: Object;   // 作者
+    published: Boolean;  // 是否发布
     abstract: String; // 简介
     views_count: Number; // 阅读数
     comments_count: Number; // 评论数
     likes_count: Number;  // 喜欢数
-    wordage: Number; // 字数
-    formatData: (data: ArticleModel, callback: (err: Error, results: Object) => any) => void
+    wordage: Number;    // 字数
+    isActive: Boolean;  // 软删除
+    formatData: () => ArticleModel;
 };
 
 const articleSchema = new Schema({
-    slug: {
-        type: String
-    },
     title: { // 标题
         type: String,
         minlength: 1,   // 最小1个字符
@@ -56,9 +57,25 @@ const articleSchema = new Schema({
         type: Schema.Types.ObjectId,    // 引用类型
         ref: "User"                     // 关联用户表
     },
+    books: {
+        type: Schema.Types.ObjectId,    // 引用类型
+        ref: "Books"                     // 关联文集表
+    },
+    corpus: [   // 被收录的专题
+        {
+            corpu: {
+                type: Schema.Types.ObjectId,      // 引用类型
+                ref: "Corpus"                     // 关联专题表
+            }
+        }
+    ],
     published: {   // 是否发布
         type: Boolean,
         "default": false
+    },
+    isActive: {   // 是否删除
+        type: Boolean,
+        "default": true
     }
 }, {timestamps: true});
 
@@ -81,7 +98,18 @@ articleSchema.pre("save", function save(next) {
  * @returns {ArticleModel}
  */
 articleSchema.methods.formatData = function (data: ArticleModel, callback?: any): any {
-    return data;
+    return {
+        "slug": this._id,
+        "updatedAt": formatDate(this.updatedAt),
+        "createdAt": formatDate(this.createdAt),
+        "author": getUserinfo(this.author),
+        "title": this.title,
+        "avatar": this.avatar,
+        "wordage": this.wordage,
+        "views_count": this.views_count,
+        "abstract": this.abstract,
+        "content": this.content
+    };
 };
 
-export default mongoose.model("Article", articleSchema);
+export default mongoose.model("Articles", articleSchema);

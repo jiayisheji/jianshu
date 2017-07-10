@@ -13,9 +13,9 @@ export type userinfoInterface = {
  * @param data
  * @returns {{userinfoInterface}}
  */
-export function getUserinfo(user): userinfoInterface {
+export function getUserinfo(user: any): userinfoInterface {
     if (!user) {
-        return ;
+        return;
     }
     return {
         slug: user._id,
@@ -29,6 +29,9 @@ export function getUserinfo(user): userinfoInterface {
  * @param date
  * @returns {string}
  */
-export function formatDate(date): string {
+export function formatDate(date: Date): string | void {
+    if (!date) {
+        return;
+    }
     return new Date(date).toLocaleString();
 }

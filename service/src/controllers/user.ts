@@ -2,16 +2,13 @@
  * 用户模板
  * Created by jiayi on 2017/6/20.
  */
-import * as async from "async";
-import * as passport from "passport";
 import * as jwt from "jsonwebtoken";
-import {default as User, UserModel, AuthToken} from "../models/user";
+import {default as User, UserModel} from "../models/user";
 import {LocalStrategyInfo} from "passport-local";
 import {Request, Response, NextFunction} from "express";
-import {WriteError} from "mongodb";
-import * as _ from "lodash";
 import * as mongoose from "mongoose";
-import {Article} from "../../src - 副本/models/article";
+import {default as Article} from "./article";
+
 
 /**
  * 定义类接口
