@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ArticleListService } from './article-list.service';
 import { Subscription } from 'rxjs/Subscription';
+import {ArticleItem} from './article-item';
 
 @Component({
   selector: 'app-article-list',
@@ -12,10 +13,10 @@ import { Subscription } from 'rxjs/Subscription';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleListComponent implements OnInit, OnChanges{
-  @Input('request') request: string = "/";
+  @Input('request') request: string = '/';
   public isScrolled: boolean = false;
   public isScroll: boolean = false;
-  public articleList: Array<any> = [];
+  public articleList: Array<ArticleItem> = [];
   public loading: boolean = true;
   private disposeArticle: Subscription;
   constructor(private articleListService:ArticleListService) { }
@@ -23,6 +24,7 @@ export class ArticleListComponent implements OnInit, OnChanges{
     console.log(this.request)
   }
   ngOnChanges(changes: SimpleChanges) {
+    this.articleList = [];
     this.getArticle(this.request)
     console.log(this.request, changes)
   }
