@@ -63,9 +63,14 @@
     margin: 0;
     padding: 0;
     list-style: none;
+    margin-left: -15px;
   & > li{
     float: left;
     margin-right: 10px;
+    &.active a{
+      color: #ea6f5a;
+      background: none;
+    }
     & > a{
       display: inline-block;
       height: 56px;
@@ -73,6 +78,10 @@
       padding: 15px;
       font-size: 16px;
       color: #333;
+      &:hover{
+        color: #333;
+        background-color: #f5f5f5;
+      }
       & > i{
         font-size: 20px;
         vertical-align: middle;

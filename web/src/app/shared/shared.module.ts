@@ -13,6 +13,7 @@ import { ArticlePlaceholderComponent } from './article-placeholder/article-place
 import { UserPlaceholderComponent } from './user-placeholder/user-placeholder.component';
 import { RecommendUsersComponent } from './recommend-users/recommend-users.component';
 import { ArticleListComponent } from './article-list/article-list.component';
+import { VerifySliderbarComponent } from './verify-sliderbar/verify-sliderbar.component';
 /**
  * 滚动加载
  */
@@ -40,7 +41,8 @@ import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
     UserPlaceholderComponent,
     RecommendUsersComponent,
     ArticleListComponent,
-    DropdownDirective
+    DropdownDirective,
+    VerifySliderbarComponent
   ],
   exports: [
     CommonModule,
@@ -52,7 +54,8 @@ import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
     UserPlaceholderComponent,
     RecommendUsersComponent,
     ArticleListComponent,
-    DropdownDirective
+    DropdownDirective,
+    VerifySliderbarComponent
   ]
 })
 export class SharedModule { }

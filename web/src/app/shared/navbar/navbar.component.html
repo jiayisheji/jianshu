@@ -3,19 +3,19 @@
 </h1>
 <nav class="g-container" role="navigation">
     <ul class="m-nav f-fl" *ngIf="isLogin">
-        <li class="active">
+        <li routerLinkActive="active">
             <a routerLink="/">
                 <i class="icon-navigation-discover menu-icon"></i>
                 <span class="menu-text">发现</span>
             </a>
         </li>
-        <li class="">
+        <li routerLinkActive="active">
             <a routerLink="/subscriptions">
                 <i class="icon-navigation-follow menu-icon"></i>
                 <span class="menu-text">关注</span>
             </a>
         </li>
-        <li class="notification" dropdown>
+        <li routerLinkActive="active" class="notification" dropdown>
             <a class="dropdown-toggle" routerLink="/notifications" class="notification-btn">
                 <i class="icon-navigation-notification menu-icon"></i>
                 <span class="menu-text">消息</span>
@@ -31,13 +31,13 @@
         </li>
     </ul>
     <ul class="m-nav f-fl" *ngIf="!isLogin">
-        <li class="">
+        <li routerLinkActive="active">
             <a routerLink="/">
                 <i class="icon-navigation-discover menu-icon"></i>
                 <span class="menu-text">首页</span>
             </a>
         </li>
-        <li class="">
+        <li>
             <a class="app-download-btn" routerLink="/apps">
                 <i class="icon-navigation-download menu-icon"></i>
                 <span class="menu-text">下载App</span>
