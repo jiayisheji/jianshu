@@ -18,7 +18,7 @@ export type UserModel = mongoose.Document & {
     updatedAt: Date;   // 更新时间
     username: String; // 登陆账号
     password: String; // 登陆密码
-    status: Number;  // 用户状态
+    status: String;  // 用户状态
     tokens: AuthToken[];  // 第三方认证
     auths: AuthList[];  // 实名认证
     profile: {        // 个人资料
@@ -70,10 +70,10 @@ const userSchema = new mongoose.Schema({
         require: true // 不可为空约束
     },
     status: {  // 用户状态  0 不存在（注销） 1 启用 2 黑名单
-        type: Number,
+        type: String,
         required: true,
-        "enum": [0, 1, 2],
-        "default": 0
+        "enum": ["0", "1", "2"],
+        "default": "0"
     },
     author: {    // 作者身份  0 普通作者 1 签约作者 2 金牌作者
         type: String,
@@ -91,10 +91,9 @@ const userSchema = new mongoose.Schema({
     }],
     profile: {
         gender: {  // 性别 0 保密 1 男 2 女
-            type: Number,
-            required: true,
-            "enum": [0, 1, 2],
-            "default": 0
+            type: String,
+            "enum": ["0", "1", "2"],
+            "default": "0"
         },
         location: String,
         intro: String,
