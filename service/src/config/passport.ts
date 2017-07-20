@@ -2,17 +2,19 @@
  * Created by jiayi on 2017/6/20.
  */
 import * as passport from "passport";
-import * as jwt from 'jsonwebtoken';
-import * as passportBearer from 'passport-http-bearer';
+import * as jwt from "jsonwebtoken";
+import * as passportBearer from "passport-http-bearer";
+
 const Strategy = passportBearer.Strategy;
 
 /**
  * 注册web端用户权限
  */
 import {default as User} from "../models/user";
-passport.use('user', new Strategy(function (token, done) {
-    jwt.verify(token, 'jiayishejijianshu', function(err, decoded) {
-        if(!decoded){
+
+passport.use("user", new Strategy(function (token, done) {
+    jwt.verify(token, "jiayishejijianshu", function (err, decoded) {
+        if (!decoded) {
             return done(null, false);
         }
         User.findOne({
