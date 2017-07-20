@@ -95,7 +95,7 @@ export class VerifySliderbarComponent implements OnInit, OnDestroy, AfterViewIni
       this.renderer2.addClass(this.element.nativeElement, 'slide_ok');
       this.dragText.innerHTML = '验证成功';
       this.checked.emit(true);
-      this.dispose.completed();
+      this.dispose.complete();
     } else {
       left = pos.x - this.elementLeft.x;
     }
