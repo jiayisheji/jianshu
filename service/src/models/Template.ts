@@ -5,7 +5,7 @@
 /**
  * 引入依赖
  */
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 /**
  * 定义接口
@@ -30,7 +30,7 @@ const templateSchema = new Schema({
 /**
  * Schema 操作中间件
  */
-templateSchema.pre("save", function save(next) {
+templateSchema.pre('save', function save(next) {
     const books = this;
     books.slug = books._id;
     return next();
@@ -39,11 +39,11 @@ templateSchema.pre("save", function save(next) {
 /**
  * 添加方法
  * @method comparePassword
- * @param password {String}  验证密码
+ * @param Password {String}  验证密码
  * @param callback {Function}  回调函数
  */
-templateSchema.methods.comparePassword = function(candidatePassword?: string, callback?: any): any {
+/*templateSchema.methods.comparePassword = function(candidatePassword?: string, callback?: any): any {
 
-};
+};*/
 
-export default mongoose.model("Template", templateSchema)
+// export default mongoose.model('Template', templateSchema);
