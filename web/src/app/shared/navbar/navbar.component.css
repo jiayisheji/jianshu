@@ -60,10 +60,9 @@
   }
 }
 .m-nav{
-    margin: 0;
     padding: 0;
     list-style: none;
-    margin-left: -15px;
+    margin: 0 0 0 -15px;
   & > li{
     float: left;
     margin-right: 10px;

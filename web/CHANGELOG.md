@@ -11,6 +11,16 @@
 ### Notes（注释）
 ```
 
+## 1.0.0alpha4 （2017-07-30）
+### Features
+- 升级node版本到8.2.1
+- 升级npm版本到5.3.0（升级到node会自动升级）
+- 升级@angular/cli到1.2.6（目前还不支持postcss，如有想支持可以看[教程](https://github.com/jiayisheji/jianshu/blob/master/doc/web%E5%88%9D%E5%A7%8B%E5%8C%96.md)，最下面）
+- 升级angular版本到4.3.2（4.3以上添加新的http模块，可以添加http拦截器）
+### Bug Fixes
+### Notes
+注意：升级node8之后，直接启动项目，会报`node-sass`错误，让你安装这个`npm rebuild node-sass --force`，一定要记得安装。切记切记切记
+
 ## 1.0.0alpha3 （2017-07-10）
 ### Features
 - 用户主页完善，使用Resolve传递参数验证slug正确性

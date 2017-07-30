@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "./root.css";
-
-
-
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -12,7 +9,7 @@ html {
 
 
 body, html{
-  @apply --block-full-screen;
+  @apply --full-screen;
 }
 
 body {
@@ -26,7 +23,7 @@ body {
   -webkit-background-size: cover;
   background-size: cover;
   & a{
-    @apply --block;
+    display: block;
     overflow: hidden;
     height: 0;
   }
@@ -46,7 +43,7 @@ body {
 }
 @custom-selector :--block article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary;
 :--block {
-  @apply --block;
+  display: block;
 }
 
 
