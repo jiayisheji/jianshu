@@ -2,16 +2,16 @@
  * 文集控制器
  * Created by jiayi on 2017/6/18.
  */
-import * as async from "async";
+import * as async from 'async';
 import * as _ from 'lodash';
-import * as mongoose from "mongoose";
-import {default as Books, BooksModel} from "../models/books";
-import {Request, Response, NextFunction} from "express";
+import * as mongoose from 'mongoose';
+import {default as Books, BooksModel} from '../models/books';
+import {Request, Response, NextFunction} from 'express';
 
 /**
  * 定义类接口
  */
-interface booksInterface {
+interface BooksInterface {
     save(req: Request, res: Response, next: NextFunction);
 
     find(req: Request, res: Response, next: NextFunction);
@@ -25,7 +25,7 @@ interface booksInterface {
     remove(req: Request, res: Response, next: NextFunction);
 }
 
-interface userinfoInterface{
+interface userinfoInterface {
     slug: string;
     nickname?: string;
     avatar?: string;
@@ -37,7 +37,7 @@ interface userinfoInterface{
  * @returns {{userinfoInterface}}
  */
 const getUserinfo = function (data: any): userinfoInterface {
-    return Object.assign({"slug": data._doc._id}, data._doc, {"_id": undefined})
+    return Object.assign({'slug': data._doc._id}, data._doc, {'_id': undefined})
 };
 
 /**
@@ -47,18 +47,18 @@ const getUserinfo = function (data: any): userinfoInterface {
  */
 const formatData = function (data: any): Object {
     return {
-        "slug": data._id,
-        "updatedAt": new Date(data.updatedAt).toLocaleString(),
-        "createdAt": new Date(data.createdAt).toLocaleString(),
-        "owner": getUserinfo(data.owner),
-        "title": data.title
+        'slug': data._id,
+        'updatedAt': new Date(data.updatedAt).toLocaleString(),
+        'createdAt': new Date(data.createdAt).toLocaleString(),
+        'owner': getUserinfo(data.owner),
+        'title': data.title
     };
 }
 
 /**
  * 文集控制器
  */
-class BooksController implements booksInterface {
+class BooksController implements BooksInterface {
     constructor() {
     }
 
@@ -72,20 +72,20 @@ class BooksController implements booksInterface {
     async byId(req: Request, res: Response, next: NextFunction, id: string) {
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.json({
-                "meta": {
-                    "code": 422,
-                    "message": '文集id不对'
+                'meta': {
+                    'code': 422,
+                    'message': '文集id不对'
                 }
             });
         }
         try {
             const books = await Books.findById(id)
                 .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}});
-            if(!books){
+            if (!books) {
                 return res.json({
-                    "meta": {
-                        "code": 404,
-                        "message": '没有找到指定文集'
+                    'meta': {
+                        'code': 404,
+                        'message': '没有找到指定文集'
                     }
                 });
             }
@@ -103,9 +103,9 @@ class BooksController implements booksInterface {
     async save(req: Request, res: Response, next: NextFunction) {
         if ((req as any).isAuthenticated()) {
             res.json({
-                "meta": {
-                    "code": 403,
-                    "message": "未登陆"
+                'meta': {
+                    'code': 403,
+                    'message': '未登陆'
                 }
             });
             return;
@@ -123,14 +123,14 @@ class BooksController implements booksInterface {
 
         req.getValidationResult().then(function (result: any) {
             if (!result.isEmpty()) {
-                let message = "未知错误";
+                let message = '未知错误';
                 if (result.mapped().title) {
                     message = result.mapped().title.msg
                 }
                 res.json({
-                    "meta": {
-                        "code": 422,
-                        "message": message
+                    'meta': {
+                        'code': 422,
+                        'message': message
                     }
                 });
                 return;
@@ -145,11 +145,11 @@ class BooksController implements booksInterface {
                     return next(err);
                 }
                 res.json({
-                    "meta": {
-                        "code": 200,
-                        "message": '添加成功'
+                    'meta': {
+                        'code': 200,
+                        'message': '添加成功'
                     },
-                    "data": formatData(books)
+                    'data': formatData(books)
                 });
             });
         }, function (errors: any) {
@@ -164,11 +164,11 @@ class BooksController implements booksInterface {
     async find(req: Request, res: Response, next: NextFunction) {
         const books = (req as any).books;
         res.json({
-            "meta": {
-                "code": 200,
-                "message": '查询成功'
+            'meta': {
+                'code': 200,
+                'message': '查询成功'
             },
-            "data": formatData(books)
+            'data': formatData(books)
         });
     }
 
@@ -179,18 +179,18 @@ class BooksController implements booksInterface {
     async updata(req: Request, res: Response, next: NextFunction) {
         if ((req as any).isAuthenticated()) {
             res.json({
-                "meta": {
-                    "code": 403,
-                    "message": "未登陆"
+                'meta': {
+                    'code': 403,
+                    'message': '未登陆'
                 }
             });
             return;
         }
         if (!req.params.id) {
             res.json({
-                "meta": {
-                    "code": 422,
-                    "message": "缺少文集id"
+                'meta': {
+                    'code': 422,
+                    'message': '缺少文集id'
                 }
             });
             return;
@@ -207,14 +207,14 @@ class BooksController implements booksInterface {
         });
         req.getValidationResult().then(function (result: any) {
             if (!result.isEmpty()) {
-                let message = "未知错误";
+                let message = '未知错误';
                 if (result.mapped().title) {
                     message = result.mapped().title.msg
                 }
                 res.json({
-                    "meta": {
-                        "code": 422,
-                        "message": message
+                    'meta': {
+                        'code': 422,
+                        'message': message
                     }
                 });
                 return;
@@ -226,17 +226,17 @@ class BooksController implements booksInterface {
                     }
                     if (!update.ok) {
                         res.json({
-                            "meta": {
-                                "code": 404,
-                                "message": '没有找到指定文集'
+                            'meta': {
+                                'code': 404,
+                                'message': '没有找到指定文集'
                             }
                         });
                         return;
                     }
                     res.json({
-                        "meta": {
-                            "code": 201,
-                            "message": '修改成功'
+                        'meta': {
+                            'code': 201,
+                            'message': '修改成功'
                         }
                     });
                 });
@@ -250,9 +250,9 @@ class BooksController implements booksInterface {
      * 获取全部
      */
     async search(req: Request, res: Response, next: NextFunction) {
-        let page = Math.abs(parseInt(req.query.page, 10)) || 1;
-        let limit = Math.abs(parseInt(req.query.limit, 10)) || 15;
-        let params: any = {};
+        const page = Math.abs(parseInt(req.query.page, 10)) || 1;
+        const limit = Math.abs(parseInt(req.query.limit, 10)) || 15;
+        const params: any = {};
         async.waterfall([
             function getCount(done: Function) {
                 Books.count(16, (err, count) => {
@@ -269,12 +269,12 @@ class BooksController implements booksInterface {
                         return next(err);
                     }
                     res.json({
-                        "meta": {
-                            "code": 200,
-                            "message": '获取全部成功'
+                        'meta': {
+                            'code': 200,
+                            'message': '获取全部成功'
                         },
-                        "data": _.map(books, formatData),
-                        "total": count
+                        'data': _.map(books, formatData),
+                        'total': count
                     });
                 });
             }
@@ -292,16 +292,16 @@ class BooksController implements booksInterface {
         books.remove((err) => {
             if (err) {
                 return res.json({
-                    "meta": {
-                        "code": 200,
-                        "message": '删除失败'
+                    'meta': {
+                        'code': 200,
+                        'message': '删除失败'
                     }
                 });
             }
             res.json({
-                "meta": {
-                    "code": 200,
-                    "message": '删除成功'
+                'meta': {
+                    'code': 200,
+                    'message': '删除成功'
                 }
             });
         });

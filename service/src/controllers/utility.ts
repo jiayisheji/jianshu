@@ -2,15 +2,15 @@
  * Created by jiayi on 2017/7/3.
  */
 
-export type userinfoInterface = {
-    slug?: string;
-    nickname?: string;
-    avatar?: string;
-};
+export class userinfoInterface {
+    slug?: String;
+    nickname?: String;
+    avatar?: String;
+}
 
 /**
  * 获取关联用户信息
- * @param data
+ * @param user
  * @returns {{userinfoInterface}}
  */
 export function getUserinfo(user: any): userinfoInterface {
