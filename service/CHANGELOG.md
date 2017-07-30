@@ -11,6 +11,13 @@
 ### Notes（注释）
 ```
 
+## 1.0.0alpha7 （2017-07-30）
+## Features
+## Bug Fixes
+- 统一和web一样统一tslint验证，去除编辑器不统一问题
+- Fixes Tslint Error
+### Notes
+
 ## 1.0.0alpha6 （2017-07-10）
 ## Features
 - 新增文章列表和查询单篇文章接口
