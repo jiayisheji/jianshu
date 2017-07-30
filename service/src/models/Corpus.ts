@@ -5,10 +5,10 @@
 /**
  * 引入依赖
  */
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-import * as _ from "lodash";
-import {formatDate, getUserinfo} from "../controllers/utility";
+import * as _ from 'lodash';
+import {formatDate, getUserinfo} from '../controllers/utility';
 /**
  * 定义接口
  */
@@ -26,7 +26,7 @@ export type CorpusModel = mongoose.Document & {
     formatData: () => CorpusModel;
 };
 
-export type EditorsLsit = {
+export interface EditorsLsit {
     editor: any
 };
 
@@ -40,12 +40,12 @@ const corpusSchema = new Schema({
     },
     owner: {       // 所有者
         type: Schema.Types.ObjectId,    // 引用类型
-        ref: "User"                     // 关联用户表
+        ref: 'User'                     // 关联用户表
     },
     editors: [{
         editor: { // 专题编辑
             type: Schema.Types.ObjectId,    // 引用类型
-            ref: "User"                     // 关联用户表
+            ref: 'User'                     // 关联用户表
         }
     }],
     avatar: {   // 专题封面
@@ -57,18 +57,18 @@ const corpusSchema = new Schema({
     },
     push: {  // 是否允许投稿
         type: Boolean,
-        "default": true
+        'default': true
     },
     verify: {  // 投稿是否需要审核
         type: Boolean,
-        "default": true
+        'default': true
     }
 }, {timestamps: true});
 
 /**
  *
  */
-/*corpusSchema.pre("save", function save(next) {
+/*corpusSchema.pre('save', function save(next) {
     const corpus = this;
     corpus.slug = corpus._id;
     return next();
@@ -83,20 +83,20 @@ const corpusSchema = new Schema({
  */
 corpusSchema.methods.formatData = function (): any {
     return {
-        "slug": this._id,
-        "updatedAt": formatDate(this.updatedAt),
-        "createdAt": formatDate(this.createdAt),
-        "owner": getUserinfo(this.owner),
-        "title": this.title,
-        "avatar": this.avatar,
-        "description": this.description,
-        "verify": this.verify,
-        "push": this.push,
-        "editors": _.map(this.editors, function (item: any): Object {
+        'slug': this._id,
+        'updatedAt': formatDate(this.updatedAt),
+        'createdAt': formatDate(this.createdAt),
+        'owner': getUserinfo(this.owner),
+        'title': this.title,
+        'avatar': this.avatar,
+        'description': this.description,
+        'verify': this.verify,
+        'push': this.push,
+        'editors': _.map(this.editors, function (item: any): Object {
             return getUserinfo(item.editor);
         })
     };
 };
 
 
-export default mongoose.model("Corpus", corpusSchema);
+export default mongoose.model('Corpus', corpusSchema);

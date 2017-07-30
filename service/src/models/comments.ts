@@ -5,9 +5,9 @@
 /**
  * 引入依赖
  */
-import * as mongoose from "mongoose";
-import {formatDate, getUserinfo} from "../controllers/utility";
-import * as _ from "Lodash";
+import * as mongoose from 'mongoose';
+import {formatDate, getUserinfo} from '../controllers/utility';
+import * as _ from 'Lodash';
 
 const Schema = mongoose.Schema;
 
@@ -49,7 +49,7 @@ export type commentsModel = mongoose.Document & {
 const commentsChildrenSchema = new mongoose.Schema({
     user: {    // 登陆账号
         type: Schema.Types.ObjectId,    // 引用类型
-        ref: "User"                     // 关联用户表
+        ref: 'User'                     // 关联用户表
     },
     compiled_content: {
         type: String,
@@ -64,11 +64,11 @@ const commentsChildrenSchema = new mongoose.Schema({
 const commentsSchema = new mongoose.Schema({
     article: {
         type: Schema.Types.ObjectId,        // 引用类型
-        ref: "Articles"                     // 关联文章表
+        ref: 'Articles'                     // 关联文章表
     },
     user: {
         type: Schema.Types.ObjectId,    // 引用类型
-        ref: "User"                     // 关联用户表
+        ref: 'User'                     // 关联用户表
     },
     compiled_content: {    // 登陆账号
         type: String,
@@ -76,14 +76,14 @@ const commentsSchema = new mongoose.Schema({
     },
     floor: {
       type: Number,
-      "default": 1
+      'default': 1
     },
     children: [commentsChildrenSchema],
     likes: [
         {
             user: {
                 type: Schema.Types.ObjectId,    // 引用类型
-                ref: "User"                     // 关联用户表
+                ref: 'User'                     // 关联用户表
             }
         }
     ]
@@ -98,30 +98,30 @@ const commentsSchema = new mongoose.Schema({
  */
 commentsSchema.methods.formatData = function (): any {
     return {
-        "slug": this._id,
-        "updatedAt": formatDate(this.updatedAt),
-        "createdAt": formatDate(this.createdAt),
-        "user": getUserinfo(this.user),
-        "user_slug": getUserinfo(this.user).slug,
-        "compiled_content": this.compiled_content,
-        "floor": this.floor,
-        "description": this.description,
-        "verify": this.verify,
-        "push": this.push,
-        "likes_count": this.links.length,
-        "children_count": this.children.length,
-        "children": _.map(this.children, function (item: any): Object {
+        'slug': this._id,
+        'updatedAt': formatDate(this.updatedAt),
+        'createdAt': formatDate(this.createdAt),
+        'user': getUserinfo(this.user),
+        'user_slug': getUserinfo(this.user).slug,
+        'compiled_content': this.compiled_content,
+        'floor': this.floor,
+        'description': this.description,
+        'verify': this.verify,
+        'push': this.push,
+        'likes_count': this.links.length,
+        'children_count': this.children.length,
+        'children': _.map(this.children, function (item: any): Object {
             return {
-                "slug": item._id,
-                "createdAt": formatDate(item.createdAt),
-                "user": getUserinfo(item.user),
-                "user_slug": getUserinfo(item.user).slug,
-                "compiled_content": item.compiled_content,
-                "parent_slug": item.parent_slug
+                'slug': item._id,
+                'createdAt': formatDate(item.createdAt),
+                'user': getUserinfo(item.user),
+                'user_slug': getUserinfo(item.user).slug,
+                'compiled_content': item.compiled_content,
+                'parent_slug': item.parent_slug
             };
         }),
-        "article_slug": this.article._id
+        'article_slug': this.article._id
     };
 };
 
-export default mongoose.model("Comments", commentsSchema);
+export default mongoose.model('Comments', commentsSchema);

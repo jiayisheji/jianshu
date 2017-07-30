@@ -5,8 +5,8 @@
 /**
  * 引入依赖
  */
-import * as mongoose from "mongoose";
-import {formatDate, getUserinfo} from "../controllers/utility";
+import * as mongoose from 'mongoose';
+import {formatDate, getUserinfo} from '../controllers/utility';
 const Schema = mongoose.Schema;
 
 /**
@@ -41,7 +41,7 @@ const articleSchema = new Schema({
     },
     views_count: {   // 阅读量
       type: Number,
-      "default": 0
+      'default': 0
     },
     content: { // 内容
         type: String,
@@ -55,35 +55,35 @@ const articleSchema = new Schema({
     },
     author: {   // 作者
         type: Schema.Types.ObjectId,    // 引用类型
-        ref: "User"                     // 关联用户表
+        ref: 'User'                     // 关联用户表
     },
     books: {
         type: Schema.Types.ObjectId,    // 引用类型
-        ref: "Books"                     // 关联文集表
+        ref: 'Books'                     // 关联文集表
     },
     corpus: [   // 被收录的专题
         {
             corpu: {
                 type: Schema.Types.ObjectId,      // 引用类型
-                ref: "Corpus"                     // 关联专题表
+                ref: 'Corpus'                     // 关联专题表
             }
         }
     ],
     published: {   // 是否发布
         type: Boolean,
-        "default": false
+        'default': false
     },
     isActive: {   // 是否删除
         type: Boolean,
-        "default": true
+        'default': true
     }
 }, {timestamps: true});
 
 /**
- * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
+ *
  */
 /*
-articleSchema.pre("save", function save(next) {
+articleSchema.pre('save', function save(next) {
     const article = this;
     article.slug = article._id;
     return next();
@@ -99,17 +99,17 @@ articleSchema.pre("save", function save(next) {
  */
 articleSchema.methods.formatData = function (data: ArticleModel, callback?: any): any {
     return {
-        "slug": this._id,
-        "updatedAt": formatDate(this.updatedAt),
-        "createdAt": formatDate(this.createdAt),
-        "author": getUserinfo(this.author),
-        "title": this.title,
-        "avatar": this.avatar,
-        "wordage": this.wordage,
-        "views_count": this.views_count,
-        "abstract": this.abstract,
-        "content": this.content
+        'slug': this._id,
+        'updatedAt': formatDate(this.updatedAt),
+        'createdAt': formatDate(this.createdAt),
+        'author': getUserinfo(this.author),
+        'title': this.title,
+        'avatar': this.avatar,
+        'wordage': this.wordage,
+        'views_count': this.views_count,
+        'abstract': this.abstract,
+        'content': this.content
     };
 };
 
-export default mongoose.model("Articles", articleSchema);
+export default mongoose.model('Articles', articleSchema);

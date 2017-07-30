@@ -5,8 +5,8 @@
 /**
  * 引入依赖
  */
-import * as bcrypt from "bcrypt";
-import * as mongoose from "mongoose";
+import * as bcrypt from 'bcrypt';
+import * as mongoose from 'mongoose';
 
 /**
  * 定义接口
@@ -45,19 +45,19 @@ export type UserModel = mongoose.Document & {
 /**
  * 实名认证
  */
-export type AuthList = {
-    key: string,   // 认证名称 mobile 手机 email 邮箱 realname 实名认证 identity
-    value: string,  // 认证内容
-    status: string    // 认证状态 0 未认证 1 已认证 2 已注销
-};
+export interface AuthList {
+    key: String;   // 认证名称 mobile 手机 email 邮箱 realname 实名认证 identity
+    value: String;  // 认证内容
+    status: String;    // 认证状态 0 未认证 1 已认证 2 已注销
+}
 
 /**
  * 社交认证
  */
-export type AuthToken = {
-    accessToken: string,
-    kind: string
-};
+export interface AuthToken {
+    accessToken: String;
+    kind: String;
+}
 
 const userSchema = new mongoose.Schema({
     username: {    // 登陆账号
@@ -72,13 +72,13 @@ const userSchema = new mongoose.Schema({
     status: {  // 用户状态  0 不存在（注销） 1 启用 2 黑名单
         type: String,
         required: true,
-        "enum": ["0", "1", "2"],
-        "default": "0"
+        'enum': ['0', '1', '2'],
+        'default': '0'
     },
     author: {    // 作者身份  0 普通作者 1 签约作者 2 金牌作者
         type: String,
-        "enum": ["0", "1", "2"],
-        "default": "0"
+        'enum': ['0', '1', '2'],
+        'default': '0'
     },
     tokens: [{
         accessToken: String,
@@ -92,8 +92,8 @@ const userSchema = new mongoose.Schema({
     profile: {
         gender: {  // 性别 0 保密 1 男 2 女
             type: String,
-            "enum": ["0", "1", "2"],
-            "default": "0"
+            'enum': ['0', '1', '2'],
+            'default': '0'
         },
         location: String,
         intro: String,
@@ -101,7 +101,7 @@ const userSchema = new mongoose.Schema({
         homepage: String,
         country_code: {
             type: String,
-            "default": "cn"
+            'default': 'cn'
         }
     },
     basic: {
@@ -115,16 +115,16 @@ const userSchema = new mongoose.Schema({
         avatar: String,
         locale: {
             type: String,
-            "default": "zh-CN"
+            'default': 'zh-CN'
         },
         chats_notify: {
             type: Boolean,
-            "default": true
+            'default': true
         },
         email_notify: {
             type: String,
-            "default": "none",
-            "enum": ["none", "later", "instantly"]
+            'default': 'none',
+            'enum': ['none', 'later', 'instantly']
         }
     },
     token: String
@@ -133,25 +133,25 @@ const userSchema = new mongoose.Schema({
 /**
  * 添加用户保存时中间件对password进行bcrypt加密,这样保证用户密码只有用户本人知道
  */
-userSchema.pre("save", function (next) {
+userSchema.pre('save', function (next) {
     const user = this;
-    if (!user.isModified("password")) {
+    if (!user.isModified('password')) {
         return next();
     }
     bcrypt.genSalt(10, (err, salt) => {
         if (err) {
             return next(err);
         }
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) {
-                return next(err);
+        bcrypt.hash(user.password, salt, (error, hash) => {
+            if (error) {
+                return next(error);
             }
             user.password = hash;
             user.status = 1;
             user.auths.push({
-                key: "mobile",
+                key: 'mobile',
                 value: user.username,
-                status: "1"
+                status: '1'
             });
             next();
         });
@@ -182,4 +182,4 @@ userSchema.methods.gravatar = function (size: number) {
     return size;
 };
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);

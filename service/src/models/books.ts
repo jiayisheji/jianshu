@@ -5,7 +5,7 @@
 /**
  * 引入依赖
  */
-import * as mongoose from "mongoose";
+import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 /**
  * 定义接口
@@ -26,7 +26,7 @@ const booksSchema = new Schema({
         type: String,
         minlength: 1,   // 最小1个字符
         maxlength: 20,  // 最大20个字符
-        //unique: true,  // 不可重复约束
+        // unique: true,  // 不可重复约束
         required: true
     },
     owner: {       // 所有者
@@ -43,7 +43,7 @@ const booksSchema = new Schema({
  *
  */
 
-booksSchema.pre("save", function save(next) {
+booksSchema.pre('save', function save(next) {
     const books = this;
     books.slug = books._id;
     return next();
@@ -59,4 +59,4 @@ booksSchema.pre("save", function save(next) {
 
 };*/
 
-export default mongoose.model("Books", booksSchema);
+export default mongoose.model('Books', booksSchema);
