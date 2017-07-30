@@ -1,7 +1,7 @@
 /**
  * Created by jiayi on 2017/6/20.
  */
-import {Request, Response, NextFunction} from "express";
+import {Request, Response, NextFunction} from 'express';
 import {default as webAPI} from './webApi';
 import {default as adminAPI} from './adminApi';
 import {default as web} from './web';
@@ -10,7 +10,7 @@ import {default as web} from './web';
 /**
  * 模板test
  */
-import {default as templateAPI} from "./template";
+import {default as templateAPI} from './template';
 
 
 
@@ -24,10 +24,11 @@ export default (app) => {
      */
     app.all('*', function (req: Request, res: Response, next: NextFunction) {
         res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+        res.header('Access-Control-Allow-Headers',
+            'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
         res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
         if (req.method === 'OPTIONS') {
-            res.sendStatus(200); //让options请求快速返回
+            res.sendStatus(200); // 让options请求快速返回
         } else {
             next();
         }
