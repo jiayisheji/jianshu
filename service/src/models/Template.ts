@@ -46,4 +46,4 @@ templateSchema.pre('save', function save(next) {
 
 };*/
 
-// export default mongoose.model('Template', templateSchema);
+export default mongoose.model('Template', templateSchema);

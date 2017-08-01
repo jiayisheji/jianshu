@@ -2,7 +2,7 @@
  * Created by jiayi on 2017/7/3.
  */
 
-export class userinfoInterface {
+export interface UserinfoInterface {
     slug?: String;
     nickname?: String;
     avatar?: String;
@@ -13,7 +13,7 @@ export class userinfoInterface {
  * @param user
  * @returns {{userinfoInterface}}
  */
-export function getUserinfo(user: any): userinfoInterface {
+export function getUserinfo(user: any): UserinfoInterface {
     if (!user) {
         return;
     }

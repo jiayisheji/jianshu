@@ -11,6 +11,13 @@
 ### Notes（注释）
 ```
 
+## 1.0.0alpha8 （2017-08-01）
+## Features
+## Bug Fixes
+- 统一和web一样统一tslint验证，去除编辑器不统一问题
+- 更新node8以后，有个包报错，从新安装一下即可，其他代码没有发现问题，使用ES2017编译。
+### Notes
+
 ## 1.0.0alpha7 （2017-07-30）
 ## Features
 ## Bug Fixes

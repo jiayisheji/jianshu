@@ -2,16 +2,14 @@
  * 控制器模板
  * Created by jiayi on 2017/6/20.
  */
-import * as async from "async";
-import {default as Template, TemplateModel} from "../models/template";
-import {Request, Response, NextFunction} from "express";
-import {WriteError} from "mongodb";
-import * as _ from "lodash";
+import * as async from 'async';
+import {default as Template, TemplateModel} from '../models/template';
+import {Request, Response, NextFunction} from 'express';
 
 /**
  * 定义类接口
  */
-interface templateInterface {
+interface TemplateInterface {
     save(req: Request, res: Response, next: NextFunction);
 
     find(req: Request, res: Response, next: NextFunction);
@@ -26,7 +24,7 @@ interface templateInterface {
 /**
  * 模板控制器
  */
-class TemplateController implements templateInterface {
+class TemplateController implements TemplateInterface {
     constructor() {
     }
 
