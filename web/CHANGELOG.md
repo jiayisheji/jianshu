@@ -11,6 +11,14 @@
 ### Notes（注释）
 ```
 
+## 1.0.0alpha5 （2017-08-02）
+### Features
+- 使用angularV4.3.2拦截器和新的http请求
+- 移除以前包装的ajax模块
+- 利用environments做项目配置
+### Bug Fixes
+### Notes
+
 ## 1.0.0alpha4 （2017-07-30）
 ### Features
 - 升级node版本到8.2.1
