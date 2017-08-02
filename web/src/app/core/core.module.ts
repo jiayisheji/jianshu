@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
-//import { UTILS_STORAGE_PROVIDERS } from './utils-service/utils.service';
+// import { UTILS_STORAGE_PROVIDERS } from './utils-service/utils.service';
 /**
  * 数据缓存）
  */
@@ -10,25 +10,20 @@ import { StorageModule } from './storage';
  */
 import { AuthorizationModule } from './authorization';
 import { LoadingModule } from './loading';
-/**
- * 包装http
- */
-import { AjaxModule } from './ajax';
+
 @NgModule({
   imports: [
     HttpModule,
     LoadingModule,
-    AjaxModule,
     StorageModule,
     AuthorizationModule
   ],
   providers: [
-    //UTILS_STORAGE_PROVIDERS,
+    // UTILS_STORAGE_PROVIDERS,
   ],
   declarations: [
   ],
   exports: [
-    AjaxModule,
     StorageModule,
     AuthorizationModule
   ]

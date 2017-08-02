@@ -1,17 +1,18 @@
-import { Observable } from 'rxjs/Observable';
-import { Injectable } from '@angular/core';
-import { AuthorizationService } from '../../core/authorization';
-import { AppHttpProvider } from '../../core/ajax';
+import {Observable} from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {AuthorizationService} from '../../core/authorization';
+import {AppHttpProvider} from '../../core/ajax';
+import {HttpClient} from '@angular/common/http';
+
 
 @Injectable()
 export class LoginService {
 
-  constructor(
-              protected ajax: AppHttpProvider,
+  constructor(protected http: HttpClient,
               private authorizationService: AuthorizationService) {
   }
 
-  isLogin(): boolean{
+  isLogin(): boolean {
     return this.authorizationService.isLogin();
   }
 
@@ -19,18 +20,19 @@ export class LoginService {
    * 登录
    * @param loginInfo
    */
-  login(loginInfo: {username: string; password: string }): Observable<any> {
+  login(loginInfo: { username: string; password: string }): Observable<any> {
     const authorizationService = this.authorizationService;
     console.log(loginInfo, authorizationService);
-    return this.ajax.post('/login', loginInfo)
+    return this.http.post('/login1', loginInfo)
       .map((user: any) => {
         console.log(user);
-        if(user.meta.code === 200){
+        if (user.meta.code === 200) {
           authorizationService.setCurrentUser(user.data);
         }
         return user;
       });
   }
+
   /**
    * 退出登录
    */

@@ -3,6 +3,7 @@ import {Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot} from '@ang
 import {AppHttpProvider} from '../../core/ajax';
 import {Observable, Subscribable} from 'rxjs/Observable';
 import 'rxjs/add/operator/first'
+import {HttpClient, HttpParams} from '@angular/common/http';
 /**
  * 定义user 接口
  */
@@ -37,11 +38,14 @@ export class User {
 
 @Injectable()
 export class UserDetailResolver implements Resolve<User> {
-  constructor(private ajax: AppHttpProvider, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.ajax.get(`/user/${route.params['id']}/home`).map((data: any) => {
+    const params = new HttpParams()
+          .set('orderBy', '你好')
+          .set('limitToFirst', '1');
+    return this.http.get(`/user/${route.params['id']}/home`, {params}).map((data: any) => {
       if (data.meta && data.meta.code === 200) {
         return data.data;
       } else {
