@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Route, Router, ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
-import {AppHttpProvider} from '../../core/ajax';
 import {Observable} from 'rxjs/Observable';
 
 /**
@@ -44,7 +43,7 @@ export class UserComponent implements OnInit {
   user: userInterceptor;
   collections: object;
 
-  constructor(private ajax: AppHttpProvider, private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -57,11 +56,11 @@ export class UserComponent implements OnInit {
 
     console.log(this.route.data)
 
-    this.ajax.get('/collections', {userhome: param}).subscribe((data: any) => {
+    /*this.ajax.get('/collections', {userhome: param}).subscribe((data: any) => {
       console.log(data);
       if (data.meta.code === 200) {
         this.collections = data.data;
       }
-    });
+    });*/
   }
 }
