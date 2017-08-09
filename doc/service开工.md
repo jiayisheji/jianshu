@@ -28,7 +28,36 @@ TypeScript大部分语法和JavaScript的ECMA2015一样，对其有一些增强�
 1. const声明的变量定义为常量，不可修改。
 2. const声明的变量与let声明的变量类似，它们的不同之处在于，const声明的变量只可以在声明时赋值，不可随意修改，否则会导致SyntaxError（语法错误）。
 3. 用const声明变量后必须要赋值，否则也抛出语法错误。
-4. 用const申明变量除了对象字面量{}，其他变量都不能修改，会抛出语法错误。
+4. 用const申明变量除了对象字面量{}，[]，其他变量都不能修改，会抛出语法错误。
+
+#### let or const 总结
+相同点： 
+    1. 两个相同点在同个块级作用域只能申明一个，重复声明就会抛错。
+不同点： 
+    1. let定义任何类型变量都可以修改；
+    2. const定义基本类型值不能修改，定义引用类型值只能改引用里的任何值，不能引用本身。
+    3. let声明了可以不赋值，const一旦声明必须要赋值。
+
+```
+let a = 10;
+a = 20;   // ok
+
+const b = 'old';
+b = 'new';  // error
+
+const  = {
+    name: "jiayi",
+    age: 18
+}
+c = {}  // error
+c.name = "jiayisheji";  // error
+c.sex = "男";   // ok;
+
+const d = [1,2,3,4,5];
+d = [] // error
+d.length = 0 // ok
+d[0] = 6 // ok
+```
 
 ### 模块导出
 > nodejs自带module.exports导出模块依赖。
