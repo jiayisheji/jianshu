@@ -11,6 +11,14 @@
 ### Notes（注释）
 ```
 
+## 1.0.0alpha6 （2017-08-09）
+### Features
+### Bug Fixes
+- 根组件添加加载loading效果
+- 登陆使用新的http模块
+- 文章列表组件使用新的http模块和统一id改成slug
+### Notes
+
 ## 1.0.0alpha5 （2017-08-02）
 ### Features
 - 使用angularV4.3.2拦截器和新的http请求
