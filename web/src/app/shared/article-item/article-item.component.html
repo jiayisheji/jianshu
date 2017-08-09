@@ -1,4 +1,4 @@
-<a class="thumbnail" [routerLink]="['/article', item.id]" *ngIf="item.images">
+<a class="thumbnail" [routerLink]="['/article', item.slug]" *ngIf="item.images">
     <img [src]="item.images" alt="300">
 </a>
 <div class="content">
@@ -12,14 +12,14 @@
             <span class="time">{{item.author.time | date:"yyyy/MM/dd"}}</span>
         </div>
     </div>
-    <a class="title" [routerLink]="['/article', item.id]">{{item.title}}</a>
+    <a class="title" [routerLink]="['/article', item.slug]">{{item.title}}</a>
     <p class="abstract">{{item.abstract}}</p>
     <div class="meta">
-        <a class="collection-tag u-btn u-btn-danger u-btn-sm transparent" [routerLink]="['/collections', item.id]" [queryParams]="{ name : item.meta.collectionTag }">{{item.meta.collectionTag}}</a>
-        <a [routerLink]="['/article', item.id]">
+        <a class="collection-tag u-btn u-btn-danger u-btn-sm transparent" *ngIf="item.meta.collectionTag" [routerLink]="['/collections', item.slug]" [queryParams]="{ name : item.meta.collectionTag }">{{item.meta.collectionTag}}</a>
+        <a [routerLink]="['/article', item.slug]">
             <i class="icon-list-read"></i> {{item.meta.read}}
         </a>
-        <a [routerLink]="['/article', item.id]">
+        <a [routerLink]="['/article', item.slug]">
             <i class="icon-list-comments"></i> {{item.meta.comments}}
         </a> <span><i class="icon-list-like"></i> {{item.meta.like}}</span>
     </div>
