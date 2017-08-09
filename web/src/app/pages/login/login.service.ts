@@ -1,7 +1,6 @@
 import {Observable} from 'rxjs/Observable';
 import {Injectable} from '@angular/core';
 import {AuthorizationService} from '../../core/authorization';
-import {AppHttpProvider} from '../../core/ajax';
 import {HttpClient} from '@angular/common/http';
 
 

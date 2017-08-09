@@ -43,13 +43,18 @@ export class LoginComponent implements OnInit {
     /*if(this.loginService.isLogin()){
       this.router.navigate(['/']);
     }*/
-    //this.onValueChanged();
+    // this.onValueChanged();
   }
 
   createForm(): void {
     this.loginForm = this.fb.group({
       username: [
-        this.login.username
+        this.login.username,
+        [
+          Validators.required,
+          Validators.minLength(11),
+          Validators.maxLength(11)
+        ]
       ],
       password: [
         this.login.password,
