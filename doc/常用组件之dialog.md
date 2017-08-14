@@ -9,13 +9,16 @@
 <dialog> 作为 HTML 5.2 的元素，目前除了 Chrome 和 Opara 以外，其它浏览器均未支持。但是 Google 提供了一个[dialog-polyfill](https://github.com/GoogleChrome/dialog-polyfill)。
   
 和使用html其他标签一样使用<dialog>
+  
   ```
     <dialog>这是一个dialog</dialog>
   ```
+  
   不过你压根看不出什么，没有任何效果，是对的，是没有任何效果，因为没有调用它。
 
 怎么调用，一般我们自己去写dialog，会有2个必须有的方法，一个是open打开dialog，一个是close关闭dialog。
 不过不好意思<dialog>提供是show()和showModal()和close()。
+  
   ```
   <dialog>
         <p>这是一个dialog</p>
@@ -36,9 +39,11 @@
         };
     </script>
   ```
+  
   不写任何样式，很丑很原生。
   
   谷歌浏览器默认dialog样式
+  
   ```
   dialog {
       display: block;
@@ -57,8 +62,10 @@
       background: white;
   }
   ```
+  
   你可能一定要问show()和showModal()有什么区别，它们的区别在于有没有backdrop遮罩层。
-    谷歌浏览器默认dialog样式
+   谷歌浏览器默认dialog::backdrop样式
+    
   ```
   dialog::backdrop {
       position: fixed;
@@ -69,6 +76,7 @@
       background: rgba(0, 0, 0, 0.1);
   }
   ```
+  
   backdrop是dialog的伪元素，可以通过使用 CSS 的伪元素 ::backdrop 去修改定制。
   
   整体来说<dialog>还是比较简单易用，比我们用javascript 使用 <div> 来模拟弹窗，容易的多，随着浏览器不断升级，这也将是标准。
