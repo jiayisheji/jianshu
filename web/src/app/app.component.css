@@ -1,11 +1,14 @@
 @import "../root.css";
-:host{
+
+:host {
   @apply --block-full-screen;
 }
-body{
+
+body {
   background-color: red;
 }
-:host /deep/ .g-navbar{
+
+:host /deep/ .g-navbar {
   position: fixed;
   top: 0;
   right: 0;
@@ -18,4 +21,13 @@ body{
     background-color: #fff;
     border-color: #f0f0f0
   }
+}
+
+.app-progress-bar-container {
+  position: fixed;
+  top: 0;
+  z-index: 1050;
+  overflow: hidden;
+  height: 2px;
+  width: 100vw;
 }

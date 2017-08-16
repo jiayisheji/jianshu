@@ -20,6 +20,7 @@ import { VerifySliderbarComponent } from './verify-sliderbar/verify-sliderbar.co
 import { InfinitescrollModule } from '../shared/infinitescroll';
 
 import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
+import { ProgressBarComponent } from '../shared/progress-bar/progress-bar.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +43,8 @@ import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
     RecommendUsersComponent,
     ArticleListComponent,
     DropdownDirective,
-    VerifySliderbarComponent
+    VerifySliderbarComponent,
+    ProgressBarComponent
   ],
   exports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { DropdownDirective } from '../shared/dropdown/dropdown.directive';
     RecommendUsersComponent,
     ArticleListComponent,
     DropdownDirective,
-    VerifySliderbarComponent
+    VerifySliderbarComponent,
+    ProgressBarComponent
   ]
 })
 export class SharedModule { }
