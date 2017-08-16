@@ -138,7 +138,7 @@ class ArticleController implements ArticleInterface {
     }
 
     async search(req: Request, res: Response, next: NextFunction) {
-        const {page = 1, limit = 10} = req.query;
+        const {page = 1, limit = 20} = req.query;
         const params: any = Object.assign(req.query, {t: undefined});
         try {
             const count = await Article.count(params);

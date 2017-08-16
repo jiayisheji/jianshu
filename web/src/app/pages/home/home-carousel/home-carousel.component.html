@@ -1,14 +1,31 @@
 <div class="carousel-inner">
-    <div class="item">
-        <div class="banner">
-            <a target="_blank" href="http://www.jianshu.com/p/b98a8300b94a?utm_medium=index-banner&amp;utm_source=desktop"><img src="//upload.jianshu.io/admin_banners/web_images/3052/85b826f83eebc8051ad35b06b74f3e71d0f31060.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="540"></a>
+    <div class="primary active">
+        <div class="banner" *ngFor="let item of primary">
+            <a target="_blank" [href]="item.url"><img [src]="item.src" alt="540"></a>
         </div>
-        <div class="banner">
-            <a target="_blank" href="http://www.jianshu.com/p/c3215a0e5ca7?utm_medium=index-banner&amp;utm_source=desktop"><img src="//upload.jianshu.io/admin_banners/web_images/3049/8e533a068e4c23426773de1660369382795ca2e4.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="540"></a>
-        </div>
-        <div class="banner">
-            <a target="_blank" href="http://www.jianshu.com/p/f6c0b978eb4b?utm_medium=index-banner&amp;utm_source=desktop"><img src="//upload.jianshu.io/admin_banners/web_images/2295/2dbb6d6e2abd9f7e50c56adfff92f9613ad9c502.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="540"></a>
-        </div>
+    </div>
+    <div class="rear active">
+      <div class="banner">
+        <a target="_blank" href="http://www.jianshu.com/p/b98a8300b94a?utm_medium=index-banner&amp;utm_source=desktop"><img src="//upload.jianshu.io/admin_banners/web_images/3208/203bee37687b9fa7b46b52e8c4761c1ed0a298f7.png?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540" alt="540"></a>
+      </div>
+      <div class="banner">
+        <a target="_blank"
+           href="http://www.jianshu.com/p/c3215a0e5ca7?utm_medium=index-banner&amp;utm_source=desktop"><img
+          src="//upload.jianshu.io/admin_banners/web_images/3222/80e6f9ada5f4321e04507e3291326e744c939fc3.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540"
+          alt="540"></a>
+      </div>
+      <div class="banner">
+        <a target="_blank"
+           href="http://www.jianshu.com/p/c3215a0e5ca7?utm_medium=index-banner&amp;utm_source=desktop"><img
+          src="//upload.jianshu.io/admin_banners/web_images/3223/e728a40ff9267f9212aa9fedfde5066fb3bdf72f.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540"
+          alt="540"></a>
+      </div>
+      <div class="banner">
+        <a target="_blank"
+           href="http://www.jianshu.com/p/c3215a0e5ca7?utm_medium=index-banner&amp;utm_source=desktop"><img
+          src="//upload.jianshu.io/admin_banners/web_images/3224/5679b53ed1b663b80d2e1ea13ef0ce34de59f1dd.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/1250/h/540"
+          alt="540"></a>
+      </div>
     </div>
 </div>
 <a href="javascript:;" class="left carousel-control"><i class="icon-previous-s"></i></a>

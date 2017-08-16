@@ -11,6 +11,14 @@
 ### Notes（注释）
 ```
 
+## 1.0.0alpha7 （2017-08-16）
+### Features
+- 新增顶栏路由路由加载效果
+### Bug Fixes
+- 去除user-detail.service.ts的core/ajax模块引用
+- 登陆和注册的logo链接有href改成routerLink写法
+### Notes
+
 ## 1.0.0alpha6 （2017-08-09）
 ### Features
 ### Bug Fixes

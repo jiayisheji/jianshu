@@ -105,10 +105,14 @@ articleSchema.methods.formatData = function (data: ArticleModel, callback?: any)
         'author': getUserinfo(this.author),
         'title': this.title,
         'avatar': this.avatar,
-        'wordage': this.wordage,
-        'views_count': this.views_count,
         'abstract': this.abstract,
-        'content': this.content
+        'content': this.content,
+        'meta': {
+            'read': this.views_count,
+            'collectionTag': this.wordage,
+            'comments': 100,
+            'like': 100
+        }
     };
 };
 
