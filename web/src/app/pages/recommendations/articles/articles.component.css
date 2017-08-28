@@ -1,0 +1,16 @@
+@import "../../../../root.css";
+
+:host {
+  @apply --app-boxs;
+}
+.g-container {
+  padding-top: 30px;
+}
+
+.g-main {
+  width: 66.666667%;
+}
+
+.g-aside {
+  width: 29.16667%;
+}
