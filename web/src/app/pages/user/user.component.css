@@ -165,12 +165,20 @@
       transform: translate(-50%) scaleX(0);
       transition: .2s ease-in-out;
     }
-    &:hover:after{
-      opacity: 1;
-      transform: translate(-50%) scaleX(1);
+    &:hover{
+      & a {
+        color: #646464;
+      }
+      &:after{
+        opacity: 1;
+        transform: translate(-50%) scaleX(1);
+      }
     }
-    &.active {
+    &.active{
       border-bottom: 2px solid #646464;
+      & a {
+        color: #646464;
+      }
     }
   }
 }

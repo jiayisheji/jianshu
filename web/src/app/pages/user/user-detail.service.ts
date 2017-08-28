@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Router, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot} from '@angular/router';
 import {Observable, Subscribable} from 'rxjs/Observable';
 import 'rxjs/add/operator/first';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 /**
  * 定义user 接口
  */
@@ -41,10 +41,7 @@ export class UserDetailResolver implements Resolve<User> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    const params = new HttpParams()
-          .set('orderBy', '你好')
-          .set('limitToFirst', '1');
-    return this.http.get(`/user/${route.params['id']}/home`, {params}).map((data: any) => {
+    return this.http.get(`/user/${route.params['id']}/home`).map((data: any) => {
       if (data.meta && data.meta.code === 200) {
         return data.data;
       } else {
