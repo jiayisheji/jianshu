@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monthly.component.css']
 })
 export class MonthlyComponent implements OnInit {
-
+  request= '/';
   constructor() { }
 
   ngOnInit() {

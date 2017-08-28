@@ -1,2 +1,11 @@
-<app-navbar class="g-navbar"></app-navbar>
-<router-outlet></router-outlet>
+<header class="g-navbar navbar-default navbar-fixed-top">
+  <app-navbar class="f-cb"></app-navbar>
+</header>
+<main class="g-container f-cb">
+  <article class="g-main f-fl">
+    <router-outlet></router-outlet>
+  </article>
+  <aside class="g-aside f-fr">
+    <app-recommend-users></app-recommend-users>
+  </aside>
+</main>
