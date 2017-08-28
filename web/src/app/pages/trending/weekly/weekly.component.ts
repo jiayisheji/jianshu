@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./weekly.component.css']
 })
 export class WeeklyComponent implements OnInit {
-
+  request= '/';
   constructor() { }
 
   ngOnInit() {
