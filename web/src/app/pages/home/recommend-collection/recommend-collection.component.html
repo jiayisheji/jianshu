@@ -1,4 +1,4 @@
-<a class="collection" target="_blank" href="/c/dqfRwQ?utm_medium=index-collections&amp;utm_source=desktop" *ngFor="let item of collections">
+<a class="collection" [routerLink]="['/collections', '593cef410f675f04dc608846']" *ngFor="let item of collections">
   <img [src]="item.img">
   <span class="name">{{item.name}}</span>
 </a>

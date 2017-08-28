@@ -1,305 +1,40 @@
-<div class="container recommend">
-  <img class="recommend-banner" src="//cdn2.jianshu.io/assets/web/recommend-collection-58f8968955ecbeb8f8f3b4cd95ec76be.png" alt="Recommend collection">
-  <ul class="trigger-menu" data-pjax-container="#list-container"><li class="active"><a data-order-by="recommend" href="/recommendations/collections?order_by=recommend"><i class="iconfont ic-recommend"></i> 推荐</a></li><li class=""><a data-order-by="hot" href="/recommendations/collections?order_by=hot"><i class="iconfont ic-hot"></i> 热门</a></li><li class=""><a data-order-by="city" href="/recommendations/collections?order_by=city"><i class="iconfont ic-city"></i> 城市</a></li></ul>
-
-  <div class="row" id="list-container"><div class="col-xs-8">
-    <div class="collection-wrap">
-      <a class="avatar-collection" target="_blank" href="/c/dqfRwQ">
-        <img src="//upload.jianshu.io/collections/images/11/20100120161805563.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-      </a>    <h4><a class="name" target="_blank" href="/c/dqfRwQ">短篇小说</a></h4>
-      <p class="collection-description">借一斑略知全豹 ，以一目尽传精神。
-
-        投稿须知：
-        1.本专题收录...</p>
-      <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-      <hr>
-      <div class="count"><a target="_blank" href="/c/dqfRwQ">38893篇文章</a>·943.1K人关注</div>
-    </div>
+<main class="g-container f-cb">
+  <div class="recommend-banner">
+    <img style="margin-bottom: 30px; width: 100%;
+    min-height: 100px;
+    background-color: hsla(0,0%,71%,.2);
+    border-radius: 6px;" src="../assets/images/recommend-collection.png" alt="Recommend collection">
+    <a class="help" href="/p/9e6397e3e921">
+      <i class="icon-navigation-help"></i>
+      如何创建并玩转专题
+    </a>
   </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/71169ced18ac">
-          <img src="//upload.jianshu.io/collections/images/288348/6608733_091515549000_2.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/71169ced18ac">大学生活</a></h4>
-        <p class="collection-description">本专题收录大学相关文章。要求文内不得带有公众号信息等推广内容。 详细规...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/71169ced18ac">53210篇文章</a>·415.8K人关注</div>
+  <ul class="trigger-menu" data-pjax-container="#list-container">
+    <li class="active"><a data-order-by="recommend" href="/recommendations/collections?order_by=recommend"><i
+      class="icon-recommend"></i> 推荐</a></li>
+    <li class=""><a data-order-by="hot" href="/recommendations/collections?order_by=hot"><i class="icon-hot"></i>
+      热门</a></li>
+    <li class=""><a data-order-by="city" href="/recommendations/collections?order_by=city"><i
+      class="icon-city"></i> 城市</a></li>
+  </ul>
+  <article>
+    <div class="row f-cb" id="list-container">
+      <div class="col-xs-8" *ngFor="let item of collection">
+        <div class="collection-wrap">
+          <a class="avatar-collection" target="_blank" href="/c/dqfRwQ">
+            <img
+              src="//upload.jianshu.io/collections/images/11/20100120161805563.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180"
+              alt="180">
+          </a>
+          <h4><a class="name" target="_blank" href="/c/dqfRwQ">短篇小说</a></h4>
+          <p class="collection-description">借一斑略知全豹 ，以一目尽传精神。投稿须知：
+            1.本专题收录...</p>
+          <a class="u-btn u-btn-success follow"><i class="icon-follow"></i><span>关注</span></a>
+          <hr>
+          <div class="count"><a href="/c/dqfRwQ">38893篇文章</a> · 943.1K人关注</div>
+        </div>
       </div>
     </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/b591324d6443">
-          <img src="//upload.jianshu.io/collections/images/243003/216048125730408507.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/b591324d6443">财经·投资·理财</a></h4>
-        <p class="collection-description">学理财，要趁早。
-          理财无法让人一夜致富，却让人对钱与自己的人生有更好...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/b591324d6443">12087篇文章</a>·476.2K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/RfYyQj">
-          <img src="//upload.jianshu.io/collections/images/12/1239240801.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/RfYyQj">散文</a></h4>
-        <p class="collection-description">一缕墨香伴清茶。
-
-          散文专题投稿须知：
-          1.字数适量。散文虽形式...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/RfYyQj">71475篇文章</a>·901.6K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/8fQvXW">
-          <img src="//upload.jianshu.io/collections/images/53/feng-shui-19-04.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/8fQvXW">心理</a></h4>
-        <p class="collection-description">发乎于心，言之在理。
-
-          本专题仅收录主题与心理学知识、心理健康、咨...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/8fQvXW">21380篇文章</a>·994.1K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/70b8514fb442">
-          <img src="//upload.jianshu.io/collections/images/256739/461792731394569594.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/70b8514fb442">婚姻育儿</a></h4>
-        <p class="collection-description">婚姻是细水长流；养儿育女则是一门需要长久耐心的过程。
-
-          婚姻育儿专...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/70b8514fb442">38867篇文章</a>·263.0K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/MZp7Ey">
-          <img src="//upload.jianshu.io/collections/images/39/332293730045332541.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/MZp7Ey">哲思</a></h4>
-        <p class="collection-description">投稿须知:
-          1、字数不限，收入以哲学思辨（中西方哲学观点和作者本人的...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/MZp7Ey">7815篇文章</a>·668.2K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/GQ5FAs">
-          <img src="//upload.jianshu.io/collections/images/49/66ba9fdegw1e61syw6tk6j20bj0go0wo.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/GQ5FAs">谈谈情，说说爱</a></h4>
-        <p class="collection-description">柏拉图说每个恋爱中的人都是诗人，这里并不要求你一定要写得诗情画意，态度...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/GQ5FAs">44171篇文章</a>·725.3K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/5cc4460bb4a0">
-          <img src="//upload.jianshu.io/collections/images/333582/719612344102851487.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/5cc4460bb4a0">我是来搞笑的</a></h4>
-        <p class="collection-description">「我是来搞笑的」，说得很清楚，我是来搞笑的，那你能严肃一点吗?
-
-          ...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/5cc4460bb4a0">7353篇文章</a>·156.8K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/e7d2d4045b36">
-          <img src="//upload.jianshu.io/collections/images/75/22.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/e7d2d4045b36">历史</a></h4>
-        <p class="collection-description">史海浩瀚，以文为舟。
-
-          本专题仅收录历史阐述与分析类文章。提高文章...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/e7d2d4045b36">22387篇文章</a>·667.5K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/5AUzod">
-          <img src="//upload.jianshu.io/collections/images/13/IMG_3003.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/5AUzod">旅行·在路上</a></h4>
-        <p class="collection-description">借一双眼睛看世界，分享你的旅程。
-
-          欢迎关注专栏公众号「甜心旅行」...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/5AUzod">62471篇文章</a>·858.1K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/qQB2Zn">
-          <img src="//upload.jianshu.io/collections/images/9/2009031609140019346.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/qQB2Zn">想法</a></h4>
-        <p class="collection-description">告诉我们，你的思考。
-
-          关注简书官方微信公众号（ jianshui...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/qQB2Zn">56404篇文章</a>·787.6K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/YZRvCb">
-          <img src="//upload.jianshu.io/collections/images/29/240039589470723391.png?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/YZRvCb">健康&amp;养生</a></h4>
-        <p class="collection-description">人生不过三万天，成功失败均坦然，是非恩怨莫在意，健康快乐最值钱！
-
-          ...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/YZRvCb">8862篇文章</a>·549.2K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/8b493334965e">
-          <img src="//upload.jianshu.io/collections/images/268191/%E4%BD%93%E8%82%B2.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/8b493334965e">体育</a></h4>
-        <p class="collection-description">篮球场上，绿茵地上，或者是任何一个挥洒青春与汗水的舞台上，都有动人的故...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/8b493334965e">8205篇文章</a>·195.2K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/Df7njb">
-          <img src="//upload.jianshu.io/collections/images/25/2005503_162125081_2.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/Df7njb">谈写作</a></h4>
-        <p class="collection-description">本专题主要收录写作者关于文学写作及其他写作的思考。
-
-          投稿须知&amp;本...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/Df7njb">17639篇文章</a>·668.4K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/xYuZYD">
-          <img src="//upload.jianshu.io/collections/images/61/0__15815600_401_00.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/xYuZYD">连载小说</a></h4>
-        <p class="collection-description">请大家收藏连载的导航主页：http://www.jianshu.com...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/xYuZYD">72706篇文章</a>·516.7K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/wpPRDY">
-          <img src="//upload.jianshu.io/collections/images/23/%E9%9F%B3%E4%B9%90%E5%A4%A9%E5%A0%82.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/wpPRDY">音乐天堂</a></h4>
-        <p class="collection-description"> 音乐会友，用笔尖记录行走的音乐故事。
-
-          投稿要求请参照音乐天堂专...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/wpPRDY">6896篇文章</a>·588.2K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/Jgq3Wc">
-          <img src="//upload.jianshu.io/collections/images/28/%E4%B8%8A%E7%8F%AD%E8%BF%99%E7%82%B9%E4%BA%8B%E5%84%BF.jpeg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/Jgq3Wc">上班这点事儿</a></h4>
-        <p class="collection-description">本专题仅收录求职、简历、换工作、职业规划、招聘、职场干货、上班感悟、管...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/Jgq3Wc">35478篇文章</a>·477.1K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/88b891fe2acb">
-          <img src="//upload.jianshu.io/collections/images/333563/pexels-photo-167085_%E5%89%AF%E6%9C%AC.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/88b891fe2acb">萌宠</a></h4>
-        <p class="collection-description">本专题收入有关宠物类的文章作品。
-          请保证所投稿文章的原创性。
-          《萌...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/88b891fe2acb">1923篇文章</a>·89.0K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/ef51d47f492d">
-          <img src="//upload.jianshu.io/collections/images/94/%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/ef51d47f492d">语言·翻译</a></h4>
-        <p class="collection-description">本专题收录与外语、外国、异域有关的外语学习类文章（包括但不限于学习技法...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/ef51d47f492d">10411篇文章</a>·593.0K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/8c92f845cd4d">
-          <img src="//upload.jianshu.io/collections/images/283250/%E6%BC%AB%E7%94%BB%E4%B8%93%E9%A2%98.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/8c92f845cd4d">漫画·手绘</a></h4>
-        <p class="collection-description">手绘、漫画爱好者分享交流学习的地方 (≧∇≦)ﾉ ，无论高手还是菜鸟都...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/8c92f845cd4d">40891篇文章</a>·555.0K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/283e1eb5052b">
-          <img src="//upload.jianshu.io/collections/images/333523/mymInbq_%E5%89%AF%E6%9C%AC.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/283e1eb5052b">悬疑推理</a></h4>
-        <p class="collection-description">本专题收入悬疑推理类的文章作品。
-          请保证所投稿文章的原创性。
-          悬疑...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/283e1eb5052b">2591篇文章</a>·114.5K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/e2XTpa">
-          <img src="//upload.jianshu.io/collections/images/20/%E5%9B%BE.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/e2XTpa">青春</a></h4>
-        <p class="collection-description">青春是诗，青春是歌，青春是画，青春是书桌上那沓厚厚的试卷，是寄给隔壁班...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/e2XTpa">118294篇文章</a>·907.2K人关注</div>
-      </div>
-    </div>
-    <div class="col-xs-8">
-      <div class="collection-wrap">
-        <a class="avatar-collection" target="_blank" href="/c/yD9GAd">
-          <img src="//upload.jianshu.io/collections/images/4/sy_20091020135145113016.jpg?imageMogr2/auto-orient/strip|imageView2/1/w/180/h/180" alt="180">
-        </a>    <h4><a class="name" target="_blank" href="/c/yD9GAd">读书</a></h4>
-        <p class="collection-description">谈谈读的那些书。
-
-          投稿须知：
-          读书专题仅收录与读书有关的书评、...</p>
-        <a class="btn btn-success follow"><i class="iconfont ic-follow"></i><span>关注</span></a>
-        <hr>
-        <div class="count"><a target="_blank" href="/c/yD9GAd">104058篇文章</a>·1208.7K人关注</div>
-      </div>
-    </div>
-  </div>
-
-  <a class="btn btn-danger load-more-btn" data-next-page="2" data-order-by="recommend" href="">加载更多</a>
-</div>
+    <a class="u-btn u-btn-default load-more-btn" data-next-page="2" data-order-by="recommend" href="">加载更多</a>
+  </article>
+</main>
