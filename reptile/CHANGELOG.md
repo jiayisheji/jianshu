@@ -8,14 +8,5 @@
 ## versions[1.0.0-rc0]（Date[yyyy-mm-dd]）
 ### Features（新功能）
 ### Bug Fixes（修复bug）
-### Notes（添加新的文件）
+### Notes（注释）
 ```
-
-## 1.0.0beta1 （2017-05-23）
-
-### Features
-1. 获取首页文章列表数据自动生成article.json
-2. 根据列表获取对应文章详情自动生成article_[slug].json
-### Bug Fixes
-
-### Notes

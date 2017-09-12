@@ -1,4 +1,8 @@
 /**
+ * Created by jiayi on 2017/9/12.
+ */
+
+/**
  * Created by jiayi on 2017/2/10.
  */
 import * as path from 'path';
@@ -39,4 +43,4 @@ const config = {
     }
 };
 
-export = config[env];
+export default config[env];

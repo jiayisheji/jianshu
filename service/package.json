@@ -41,7 +41,8 @@
     "winston": "^2.3.1"
   },
   "scripts": {
-    "start": "npm run build-ts",
+    "init": "tsc",
+    "start": "npm run watch",
     "dev": "supervisor -w dist ./dist/app.js",
     "build": "npm run build-ts && npm run tslint",
     "serve": "nodemon dist/app.js",
@@ -61,6 +62,7 @@
     "del": "^2.2.2",
     "merge2": "^1.0.3",
     "nodemon": "^1.12.0",
+    "tslint": "^5.7.0",
     "typescript": "^2.3.2"
   },
   "engines": {
