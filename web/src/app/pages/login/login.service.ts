@@ -22,7 +22,7 @@ export class LoginService {
   login(loginInfo: { username: string; password: string }): Observable<any> {
     const authorizationService = this.authorizationService;
     console.log(loginInfo, authorizationService);
-    return this.http.post('/login1', loginInfo)
+    return this.http.post('/login', loginInfo)
       .map((user: any) => {
         console.log(user);
         if (user.meta.code === 200) {

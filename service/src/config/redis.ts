@@ -13,4 +13,4 @@ redisClient.on('connect', function () {
     console.log('Redis is ready');
 });
 
-export default {redis, redisClient};
+export default redisClient;

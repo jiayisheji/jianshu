@@ -34,11 +34,11 @@ const menu = [
   }
 ];
 @Component({
-  selector: 'app-liked-article',
+  selector: 'app-user-liked-article',
   templateUrl: './liked-article.component.html',
   styleUrls: ['./liked-article.component.css']
 })
-export class LikedArticleComponent implements OnInit {
+export class UserLikedArticleComponent implements OnInit {
 
   public menu:Array<menuInterface> = [];
   public container: object = {};

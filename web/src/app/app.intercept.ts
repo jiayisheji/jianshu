@@ -4,6 +4,7 @@
 import {HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import {AuthorizationService} from './core/authorization/authorization.service';
 import {Router} from '@angular/router';
 import { environment } from './../environments/environment';
@@ -79,14 +80,18 @@ export class APPResponseInterceptor implements HttpInterceptor {
       console.log('Response catch', err);
       if (err instanceof HttpErrorResponse) {
         switch (err.status) {
+          case 400:
+            return Observable.throw(err);
           case 401:
             return Observable.throw(err);
           case 403:
-            break;
+            return Observable.throw(err);
           case 404:
-            break;
+            return Observable.throw(err);
           case 500:
-            break;
+            return Observable.throw(err);
+          default:
+            return Observable.throw(err);
         }
       }
     });

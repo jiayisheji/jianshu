@@ -10,6 +10,7 @@ const Schema = mongoose.Schema;
 /**
  * 定义接口
  */
+
 export type BooksModel = mongoose.Document & {
     title: String,
     owner: any,

@@ -41,6 +41,11 @@ export class UserDetailResolver implements Resolve<User> {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
+    // ObjectId 采用12字节的存储空间，每个字节两位16进制数字，是一个24位的字符串。
+    if (!/[a-zA-Z0-9]{24}/.test(route.params['id'])) {
+      this.router.navigate(['/404']);
+      return ;
+    }
     return this.http.get(`/user/${route.params['id']}/home`).map((data: any) => {
       if (data.meta && data.meta.code === 200) {
         return data.data;
@@ -49,13 +54,5 @@ export class UserDetailResolver implements Resolve<User> {
         return false;
       }
     }).first();
-    /*.subscribe((data: any) => {
-      if (data.meta && data.meta.code === 200) {
-        return data.data;
-      } else {
-        this.router.navigate(['/404']);
-        return false;
-      }
-    });*/
   }
 }

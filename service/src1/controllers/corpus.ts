@@ -3,14 +3,18 @@
  * Created by jiayi on 2017/6/18.
  */
 import {default as Corpus, CorpusModel} from '../models/corpus';
+import {default as CorpusSubscribers} from '../models/corpus_subscribers';
 import {Request, Response, NextFunction} from 'express';
 import * as mongoose from 'mongoose';
-import * as _ from 'lodash';
+import {search} from './corpus/common';
+import {getUserPopulate} from './utility';
 
 /**
  * 定义类接口
  */
-export interface CorpusInterface {
+export interface InterfaceCorpus {
+    byId(req: Request, res: Response, next: NextFunction, id: string);
+
     save(req: Request, res: Response, next: NextFunction);
 
     find(req: Request, res: Response, next: NextFunction);
@@ -19,16 +23,20 @@ export interface CorpusInterface {
 
     count(req: Request, res: Response, next: NextFunction);
 
-    byId(req: Request, res: Response, next: NextFunction, id: string);
-
     search(req: Request, res: Response, next: NextFunction);
+
+    subscribe(req: Request, res: Response, next: NextFunction);
+
+    unsubscribe(req: Request, res: Response, next: NextFunction);
+
+    editorsAndSubscribers(req: Request, res: Response, next: NextFunction);
 }
 
 
 /**
  * 专题控制器
  */
-class CorpusController implements CorpusInterface {
+class CorpusController implements InterfaceCorpus {
     constructor() {
     }
 
@@ -51,8 +59,8 @@ class CorpusController implements CorpusInterface {
         }
         try {
             const corpus = await Corpus.findOne({_id: id})
-                .populate({path: 'owner', select: {nickname: 1, avatar: 1, _id: 1}})
-                .populate({path: 'editors.editor', select: {nickname: 1, avatar: 1, _id: 1}});
+                .populate(getUserPopulate('owner'))
+                .populate(getUserPopulate('managers.manager'));
             if (!corpus) {
                 return res.json({
                     'meta': {
@@ -100,6 +108,8 @@ class CorpusController implements CorpusInterface {
         const newCorpus = new Corpus(Object.assign({owner: (req as any).user._id}, req.body));
         try {
             const corpus = await newCorpus.save();
+            const subscribers = await new CorpusSubscribers({collection_id: corpus._id, subscribers: []}).save();
+
             res.json({
                 'meta': {
                     'code': 200,
@@ -126,6 +136,7 @@ class CorpusController implements CorpusInterface {
      */
     async find(req: Request, res: Response, next: NextFunction) {
         const corpus = (req as any).corpus;
+        console.log(corpus)
         res.json({
             'meta': {
                 'code': 200,
@@ -216,23 +227,16 @@ class CorpusController implements CorpusInterface {
      * 获取全部专题
      */
     async search(req: Request, res: Response, next: NextFunction) {
-        const {page = 1, limit = 10} = req.query;
-        const params: any = Object.assign(req.query, {t: undefined});
         try {
-            const count = await Corpus.count(params);
-            const corpus = await Corpus.find(params)
-                .populate({path: 'owner', select: {'basic.nickname': 1, 'basic.avatar': 1, _id: 1}})
-                .populate({path: 'editors.editor', select: {'basic.nickname': 1, 'basic.avatar': 1, _id: 1}})
-                .sort({'updatedAt': 'desc'})
-                .skip((Number(page) - 1) * Number(limit))
-                .limit(Number(limit));
+            const corpus = await search(req.query);
             res.json({
                 'meta': {
                     'code': 200,
                     'message': '获取全部成功'
                 },
-                'data': _.map(corpus, (corpu: CorpusModel) => corpu.formatData()),
-                'total': count
+                'data': corpus.data,
+                'total': corpus.total,
+                'page': corpus.page
             });
         } catch (err) {
             console.log('通过获取全部专题信息失败', err);
@@ -243,6 +247,63 @@ class CorpusController implements CorpusInterface {
                 }
             });
         }
+    }
+
+    /**
+     * PUT /corpus/:id/subscribe
+     * 关注某个专题
+     */
+    async subscribe(req: Request, res: Response, next: NextFunction) {
+        try {
+            const subscribers = await CorpusSubscribers.findOne({
+                collection_id: (req as any).corpus._id
+            });
+            if (!subscribers) {
+                const count = subscribers.subscribers.length + 1;
+                subscribers.update({
+                    $push: {
+                        subscribers: {
+                            subscriber: (req as any).user._id
+                        }
+                    }
+                });
+                res.json({
+                    'meta': {
+                        'code': 200,
+                        'message': '添加成功'
+                    },
+                    'data': {
+                        'subscribers_count': count
+                    }
+                });
+            } else {
+                res.json({
+                    'meta': {
+                        'code': 200,
+                        'message': '已经添加过了'
+                    }
+                });
+            }
+        } catch (err) {
+            console.log('给用户添加专题', err);
+            res.json({
+                'meta': {
+                    'code': 404,
+                    'message': '没有找到'
+                }
+            });
+        }
+    }
+
+    /**
+     * DELETE /corpus/:id/unsubscribe
+     * 取消关注某个专题
+     */
+    async unsubscribe(req: Request, res: Response, next: NextFunction) {
+
+    }
+
+    async editorsAndSubscribers(req: Request, res: Response, next: NextFunction) {
     }
 }
 

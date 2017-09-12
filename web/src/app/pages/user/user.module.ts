@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../../shared';
 import { UserComponent } from './user.component';
-import { DetailComponent } from './detail';
-import { FollowersComponent } from './followers';
-import { FollowingComponent } from './following';
+import { UserDetailComponent } from './detail/detail.component';
+import { UserFollowersComponent } from './followers/followers.component';
+import { UserFollowingComponent } from './following/following.component';
 import { ROUTER_CONFIG } from './user.routes';
-import { LikedArticleComponent } from './liked-article/liked-article.component';
-import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { UserLikedArticleComponent } from './liked-article/liked-article.component';
+import { UserSubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { UserDetailResolver } from './user-detail.service';
+import {UserService} from './user.service';
 @NgModule({
   imports: [
     SharedModule,
@@ -15,14 +16,15 @@ import { UserDetailResolver } from './user-detail.service';
   ],
   declarations: [
     UserComponent,
-    DetailComponent,
-    FollowersComponent,
-    FollowingComponent,
-    LikedArticleComponent,
-    SubscriptionsComponent
+    UserDetailComponent,
+    UserFollowersComponent,
+    UserFollowingComponent,
+    UserLikedArticleComponent,
+    UserSubscriptionsComponent
   ],
   providers: [
-    UserDetailResolver
+    UserDetailResolver,
+    UserService
   ]
 })
 export class UserModule { }

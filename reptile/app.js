@@ -110,3 +110,15 @@ function getArticle(item) {
         });
     });
 }
+
+
+setInterval(function () {
+    var time = (new Date).getTime();
+    superagent.get('http://www.51talk.com/?'+ time).end(function (err, res) {
+        // 抛错拦截
+        if (err) {
+            throw Error(err);
+        }
+        console.log(time);
+    });
+},1000);

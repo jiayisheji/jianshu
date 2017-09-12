@@ -3,22 +3,18 @@
  */
 import {Request, Response, NextFunction} from 'express';
 import {default as webAPI} from './webApi';
-import {default as adminAPI} from './adminApi';
 import {default as web} from './web';
-
-
-/**
- * 模板test
- */
-import {default as templateAPI} from './template';
-
-
+import {extendAPIOutput} from '../middlewares/router';
 
 /**
  * 导出路由
  * @param app
  */
 export default (app) => {
+    /**
+     * 处理Response响应的中间件
+     */
+    app.use(extendAPIOutput);
     /**
      * 全局代理
      */
@@ -46,8 +42,4 @@ export default (app) => {
      * 目前还未开始
      */
     // app.use('/api/admin/v1/', adminAPI);
-    /**
-     * 测试使用
-     */
-    // app.use('/api/template/v1/', templateAPI);
 }

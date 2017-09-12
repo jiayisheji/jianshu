@@ -36,11 +36,11 @@ const menu = [
 ];
 
 @Component({
-  selector: 'app-detail',
+  selector: 'app-user-detail',
   templateUrl: './detail.component.html',
   styleUrls: ['./detail.component.css']
 })
-export class DetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit {
   public menu:Array<menuInterface> = [];
   public container: object = {};
   constructor(private route : ActivatedRoute, private router: Router) { }

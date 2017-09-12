@@ -6,11 +6,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 // 导入路由页面相关组件
 import { UserComponent } from './user.component';
-import { DetailComponent } from './detail';
-import { FollowersComponent } from './followers';
-import { FollowingComponent } from './following';
-import { LikedArticleComponent } from './liked-article/liked-article.component';
-import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { UserDetailComponent } from './detail/detail.component';
+import { UserFollowersComponent } from './followers/followers.component';
+import { UserFollowingComponent } from './following/following.component';
+import { UserLikedArticleComponent } from './liked-article/liked-article.component';
+import { UserSubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { NotFoundComponent } from '../../shared/not-found/not-found.component';
 
 import { UserDetailResolver } from './user-detail.service';
@@ -23,11 +23,11 @@ export const routes: Routes = [
       user: UserDetailResolver
     },
     children: [
-      { path: '', component: DetailComponent},
-      { path: 'followers', component: FollowersComponent},
-      { path: 'following', component: FollowingComponent},
-      { path: 'liked_article', component: LikedArticleComponent},
-      { path: 'subscriptions', component: SubscriptionsComponent}
+      { path: '', component: UserDetailComponent},
+      { path: 'followers', component: UserFollowersComponent},
+      { path: 'following', component: UserFollowingComponent},
+      { path: 'liked_article', component: UserLikedArticleComponent},
+      { path: 'subscriptions', component: UserSubscriptionsComponent}
     ]
   }
 ];

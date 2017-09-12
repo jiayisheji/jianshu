@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-subscriptions',
+  selector: 'app-user-subscriptions',
   templateUrl: './subscriptions.component.html',
   styleUrls: ['./subscriptions.component.css']
 })
-export class SubscriptionsComponent implements OnInit {
+export class UserSubscriptionsComponent implements OnInit {
 
   constructor() { }
 

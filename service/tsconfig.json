@@ -1,11 +1,15 @@
 {
     "compilerOptions": {
-        "paths": {   // 配置.d.ts存放目录
+        "typeRoots": [
+            "node_modules/@types",
+            "types"
+        ], // 配置.d.ts存放目录
+        /*"paths": {
             "*": [
-                "node_modules/@types/*",
-                "src/types/*"
+                "node_modules/@types*//*",
+                "types*//*.d.ts"
             ]
-        },
+        },*/
         "module": "commonjs", //指定生成哪个模块系统代码
         "target": "es2017", //目标代码类型
         "noImplicitAny": false, //在表达式和声明上有隐含的'any'类型时报错。
@@ -19,7 +23,6 @@
         "./src/**/*"
     ],
     "exclude": [
-        "views",
         "public",
         "db"
     ]

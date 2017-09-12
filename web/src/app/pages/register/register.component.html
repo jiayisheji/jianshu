@@ -18,9 +18,9 @@
             <i class="icon-phonenumber"></i>
           </div>
           <div class="input-prepend verifycode">
-            <input type="text" class="form-control" formControlName="username" placeholder="手机验证码">
+            <input type="text" class="form-control" formControlName="code" placeholder="手机验证码">
             <i class="icon-verify"></i>
-            <button type="button" class="u-btn u-btn-success u-btn-sm">发送验证码</button>
+            <button type="button" class="u-btn u-btn-success u-btn-sm" (click)="sendCode()">发送验证码</button>
           </div>
           <div class="input-prepend">
             <input class="form-control" type="password" formControlName="password" placeholder="设置密码">

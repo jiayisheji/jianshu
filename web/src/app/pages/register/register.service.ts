@@ -1,31 +1,27 @@
-import { Injectable }              from '@angular/core';
-import { Http, Response }          from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {AuthorizationService} from '../../core/authorization/authorization.service';
+
 @Injectable()
 export class RegisterService {
-  private registerUrl = 'http://localhost:3000/api/v1/register';  // URL to web API
-  constructor (private http: Http) {}
+  constructor(private http: HttpClient, private authorizationService: AuthorizationService) {
+  }
+
   register(data: any): Observable<any> {
-    return this.http.post(this.registerUrl, data)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    const authorizationService = this.authorizationService;
+    return this.http.post('/register', data).map((user: any) => {
+      authorizationService.setCurrentUser(user.data);
+      return user;
+    });
   }
-  private extractData(res: Response) {
-    return res.json() || {};
+
+  sendCode(data: any): Observable<any> {
+    return this.http.post('/send_code', data).map((code: any) => {
+      return code;
+    });
   }
-  private handleError (error: Response | any) {
-    // In a real world app, you might use a remote logging infrastructure
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
-  }
+
 }

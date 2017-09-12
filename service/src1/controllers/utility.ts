@@ -35,3 +35,12 @@ export function formatDate(date: Date): string | void {
     }
     return new Date(date).toLocaleString();
 }
+
+/**
+ * 获取引用的用户信息
+ * @param {string} path
+ * @returns {Object}
+ */
+export function getUserPopulate(path: string): Object {
+    return {path: path, select: {'basic.nickname': 1, 'basic.avatar': 1, _id: 1}}
+}

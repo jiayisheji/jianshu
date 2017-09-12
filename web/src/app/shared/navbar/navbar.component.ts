@@ -26,6 +26,7 @@ export class NavbarComponent implements OnInit {
     this.isLogin = this.authorizationService.isLogin();
     if (this.isLogin) {
       this.user = this.authorizationService.getCurrentUser().user;
+      console.log(this.user)
     }
   }
 
@@ -39,5 +40,6 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.authorizationService.logout();
+    this.router.navigate(['/']);
   }
 }

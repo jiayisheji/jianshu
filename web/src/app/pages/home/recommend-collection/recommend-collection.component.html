@@ -1,6 +1,6 @@
-<a class="collection" [routerLink]="['/collections', '593cef410f675f04dc608846']" *ngFor="let item of collections">
-  <img [src]="item.img">
-  <span class="name">{{item.name}}</span>
+<a class="collection" [routerLink]="['/collections', item.slug]" *ngFor="let item of collections">
+  <img [src]="item.avatar">
+  <span class="title">{{item.title}}</span>
 </a>
 <a class="more-hot-collection" routerLink="/recommendations/collections">
   更多热门专题 <i class="iconfont ic-link">&gt;</i>

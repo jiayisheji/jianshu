@@ -8,12 +8,15 @@ import {LocalStrategyInfo} from 'passport-local';
 import {Request, Response, NextFunction} from 'express';
 import * as mongoose from 'mongoose';
 import {default as Article} from './article';
+import {search, userformatData, InterfaceCorpusSearchResult} from './corpus/common';
+import * as _ from 'lodash';
+import {default  as Books} from './books';
 
 
 /**
  * 定义类接口
  */
-export interface UserInterface {
+export interface InterfaceUser {
     login(req: Request, res: Response, next: NextFunction);
 
     logout(req: Request, res: Response, next: NextFunction);
@@ -22,15 +25,23 @@ export interface UserInterface {
 
     home(req: Request, res: Response, next: NextFunction);
 
+    search(req: Request, res: Response, next: NextFunction);
+
+    subscribe(req: Request, res: Response, next: NextFunction);
+
+    unsubscribe(req: Request, res: Response, next: NextFunction);
+
     checkNickname(req: Request, res: Response, next: NextFunction);
 
-    byId(req: Request, res: Response, next: NextFunction, id: string)
+    collectionsAndBooks(req: Request, res: Response, next: NextFunction);
+
+    byId(req: Request, res: Response, next: NextFunction, id: string);
 }
 
 /**
  * 模板控制器
  */
-class UserController implements UserInterface {
+class UserController implements InterfaceUser {
     constructor() {
     }
 
@@ -101,7 +112,7 @@ class UserController implements UserInterface {
                                 'user': {
                                     'nickname': user.basic.nickname,
                                     'avatar': user.basic.avatar,
-                                    'slug': user.slug
+                                    'slug': user._id
                                 }
                             }
                         });
@@ -266,6 +277,7 @@ class UserController implements UserInterface {
             }
         });
         const errors = req.validationErrors();
+        console.log(errors);
         if (errors) {
             res.json({
                 'meta': {
@@ -388,6 +400,53 @@ class UserController implements UserInterface {
     }
 
     /**
+     * GET /user
+     * 查询用户
+     */
+    async search(req: Request, res: Response, next: NextFunction) {
+        const {page = 1, limit = 20} = req.query;
+        const params: any = Object.assign(req.query, {t: undefined});
+        try {
+            const count = await User.count(params);
+            const users = await User.find(params)
+                .sort({'updatedAt': 'desc'})
+                .skip((Number(page) - 1) * Number(limit))
+                .limit(Number(limit));
+            res.json({
+                'meta': {
+                    'code': 200,
+                    'message': '获取全部成功'
+                },
+                // 'data': _.map(users, (user: UserModel) => user.formatData()),
+                'total': count
+            });
+        } catch (err) {
+            console.log('通过获取全部用户信息失败', err);
+            res.json({
+                'meta': {
+                    'code': 404,
+                    'message': '没有搜索到指定用户'
+                }
+            });
+        }
+    }
+
+    /**
+     * PUT /user/:userid/subscribe
+     * 关注某个用户
+     */
+    async subscribe(req: Request, res: Response, next: NextFunction) {
+    }
+
+    /**
+     * DELETE /user/:userid/subscribe
+     * 取消关注某个用户
+     */
+    async unsubscribe(req: Request, res: Response, next: NextFunction) {
+
+    }
+
+    /**
      * 获取查询id
      * @param {e.Request} req
      * @param {Response} res
@@ -421,6 +480,44 @@ class UserController implements UserInterface {
         }
     }
 
+    async collectionsAndBooks(req: Request, res: Response, next: NextFunction) {
+        const userinfo = (req as any).userinfo;
+        const query = {limit: 10, page: 1, slug: userinfo._id};
+        try {
+            const owner: InterfaceCorpusSearchResult = await search(Object.assign(query, {type: 'owner'}));
+            const manager: InterfaceCorpusSearchResult = await search(Object.assign(query, {type: 'manager'}));
+            const books: InterfaceCorpusSearchResult = {
+                data: [],
+                total: 0,
+                page: 1
+            };
+            res.json({
+                'meta': {
+                    'code': 200,
+                    'message': '获取全部成功'
+                },
+                'data': {
+                    'manager_collections': manager.data,
+                    'manager_collections_total': manager.total,
+                    'manager_collections_page': manager.page,
+                    'owner_collections': owner.data,
+                    'owner_collections_total': owner.total,
+                    'owner_collections_page': owner.page,
+                    'books': books.data,
+                    'books_total': books.total,
+                    'books_page': books.page
+                }
+            });
+        } catch (err) {
+            console.log('通过获取全部用户信息失败', err);
+            res.json({
+                'meta': {
+                    'code': 404,
+                    'message': '没有搜索到指定用户'
+                }
+            });
+        }
+    }
 }
 
 /**

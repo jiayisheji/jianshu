@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Route, Router, ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
 import {Observable} from 'rxjs/Observable';
+import {UserService} from './user.service';
+import {CollectionsService} from '../collections/collections.service';
+import {AuthorizationService} from '../../core/authorization/authorization.service';
 
 /**
  * 定义user 接口
@@ -34,25 +37,52 @@ export class User {
   }
 }
 
+interface InterfaceUserHomecollections {
+  data: Array<any>;
+  page: number;
+  isMore: boolean;
+}
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  providers: [CollectionsService]
 })
 export class UserComponent implements OnInit {
   user: userInterceptor;
   collections: object;
+  owner_collections = [];
+  isMyHome: boolean = false;
+  manager_collections: Object = {};
+  books: Array<any> = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private router: Router,
+              private authorizationService: AuthorizationService,
+              private userService: UserService,
+              private collectionsService: CollectionsService) {
   }
 
   ngOnInit() {
-    const param = '595a4f28dd43e92554888e3f';
+
     this.route.data
-      .subscribe((data: {user: userInterceptor}) => {
+      .subscribe((data: { user: userInterceptor }) => {
         console.log(data);
         this.user = data.user;
       });
+
+    if (this.authorizationService.isLogin()) {
+      this.isMyHome = this.authorizationService.getCurrentUser().user.slug === this.user.slug;
+    }
+    this.userService.collectionsAndBooks(this.user.slug).subscribe((user: any) => {
+      console.log(user.data);
+      this.loadOwnerData({
+        data: user.data.owner_collections,
+        total: user.data.owner_collections_total,
+        page: user.data.owner_collections_page
+      });
+    });
 
     console.log(this.route.data)
 
@@ -62,5 +92,31 @@ export class UserComponent implements OnInit {
         this.collections = data.data;
       }
     });*/
+  }
+
+  loadOwnerData(data) {
+    this.owner_collections = [...this.owner_collections, ...data.data];
+    /*this.owner_collection.page = data.page;
+    this.owner_collection.isMore = this.owner_collection.data.length < data.total;*/
+    console.log(this.owner_collections)
+  }
+
+  loadManagerData(data) {
+
+  }
+
+  loadMoreCollections(type: string, page: number) {
+    this.collectionsService.search({
+      type,
+      page,
+      limit: 10,
+      slug: this.user.slug
+    }).subscribe((results: any) => {
+      if (type === 'owner') {
+        this.loadOwnerData(results);
+      } else if (type === 'manager') {
+        this.loadManagerData(results);
+      }
+    });
   }
 }

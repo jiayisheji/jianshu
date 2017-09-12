@@ -6,9 +6,18 @@
  * 引入依赖
  */
 import * as mongoose from 'mongoose';
+import * as mongodb from 'mongodb';
 const Schema = mongoose.Schema;
 import * as _ from 'lodash';
 import {formatDate, getUserinfo} from '../controllers/utility';
+
+/**
+ * 管理者接口
+ */
+interface ManagerLsit {
+    manager: mongodb.ObjectID
+};
+
 /**
  * 定义接口
  */
@@ -16,8 +25,10 @@ export type CorpusModel = mongoose.Document & {
     createdAt: Date;   // 创建时间
     updatedAt: Date;   // 更新时间
     title: String;
-    owner: any;
-    editors: EditorsLsit[];
+    owner: mongodb.ObjectID;
+    article_count: Number;
+    subscribers_count: Number;
+    managers: ManagerLsit[];
     avatar: String;
     description: String;
     push: Boolean;
@@ -26,9 +37,7 @@ export type CorpusModel = mongoose.Document & {
     formatData: () => CorpusModel;
 };
 
-export interface EditorsLsit {
-    editor: any
-};
+
 
 /**
  * 定义Schema
@@ -42,8 +51,8 @@ const corpusSchema = new Schema({
         type: Schema.Types.ObjectId,    // 引用类型
         ref: 'User'                     // 关联用户表
     },
-    editors: [{
-        editor: { // 专题编辑
+    managers: [{
+        manager: { // 管理者
             type: Schema.Types.ObjectId,    // 引用类型
             ref: 'User'                     // 关联用户表
         }
@@ -54,6 +63,14 @@ const corpusSchema = new Schema({
     },
     description: {  // 专题公告
         type: String
+    },
+    article_count: {  // 专题收录多少文章
+        type: Number,
+        'default': 0
+    },
+    subscribers_count: {  // 专题有多少用户多少关注
+        type: Number,
+        'default': 0
     },
     push: {  // 是否允许投稿
         type: Boolean,
@@ -88,12 +105,14 @@ corpusSchema.methods.formatData = function (): any {
         'createdAt': formatDate(this.createdAt),
         'owner': getUserinfo(this.owner),
         'title': this.title,
+        'article_count': this.article_count,
+        'subscribers_count': this.subscribers_count,
         'avatar': this.avatar,
         'description': this.description,
         'verify': this.verify,
         'push': this.push,
-        'editors': _.map(this.editors, function (item: any): Object {
-            return getUserinfo(item.editor);
+        'managers': this.managers && _.map(this.managers, function (item: any): Object {
+            return getUserinfo(item.manager);
         })
     };
 };

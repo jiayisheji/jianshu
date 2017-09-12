@@ -23,7 +23,13 @@ import config = require('./config/config');
 /**
  * 全部路由
  */
-import {default as  routes} from './routes/index';
+import {default as routes} from './routes/index';
+
+
+/**
+ * 全部自定义中间件
+ */
+import jianshuMiddlewares from './middlewares/index';
 
 /**
  * 引入express配置
@@ -33,6 +39,7 @@ const app = express();
 /**
  * 设置静态资源路径，web ,app ,admin
  */
+app.use('/assets', express.static('public/images'));
 app.use('/web', express.static('public/web'));
 app.use('/app', express.static('public/app'));
 app.use('/admin', express.static('public/admin'));
@@ -54,7 +61,7 @@ app.use(passport.initialize());
  */
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(expressValidator({
     errorFormatter: function (param, msg, value) {
         const namespace = param.split('.');
@@ -78,10 +85,6 @@ app.use(expressValidator({
         }
     }
 }));
-/**
- * 路由挂载到app上
- */
-routes(app);
 
 /**
  * 成功日志
@@ -113,14 +116,32 @@ app.use(expressWinston.errorLogger({
     ]
 }));
 
+app.use(jianshuMiddlewares);
+
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+/*app.use((req, res, next) => {
     const err: any = new Error('Not Found');
     err.status = 404;
     next(err);
+});*/
+
+
+// production error handler
+// no stacktraces leaked to user
+app.use((err: any, req, res, next) => {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+    next();
 });
 
+/**
+ * 路由挂载到app上
+ */
+routes(app);
 /**
  * 连接数据库
  */
@@ -135,4 +156,3 @@ db.once('open', function () {
     console.log('数据库启动了');
     app.listen(config.port, () => console.log('Express server listening on port ' + config.port));
 });
-

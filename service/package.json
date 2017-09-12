@@ -44,8 +44,8 @@
     "start": "npm run build-ts",
     "dev": "supervisor -w dist ./dist/app.js",
     "build": "npm run build-ts && npm run tslint",
-    "serve": "node dist/app.js",
-    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,green.bold\" \"npm run watch-ts\" \"npm run dev\"",
+    "serve": "nodemon dist/app.js",
+    "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"yellow.bold,green.bold\" \"npm run watch-ts\" \"npm run serve\"",
     "build-ts": "tsc",
     "watch-ts": "tsc -w",
     "tslint": "tslint -c tslint.json -p tsconfig.json"
@@ -60,6 +60,7 @@
     "concurrently": "^3.4.0",
     "del": "^2.2.2",
     "merge2": "^1.0.3",
+    "nodemon": "^1.12.0",
     "typescript": "^2.3.2"
   },
   "engines": {

@@ -54,6 +54,9 @@
   display: inline-block;
   border: 1px solid #ddd;
   background-color: #fff;
+  & img{
+    vertical-align: initial;
+  }
 }
 .count{
   font-family: Georgia,Times New Roman,Times,Songti SC,serif;

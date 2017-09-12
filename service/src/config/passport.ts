@@ -10,24 +10,20 @@ const Strategy = passportBearer.Strategy;
 /**
  * 注册web端用户权限
  */
-import {default as User} from '../models/user';
+import {default as TokenGuard} from '../redis/tokenGuard';
 
 passport.use('user', new Strategy(function (token, done) {
     jwt.verify(token, 'jiayishejijianshu', function (err, decoded) {
         if (!decoded) {
             return done(null, false);
         }
-        User.findOne({
-            username: decoded.username,
-            token: token
-        }).exec((error, user: any) => {
-            if (error) {
-                return done(error);
-            }
+        TokenGuard.getToken(token).then((user) => {
             if (!user) {
                 return done(null, false, {message: '账号和密码不存在'});
             }
-            return done(null, user);
+            return done(null, JSON.parse(user));
+        }).catch((error) => {
+            return done(error);
         });
     });
 }));
