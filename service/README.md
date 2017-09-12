@@ -298,13 +298,13 @@ npm run tslint  // runs only TSLint
 | ------------------------------- | --------------------------------------------------------------------- |
 | @types/                    | 用于管理.d.ts文件 |
 | concurrently                    | 用于管理多个并发任务的实用程序。使用npm脚本 |
-| nodemon                       | 启动nodejs，修改文件自动刷新                               |
+| nodemon                        | 启动nodejs，修改文件自动刷新                              |
 | tslint                          | 检查 (类似 ESLint) TypeScript 文件                       |
 | typescript                      | 提高JavaScript生产率的JavaScript编译器/类型检查器  |
 
 要安装或更新这些依赖项，您可以使用 `npm` or `yarn`.
 
 # 其他
-可以看[系列教程](https://github.com/jiayisheji/jianshu/blob/master/doc/)
+可以看[系列教程](https://github.com/jiayisheji/jianshu/blob/master/bolg/)
 
 

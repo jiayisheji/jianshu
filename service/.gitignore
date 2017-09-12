@@ -2,8 +2,6 @@
 node_modules/
 build/
 dist/
-src1/
-src2/
 npm-debug.log
 test/unit/coverage
 test/e2e/reports

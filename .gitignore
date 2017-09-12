@@ -1,4 +1,10 @@
-.idea/
+.idea/*
 .DS_Store
 node_modules/
 npm-debug.log
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
