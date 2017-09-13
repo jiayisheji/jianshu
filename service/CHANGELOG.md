@@ -11,6 +11,19 @@
 ### Notes（注释）
 ```
 
+## 0.1.1 （2017-08-13）
+### Features
+- 配置`express`中间件
+- 配置`expressWinston`中间件打印访问日志
+- 配置`responseHandlerMiddleware`中间件统一处理API响应结果
+- 配置`responseMessage`中间件统一处理API响应结果错误信息
+- 连接`mongodb`数据库
+- 配置路由，浏览器访问`http://localhost:3000/` 输出 `Hello world`。
+- 服务端正常运行
+### Bug Fixes
+### Notes
+
+
 ## 0.0.1 （2017-08-12）
 ### Features
 - 构建服务端项目。
