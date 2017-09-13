@@ -4,19 +4,22 @@
 /**
  * 引入依赖模块
  */
-import * as express from 'express';
 
 /**
  * 引入配置
  */
 import {default as coreConfig} from './config/core';
+import {default as mongooseConfig} from './config/mongoose';
+import {default as app} from './config/express';
+import {default as routes} from './routes';
+
 
 /**
- * 引入express配置
+ * 配置路由
  */
-const app = express();
+routes(app);
 
 /**
- * 启动服务端
+ * 启动服务端 并连接数据库 mongodb
  */
-app.listen(coreConfig.port, () => console.log('Express server listening on port ' + coreConfig.port));
+mongooseConfig(app);

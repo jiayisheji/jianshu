@@ -1,0 +1,33 @@
+/**
+ * Created by jiayi on 2017/9/13.
+ */
+import {Request, Response, NextFunction} from 'express';
+
+/**
+ * 导出路由
+ * @param app
+ */
+
+export default (app) => {
+    /**
+     * 全局代理
+     */
+    app.all('*', function (req: Request, res: Response, next: NextFunction) {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Headers',
+            'Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
+        if (req.method === 'OPTIONS') {
+            res.sendStatus(200); // 让options请求快速返回
+        } else {
+            next();
+        }
+    });
+
+    /**
+     * http://localhost:3000/ 访问页面
+     */
+    app.use('/', (req: Request, res: Response, next: NextFunction) => {
+        res.send('Hello world');
+    });
+}
