@@ -109,7 +109,7 @@ function generateModule(filePath, fileName) {
         }
         console.log(data)
             // 获取对应的模板
-        const source = path.join(ROOT_PATH, "/generateTemplate/Module", `tpl.${type}.ts`);
+        const source = path.join(ROOT_PATH, "/generateTemplate/Module", `tpl.${type}.js`);
         // 生成的文件
         const dest = path.join(destDir, createFile);
         mkdirp(destDir, function(err) {
@@ -149,7 +149,7 @@ function generateService(filePath, fileName) {
         }
         console.log(data)
             // 获取对应的模板
-        const source = path.join(ROOT_PATH, "/generateTemplate/Service", `tpl.${type}.ts`);
+        const source = path.join(ROOT_PATH, "/generateTemplate/Service", `tpl.${type}.js`);
         // 生成的文件
         const dest = path.join(destDir, createFile);
         mkdirp(destDir, function(err) {
@@ -189,7 +189,7 @@ function generateFilter(filePath, fileName) {
         }
         console.log(data)
             // 获取对应的模板
-        const source = path.join(ROOT_PATH, "/generateTemplate/Filter", `tpl.${type}.ts`);
+        const source = path.join(ROOT_PATH, "/generateTemplate/Filter", `tpl.${type}.js`);
         // 生成的文件
         const dest = path.join(destDir, createFile);
         mkdirp(destDir, function(err) {
