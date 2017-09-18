@@ -1,18 +1,14 @@
 /**
+ * 应用程序启动入口
  * Created by jiayi on 2017/9/12.
- */
-/**
- * 引入依赖模块
  */
 
 /**
  * 引入配置
  */
-import {default as coreConfig} from './config/core';
-import {default as mongooseConfig} from './config/mongoose';
-import {default as app} from './config/express';
-import {default as routes} from './routes';
-
+import {default as mongooseService} from './core/mongoose.service';
+import {default as app} from './app.core';
+import {default as routes} from './app.route';
 
 /**
  * 配置路由
@@ -22,4 +18,4 @@ routes(app);
 /**
  * 启动服务端 并连接数据库 mongodb
  */
-mongooseConfig(app);
+mongooseService(app);

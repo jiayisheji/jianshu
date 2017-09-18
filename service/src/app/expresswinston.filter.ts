@@ -1,10 +1,10 @@
 /**
- * Created by jiayi on 2017/9/13.
+ * Created by jiayi on 2017/9/15.
  */
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 
-export default function (app) {
+export default (app) => {
     /**
      * 成功日志
      */
