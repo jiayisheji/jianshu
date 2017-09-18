@@ -10,7 +10,7 @@ import * as mongodb from 'mongodb';
  * 引入{{fileName}}模型和接口
  */
 import {default as {{fileName}} } from './{{filePath}}.model';
-import {default as {{fileName}}Model} from './{{filePath}}.interface';
+import { {{fileName}}Model } from './{{filePath}}.interface';
 
 /**
  * 定义{{fileName}}服务类接口

@@ -14,7 +14,7 @@ import {Request, Response, NextFunction} from 'express';
  * 引入{{fileName}}服务和接口
  */
 import {default as {{fileName}}Service} from './{{filePath}}.services';
-import {default as {{fileName}}Model} from './{{filePath}}.interface';
+import { {{fileName}}Model } from './{{filePath}}.interface';
 
 
 
@@ -42,7 +42,7 @@ class {{fileName}}Controller implements Interface{{fileName}} {
     async test(req: Request, res: Response, next: NextFunction) {
         try {
             const test: any = await {{fileName}}Service.test();
-        catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }

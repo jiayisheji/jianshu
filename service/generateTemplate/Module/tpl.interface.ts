@@ -16,7 +16,7 @@ export type {{fileName}}Model = mongoose.Document & {
     _id: mongodb.ObjectID; // 唯一标识;
     createdAt: Date;   // 创建时间
     updatedAt: Date;   // 更新时间
-    test: String;  //一个字符串
+    test: String;  // 一个字符串
     testArray: TestList[] // 集合
     testFun: (name: String, callback: (err: any, isMatch: boolean) => any) => void;
     getFun: () => String;

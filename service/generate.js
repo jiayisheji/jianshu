@@ -7,7 +7,7 @@
  */
 const process_argv = process.argv.slice(2);
 // 获取package.json的author字段，如果没有就设一个默认的
-const author = require("./package.json").author || 'jiayi';
+const author = require("./package.json").author.name || 'jiayi';
 // 创建时间
 const createAt = new Date().toLocaleString();
 // mkdirp是无限级创建目录的库
@@ -24,7 +24,7 @@ const tpl_apply = require('tpl_apply');
  * 服务 service|s
  * 过滤器 filter|f
  */
-const TYPE_REGULAR = /^module|m|service|s|filter|f$/;
+const TYPE_REGULAR = /^(module|m|service|s|filter|f)$/;
 const FILE_REGULAR = /^[\w]+[\w\/]+[\w]$/g;
 /**
  * 如果不是预期就直接抛出错误，强制逗比结束

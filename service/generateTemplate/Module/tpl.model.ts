@@ -10,7 +10,7 @@ import * as mongoose from 'mongoose';
 /**
  * 引入{{fileName}}接口
  */
-import {default as {{fileName}}Model} from './{{filePath}}.interface';
+import { {{fileName}}Model } from './{{filePath}}.interface';
 
 /**
  * {{fileName}}Schema
