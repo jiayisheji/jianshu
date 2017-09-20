@@ -5,7 +5,6 @@
 /**
  * 引入依赖
  */
-import * as mongodb from 'mongodb';
 import * as mongoose from 'mongoose';
 /**
  * 引入{{fileName}}接口
@@ -48,4 +47,4 @@ const {{fileName}}Schema = new mongoose.Schema({
 /**
  * 导出{{fileName}}模型
  */
-export default mongoose.model(`{{fileName}}`, {{name}}Schema);
+export default mongoose.model(`{{fileName}}`, {{fileName}}Schema);

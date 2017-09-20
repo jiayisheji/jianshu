@@ -18,13 +18,13 @@ interface Interface{{fileName}} {
 /**
  * {{fileName}}过滤器
  */
-class {{fileName}}Filter {
+class {{fileName}}Filter implements Interface{{fileName}} {
     /**
      * test过滤器
      */
     test(req: Request, res: Response, next: NextFunction) {
         console.log(req);
-        next();
+        next();  // 过滤器执行完一定next,不然无法继续了。
     };
 }
 
