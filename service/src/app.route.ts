@@ -5,7 +5,7 @@
 
 import {Request, Response, NextFunction} from 'express';
 
-
+import {default as UsersRouter} from './users/users.route';
 
 /**
  * 导出路由
@@ -31,7 +31,7 @@ export default (app) => {
      * web端api接口
      */
     // 用户API
-    // app.use('/api/v1', usersRouter);
+    app.use('/api/v1', UsersRouter);
     // 专题API
     // 文集API
     // 文章API
