@@ -10,6 +10,15 @@
 ### Bug Fixes（修复bug）
 ### Notes（注释）
 ```
+## 0.1.1 （2017-09-20）
+### Features
+- 构件用户模块
+- 创建注册业务逻辑
+- 构件`express`中间件表单验证文件
+- 服务端正常运行
+### Bug Fixes
+- fixs 文件生成器 bug
+### Notes
 
 ## 0.1.1 （2017-09-18）
 ### Features
