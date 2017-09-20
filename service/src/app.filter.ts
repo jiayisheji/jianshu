@@ -10,6 +10,8 @@ import {default as ExpressRequestMiddlewareFilter} from './app/requestmiddleware
 import {default as ExpressResponseMiddlewareFilter} from './app/responsemiddleware.filter';
 // 请求日志
 import {default as ExpressWinstonFilter} from './app/expresswinston.filter';
+// 表单验证
+import {default as ExpressValidatorFilter} from './app/expressvalidator.filter';
 import {Request} from 'express';
 
 export default (app) => {
@@ -26,4 +28,6 @@ export default (app) => {
     app.use(ExpressResponseMiddlewareFilter);
     // 注入请求日志
     ExpressWinstonFilter(app);
+    // 注入表单验证
+    ExpressValidatorFilter(app);
 };
