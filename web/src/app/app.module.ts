@@ -1,6 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+/**
+ * App routes config
+ */
+import {ROUTING} from './app.routes';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -17,7 +21,9 @@ const APP_PROVIDERS = [
   imports: [
     BrowserModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    FlexLayoutModule,
+    ROUTING
   ],
   declarations: [
     AppComponent
