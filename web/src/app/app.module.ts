@@ -1,35 +1,22 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-/**
- * App routes config
- */
-import {ROUTING} from './app.routes';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 /*
  * Platform and Environment providers/directives/pipes
  */
 // App is our top level component
-import {AppComponent} from './app.component';
-import {CoreModule} from './core';
-import {SharedModule} from './shared';
-
-// Application wide providers
-const APP_PROVIDERS = [
-];
-
+import { AppComponent } from './app.component';
+// App is our top level router
+import { AppRoutingModule } from './app-routing.module';
+// Application wide core module
+import { CoreModule } from './core';
 @NgModule({
   imports: [
     BrowserModule,
-    CoreModule,
-    SharedModule,
-    FlexLayoutModule,
-    ROUTING
+    AppRoutingModule,
+    CoreModule
   ],
   declarations: [
     AppComponent
-  ],
-  providers: [
-    ...APP_PROVIDERS
   ],
   bootstrap: [AppComponent]
 })
