@@ -19,6 +19,10 @@
 - blog 开发笔记
 - wiki 文档管理
 - CHANGELOG.md 版本迭代日志（注意：只记录中版本迭代信息，其他小版本信息对应各工程查询）
- 
+
+需要帮助？请先阅读 [学习教程](https://github.com/jiayisheji/jianshu/wiki)， 如果未能解决，可以到 GitHub 上 [进行提问](https://github.com/jiayisheji/jianshu/issues)。
+
+喜欢的话请点star，想订阅点watch，欢迎fork！
+
 ## 说明
 > **以上技术均未使用过，从0开始学习一步步完成目标。**
