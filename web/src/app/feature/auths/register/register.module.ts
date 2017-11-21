@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SharedModule } from '../../shared';
+import { SharedModule } from '@app/shared';
 
+import { LayoutAuthComponent } from '../layout-auth/layout-auth.component';
 import { RegisterComponent } from './register.component';
 
 /**
@@ -20,6 +21,9 @@ export const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [RegisterComponent]
+  declarations: [
+    RegisterComponent,
+    LayoutAuthComponent
+  ]
 })
 export class RegisterModule { }

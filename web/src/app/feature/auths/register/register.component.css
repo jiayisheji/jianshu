@@ -10,6 +10,9 @@
   position: absolute;
   top: 56px;
   margin-left: 50px;
+  & img{
+    width: 100px;
+  }
 }
 .g-main{
   display: inline-block;
@@ -66,9 +69,9 @@
       border-radius: 0 0 4px 4px;
       border-bottom: 1px solid #c8c8c8;
     }
-    & .u-send-code{
+    & .u-btn-verify{
       position: absolute;
-      top: 7px;
+      top: 9px;
       right: 7px;
     }
   }
