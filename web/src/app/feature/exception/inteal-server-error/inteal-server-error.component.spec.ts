@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorComponent } from './error.component';
+import { IntealServerErrorComponent } from './inteal-server-error.component';
 
-describe('ErrorComponent', () => {
-  let component: ErrorComponent;
-  let fixture: ComponentFixture<ErrorComponent>;
+describe('IntealServerErrorComponent', () => {
+  let component: IntealServerErrorComponent;
+  let fixture: ComponentFixture<IntealServerErrorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorComponent ]
+      declarations: [ IntealServerErrorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ErrorComponent);
+    fixture = TestBed.createComponent(IntealServerErrorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
