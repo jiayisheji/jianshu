@@ -3,6 +3,10 @@
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@env/*": ["environments/*"]
+    },
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
