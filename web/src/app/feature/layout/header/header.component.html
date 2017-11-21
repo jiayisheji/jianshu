@@ -1,0 +1,43 @@
+<h1 class="f-fl m-logo">
+  <a routerLink="/">
+    <img src="assets/images/logo.png" alt="">
+  </a>
+</h1>
+<nav class="g-container m-nav">
+  <ul class="f-fl">
+    <ng-container *ngIf="true">
+      <li routerLinkActive="active">
+        <a routerLink="/">
+          <i class="icon-navigation-discover menu-icon"></i>
+          <span class="menu-text">首页</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/apps">
+          <i class="icon-navigation-download menu-icon"></i>
+          <span class="menu-text">下载App</span>
+        </a>
+      </li>
+    </ng-container>
+    <ng-container *ngIf="false">
+
+    </ng-container>
+  </ul>
+  <div class="f-fl m-search">
+    <input type="text" autocomplete="off" placeholder="搜索" name="q" class="search-input">
+    <a class="search-btn" href="javascript:void(0)">
+      <i class="icon-search"></i>
+    </a>
+  </div>
+</nav>
+<div class="f-fr m-user">
+  <ng-container *ngIf="true">
+    <a class="u-btn-login" jui-button routerLink="/login" jui-button-pill>登录</a>
+    <a class="u-btn-register" jui-button routerLink="/register" [color]="'danger'" [shape]="'outline'" jui-button-pill>注册</a>
+  </ng-container>
+  <ng-container *ngIf="false">
+
+  </ng-container>
+  <a class="u-btn-write" routerLink="/path" jui-button jui-button-pill [color]="'danger'" [size]="'md'">
+    <i class="icon-write"></i>写文章</a>
+</div>
