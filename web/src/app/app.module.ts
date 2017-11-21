@@ -8,12 +8,19 @@ import { AppComponent } from './app.component';
 // App is our top level router
 import { AppRoutingModule } from './app-routing.module';
 // Application wide core module
-import { CoreModule } from './core';
+import { CoreModule } from '@app/core';
+
+// The first screen to load the module
+import { LayoutModule } from '@app/feature/layout';
+import { HomeModule } from '@app/feature/home';
+
 @NgModule({
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CoreModule
+    CoreModule,
+    LayoutModule,
+    HomeModule
   ],
   declarations: [
     AppComponent
