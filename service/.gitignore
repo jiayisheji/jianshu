@@ -1,9 +1,40 @@
-.DS_Store
-node_modules/
-build/
-dist/
-logs/
-npm-debug.log
-test/unit/coverage
-test/e2e/reports
-selenium-debug.log
+#env
+.env
+
+#js file and map
+src/**/*.js
+src/**/*.js.map
+tests/**/*.js
+tests/**/*.js.map
+migrate.js
+migrate.js.map
+
+# dependencies
+/node_modules
+
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+
+# example
+/quick-start
+
+# tests
+/test
+/coverage
+/.nyc_output
+
+# dist
+/dist
+
+#Package
+package-lock.json

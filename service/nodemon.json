@@ -1,0 +1,9 @@
+{
+  "delay": "0",
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "events": {
+    "start": "tslint --project tsconfig.json -c ./tslint.json 'src/**/*.ts'  --exclude 'src/**/*.d.ts' --exclude 'src/**/*.spec.ts'  --exclude 'src/**/*.spec-data.ts'"
+  }
+}
