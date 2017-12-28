@@ -10,13 +10,14 @@ import { CoreModule } from './core';
  * @export
  * @class AppModule
  */
-import { AuthModule, PublicModule } from './feature';
+import { AuthModule, PublicModule, UserModule } from './feature';
 
 @Module({
     modules: [
         CoreModule,
         SharedModule,
         PublicModule,
+        UserModule,
         AuthModule,
     ],
     controllers: [AppController],
