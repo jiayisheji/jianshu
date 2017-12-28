@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 
-export class AuthLoginDto {
+export class AuthRegisterDto {
 
     @ApiModelProperty({
         type: String,
@@ -15,4 +15,18 @@ export class AuthLoginDto {
         required: true,
     })
     readonly password: string;
+
+    @ApiModelProperty({
+        type: String,
+        description: '昵称',
+        required: true,
+    })
+    readonly nickname: string;
+
+    @ApiModelProperty({
+        type: String,
+        description: '短信验证码',
+        required: true,
+    })
+    readonly code: string;
 }
