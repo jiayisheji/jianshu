@@ -3,9 +3,10 @@ import { Module, NestModule, MiddlewaresConsumer } from '@nestjs/common';
 import { SharedModule } from '../../shared';
 import { PublicController } from './public.controller';
 import { PublicService } from './public.service';
+import { UserModule } from '../user';
 
 @Module({
-    modules: [SharedModule],
+    modules: [SharedModule, UserModule],
     controllers: [PublicController],
     components: [PublicService],
     exports: [],
