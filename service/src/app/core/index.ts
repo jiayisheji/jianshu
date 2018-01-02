@@ -1,3 +1,3 @@
 export * from './core.module';
 export * from './express';
-export * from './mongoose';
+export * from './decorators';

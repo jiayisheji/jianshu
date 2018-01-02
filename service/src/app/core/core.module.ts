@@ -2,12 +2,9 @@ import { MiddlewaresConsumer, Module, RequestMethod } from '@nestjs/common';
 
 import { ExpressConfig, ExpressSettings } from './express';
 
-import { MongooseService } from './mongoose';
-
 const SharedComponents = [
     ExpressConfig,
     ExpressSettings,
-    MongooseService,
 ];
 @Module({
     modules: [],
