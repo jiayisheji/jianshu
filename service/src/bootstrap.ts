@@ -6,7 +6,7 @@ import * as http from 'http';
 import { AppModule, AppComponent } from './app';
 
 import { Environments } from './app/shared';
-import { MongooseService } from './app/core';
+import { MongooseService } from './app/shared';
 
 const logger = new Logger('HttpServer');
 
@@ -18,7 +18,6 @@ const swaggerOptions = new DocumentBuilder()
     .setTitle(app.get('name'))
     .setDescription('简书的API说明')
     .setVersion('1.0')
-    .addTag(app.get('name'))
     .build();
 
 async function bootstrap() {
@@ -44,7 +43,7 @@ mongoose.connection.once('open', () => {
     http.createServer(app)
         .listen(app.get('port'))
         .on('listening', () => {
-            logger.log('');
+            logger.log(`${app.get('name')} API Server ready and running on ${app.get('host')}:${app.get('port')}${app.get('swagger')}`);
             logger.log('');
             logger.log(`${app.get('name')} Server ready and running on ${app.get('host')}:${app.get('port')}${app.get('prefix')}`);
             logger.log(``);

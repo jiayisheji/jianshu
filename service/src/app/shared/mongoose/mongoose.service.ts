@@ -22,9 +22,9 @@ export class MongooseService {
         if (this.instance) {
             return this.instance;
         } else {
+            (mongoose as any).Promise = global.Promise;
             mongoose.connect(this.setConfig(), {
                 useMongoClient: true,
-                promiseLibrary: global.Promise,
             });
             this.instance = mongoose.connection;
             this.instance.on('error', (e: Error) => {
