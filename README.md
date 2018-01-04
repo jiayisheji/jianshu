@@ -82,6 +82,6 @@ npm start 浏览器自动打开localhost:4200
 
 - 通过 [Issue](https://github.com/jiayisheji/jianshu/issues) 报告 bug 或进行咨询。
 - 提交 [Pull Request](https://github.com/jiayisheji/jianshu/pulls) 改进 Pro 的代码。
-- 加入交流群：[160079165](//shang.qq.com/wpa/qunwpa?idkey=0bff7a6d9d71b226884a82c60779f489564183f7f3e25ba91f419910f6d4c427"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png)。
+- 加入交流群：[160079165](//shang.qq.com/wpa/qunwpa?idkey=0bff7a6d9d71b226884a82c60779f489564183f7f3e25ba91f419910f6d4c427)。
 ## 说明
 > **以上技术均未使用过，从0开始学习一步步完成目标。**
