@@ -14,7 +14,6 @@ export class MongooseService {
     constructor() {
         // (mongoose as any).Promise = global.Promise;
     }
-
     get connection() {
         if (Environments.isTest()) {
             return (this.instance = mongoose.connection);
@@ -27,12 +26,6 @@ export class MongooseService {
                 useMongoClient: true,
             });
             this.instance = mongoose.connection;
-            this.instance.on('error', (e: Error) => {
-                this.logger.error('MongoDB conenction error:' + e);
-            });
-            this.instance.once('open', () => {
-                this.logger.log('Successful MongoDB Connection!');
-            });
             return this.instance;
         }
     }

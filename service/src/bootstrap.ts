@@ -38,6 +38,9 @@ async function bootstrap() {
 bootstrap();
 
 const mongoose = new MongooseService();
+mongoose.connection.on('error', (error: Error) => {
+    this.logger.error('MongoDB conenction error:' + error);
+});
 mongoose.connection.once('open', () => {
     logger.log('App Database started');
     http.createServer(app)
