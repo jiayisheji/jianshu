@@ -1,6 +1,6 @@
 {
   "name": "jianshu",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "jiayi",
     "url": "https://github.com/jiayisheji"
@@ -47,6 +47,7 @@
     "@nestjs/swagger": "^1.1.3",
     "@nestjs/testing": "^4.5.2",
     "@nestjs/websockets": "^4.5.2",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
     "cors": "^2.8.4",
