@@ -1,5 +1,5 @@
 import { MiddlewaresConsumer, Module, RequestMethod } from '@nestjs/common';
-
+import { DatabaseModule } from './database';
 import { Environments } from './environments';
 import { MongooseService } from './mongoose';
 import {
@@ -23,12 +23,13 @@ const SharedComponents = [
     MobileCodeRedis,
 ];
 @Module({
-    modules: [],
+    modules: [DatabaseModule],
     controllers: [],
     components: [
         ...SharedComponents,
     ],
     exports: [
+        DatabaseModule,
         ...SharedComponents,
     ],
 })
