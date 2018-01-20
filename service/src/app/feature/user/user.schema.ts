@@ -48,7 +48,7 @@ UserSchema.set('toJSON', { getters: true, virtual: true });
 // 在用户注册保存的时候，需要先把password通过salt生成hash密码，并最终赋值给password。
 UserSchema.pre('save', encryptionUserPassword);
 
-function encryptionUserPassword(next: NextFunction) {
+export function encryptionUserPassword(next: NextFunction) {
     const user = this;
     // 检查password是否存在，如果不存在就直接返回
     if (this.isModified('password') || this.isNew) {
@@ -70,12 +70,34 @@ function encryptionUserPassword(next: NextFunction) {
     }
 }
 
-// 校验用户输入密码是否正确
-UserSchema.methods.comparePassword = (password?: string, callback?: any): any => {
-    bcrypt.compare(password, this.password, (err, isMatch) => {
-        if (err) {
-            return callback(err);
-        }
-        callback(null, isMatch);
+UserSchema.methods.encryptionPassword = (password: string): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        bcrypt.genSalt(10, ((error, salt) => {
+            if (error) {
+                return reject(error);
+            }
+            bcrypt.hash(password, salt, ((err, hash) => {
+                if (err) {
+                    return reject(err);
+                }
+                // 生成密文
+                return resolve(hash);
+            }).bind(this));
+        }).bind(this));
     });
+};
+
+// 校验用户输入密码是否正确
+UserSchema.methods.comparePassword = (primitive: string, current: string): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+        console.log(current, primitive);
+        bcrypt.compare(current, primitive, (err, isMatch) => {
+            if (err) {
+                return reject(err);
+            }
+            console.log(isMatch);
+            return resolve(isMatch);
+        });
+    });
+
 };
