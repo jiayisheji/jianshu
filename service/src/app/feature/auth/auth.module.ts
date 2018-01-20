@@ -6,13 +6,17 @@ import { AuthService } from './auth.service';
 import { UserModule } from '../user';
 import { ValidatorMiddleware } from '../../shared';
 import { authCheckStrategy, authCheckField } from './auth-validator.config';
+import { LoginhistoryProviders } from './loginhistory.providers';
 @Module({
     modules: [
         SharedModule,
         UserModule,
     ],
     controllers: [AuthController],
-    components: [AuthService],
+    components: [
+        AuthService,
+        ...LoginhistoryProviders,
+    ],
     exports: [],
 })
 export class AuthModule implements NestModule {
