@@ -43,7 +43,7 @@ export type IButtonShape = 'default' | 'outline' | 'dashed';
   // tslint:disable-next-line:component-selector
   selector: '[jui-button]',
   template: '<ng-content></ng-content>',
-  styleUrls: ['./button.component.css'],
+  styleUrls: ['./button.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })

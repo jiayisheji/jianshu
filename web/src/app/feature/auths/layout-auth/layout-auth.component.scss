@@ -1,4 +1,4 @@
-:host{
+app-layout-auth {
   display: block;
   height: 100%;
   min-height: 750px;
@@ -6,15 +6,17 @@
   font-size: 14px;
   background-color: #f1f1f1;
 }
-.m-logo{
+
+.m-logo {
   position: absolute;
   top: 56px;
   margin-left: 50px;
-  & img{
+  & img {
     width: 100px;
   }
 }
-.g-main{
+
+.g-main {
   display: inline-block;
   vertical-align: middle;
   width: 400px;
@@ -22,108 +24,130 @@
   padding: 50px 50px 30px;
   background-color: #fff;
   border-radius: 4px;
-  box-shadow: 0 0 8px rgba(0,0,0,.1);
-  & header{
+  box-shadow: 0 0 8px rgba(0, 0, 0, .1);
+  & header {
     margin: 0 auto 50px;
     padding: 10px;
     font-weight: 400;
     color: #969696;
-    & h3{
+    & h3 {
       font-size: 18px;
       margin: 0;
     }
-    & a,& b{
+    & a,
+    & b {
       padding: 10px;
     }
-    & a{
+    & a {
       color: #969696;
-      &:hover{
+      &:hover {
         border-bottom: 2px solid #ea6f5a;
       }
-      &.active{
+      &.active {
         font-weight: 700;
         color: #ea6f5a;
         border-bottom: 2px solid #ea6f5a;
       }
     }
   }
-  & .u-input-group-btn{
+  & .u-input-group-btn {
     top: 16px;
     left: 10px;
-    & i{
+    & i {
       font-size: 18px;
       color: #969696;
     }
   }
-  & .u-input-control{
+  & .u-input-control {
     height: 50px;
     padding: 4px 12px 4px 35px;
     border-radius: 0;
     border-bottom: 0;
   }
-  & .m-input-group{
-    &:first-child .u-input-control{
+  & .m-input-group {
+    &:first-child .u-input-control {
       border-radius: 4px 4px 0 0;
     }
-    &:last-child .u-input-control{
+    &:last-child .u-input-control {
       border-radius: 0 0 4px 4px;
       border-bottom: 1px solid #c8c8c8;
     }
-    & .u-btn-verify{
+    & .u-btn-verify {
       position: absolute;
       top: 9px;
       right: 7px;
     }
   }
-  & form{
+  & .u-input-error {
+    font-size: 0;
+    & i {
+      margin-right: 5px;
+      font-size: 20px;
+      color: #ea6f5a;
+      vertical-align: middle;
+    }
+    & span {
+      vertical-align: middle;
+      display: inline-block;
+      white-space: normal;
+      max-width: 230px;
+      font-size: 14px;
+      line-height: 24px;
+    }
+  }
+  & form {
     margin-bottom: 30px;
-    & p{
+    & p {
       margin: 0;
       font-size: 12px;
       line-height: 20px;
       color: #969696;
     }
   }
-  & footer{
+  & footer {
     margin-top: 30px;
-    & h6{
+    & h6 {
       position: relative;
       margin: 0 0 20px;
       font-size: 12px;
       color: #b5b5b5;
-      &:matches(::after, ::before){
+      &::after,
+      &::before {
         content: "";
         border-top: 1px solid #b5b5b5;
         position: absolute;
         width: 60px;
         top: 5px;
       }
-      &::before{
+      &::before {
         left: 30px;
       }
-      &::after{
+      &::after {
         right: 30px;
       }
     }
-    & li{
+    & li {
       display: inline-block;
       vertical-align: middle;
       margin: 0 3px;
-      & a{
+      /* & i {
+        font-size: 24px;
+      } */
+      & a {
         display: inline-block;
         width: 50px;
         height: 50px;
-        background-color: hsla(0,0%,71%,.2);
+        background-color: hsla(0, 0%, 71%, .2);
         border-radius: 50%;
         line-height: 50px;
         color: #fff;
-        &.weibo{
+        &.weibo {
           background-color: #e05244;
         }
-        &.weixin{
+        &.weixin {
           background-color: #00bb29;
         }
-        &.qq{
+        &.qq {
           background-color: #498ad5;
         }
       }

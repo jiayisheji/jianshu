@@ -1,23 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
-@import "./assets/css/icon.css";
-@import "./assets/css/reset.css";
-@import "./assets/css/form.css";
 
-html,body{
+@import "./assets/scss/icon.scss";
+@import "./assets/scss/reset.scss";
+@import "./assets/scss/form.scss";
+html,
+body {
   height: 100%;
 }
+
 body {
   min-width: 768px;
-  font-family: -apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+  font-family: -apple-system, SF UI Text, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
   font-size: 16px;
 }
 
-*{
+* {
   padding: 0;
   margin: 0;
 }
 
-a,body {
+a,
+body {
   color: #333
 }
 
@@ -26,7 +29,8 @@ a {
   text-decoration: none
 }
 
-a:focus,a:hover {
+a:focus,
+a:hover {
   color: #2f2f2f;
   text-decoration: none
 }
@@ -51,14 +55,20 @@ input:focus {
   box-shadow: none
 }
 
+
 /**
   禁止input[type="number"]出现上下箭头
 */
-input::-webkit-outer-spin-button,input::-webkit-inner-spin-button{
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
   -webkit-appearance: none !important;
 }
-input[type="number"]{-moz-appearance:textfield;}
 
-.b-pt10{
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.b-pt10 {
   padding-top: 10px;
 }

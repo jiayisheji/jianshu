@@ -7,7 +7,7 @@ export type avatarSizeTppe = 'default' | 'large' | 'small';
   // tslint:disable-next-line:component-selector
   selector: '[jui-avatar]',
   templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.css'],
+  styleUrls: ['./avatar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AvatarComponent implements OnInit {
