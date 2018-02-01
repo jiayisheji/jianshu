@@ -24,7 +24,7 @@ export class PublicModule implements NestModule {
                 max: 1, // 1个请求后开始阻塞
                 message: '您刚刚发送过一条验证码，如果一分钟内没有收到，您可以再次发送。',
             }))
-            .forRoutes({ path: '/api/v1/send_mobile_code', method: RequestMethod.POST })
+            .forRoutes({ path: '/api/v1/send_mobile_code/:source', method: RequestMethod.POST })
             .apply(ValidatorMiddleware)
             .with(publicCheckField, publicCheckStrategy)
             .forRoutes(PublicController);
