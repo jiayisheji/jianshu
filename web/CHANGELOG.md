@@ -8,8 +8,16 @@
 ## versions[1.0.0-rc0]（Date[yyyy-mm-dd]）
 ### Features（新功能）
 ### Bug Fixes（修复bug）
+### Performance Improvements（性能改进）
 ### Notes（注释）
 ```
+
+## 0.1.2 （2018-02-01）
+### Features
+### Performance Improvements
+### Bug Fixes
+### Notes
+
 
 ## 0.1.1-alpha.1 （2017-11-21）
 ### Features
