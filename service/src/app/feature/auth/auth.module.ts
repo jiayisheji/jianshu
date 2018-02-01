@@ -1,6 +1,6 @@
 import { Module, NestModule, MiddlewaresConsumer, RequestMethod } from '@nestjs/common';
 import * as passport from 'passport';
-import { SharedModule } from '../../shared';
+import { SharedModule, CheckuserMiddleware } from '../../shared';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserModule } from '../user';

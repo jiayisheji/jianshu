@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Res, HttpStatus, Logger, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Res, HttpStatus, Logger, Req, ForbiddenException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 // swagger dto
@@ -6,51 +6,60 @@ import { AuthLoginDto, AuthRegisterDto, AuthForgetMobileDto } from './dto';
 import { ResponseHandler } from '../../shared';
 import { User } from '../../core';
 
+const getClientIP = (req) => {
+    let ipAddress;
+    const headers = req.headers;
+    const forwardedIpsStr = headers['x-real-ip'] || headers['x-forwarded-for'];
+    forwardedIpsStr ? ipAddress = forwardedIpsStr : ipAddress = null;
+    if (!ipAddress) {
+        ipAddress = req.connection.remoteAddress;
+    }
+    return ipAddress;
+};
 @ApiUseTags('认证模块 auth')
 @Controller('api/v1')
 export class AuthController {
     private readonly logger = new Logger(AuthController.name);
     constructor(
         private readonly _auth: AuthService,
-        private responseHandler: ResponseHandler,
-    ) { }
+    ) {
+    }
     @Post('/login')
     @ApiResponse({ status: 200, description: '登陆成功' })
     @ApiResponse({ status: 403, description: '无权限访问' })
     async login(
+        @Req() req,
         @Res() res,
         @Body() authLoginDto: AuthLoginDto,
     ) {
-
         try {
-            const user = await this._auth.login(authLoginDto);
-            // 验证码无效或已过期，请重新发送验证码
+            // 获取响应数据数据
+            const data = await this._auth.login(authLoginDto, getClientIP(req));
+            // 响应成功状态和响应数据
             res
                 .status(HttpStatus.OK)
-                .json(this.responseHandler.create(user));
+                .json(data);
         } catch (error) {
-            res
-                .status(HttpStatus.FORBIDDEN)
-                .json(this.responseHandler.error(403, error));
+            throw new ForbiddenException(error);
         }
     }
     @Post('/register')
     @ApiResponse({ status: 200, description: '注册成功' })
-    @ApiResponse({ status: 403, description: 'Forbidden.' })
+    @ApiResponse({ status: 403, description: '无权限访问' })
     async register(
+        @Req() req,
         @Res() res,
         @Body() authRegisterDto: AuthRegisterDto,
     ) {
         try {
-            const user = await this._auth.register(authRegisterDto);
-            // 验证码无效或已过期，请重新发送验证码
+            // 获取响应数据数据
+            const data = await this._auth.register(authRegisterDto);
+            // 响应成功状态和响应数据
             res
                 .status(HttpStatus.CREATED)
-                .json(this.responseHandler.create(user));
+                .json(data);
         } catch (error) {
-            res
-                .status(HttpStatus.FORBIDDEN)
-                .json(this.responseHandler.error(403, error));
+            throw new ForbiddenException(error);
         }
     }
     @Post('/forget/mobile')
@@ -60,14 +69,20 @@ export class AuthController {
         @Res() res,
         @Body() authForgetMobileDto: AuthForgetMobileDto,
     ) {
-        const user = await this._auth.forgetMobile(authForgetMobileDto);
-        // 验证码无效或已过期，请重新发送验证码
-        res.status(HttpStatus.OK).json(user);
+        try {
+            // 获取响应数据数据
+            const data = await this._auth.forgetMobile(authForgetMobileDto);
+            // 响应成功状态和响应数据
+            res.status(HttpStatus.OK)
+                .json(data);
+        } catch (error) {
+            throw new ForbiddenException(error);
+        }
     }
 
     @Get('/logout')
     @ApiResponse({ status: 200, description: '退出成功' })
-    @ApiResponse({ status: 401, description: '未授权' })
+    @ApiResponse({ status: 401, description: '未登录' })
     @ApiResponse({ status: 403, description: '无权限访问' })
     async logout(
         @Req() req,
@@ -75,20 +90,17 @@ export class AuthController {
         @User() user,
     ) {
         try {
-            this.logger.log(JSON.stringify(user));
-            if (user) {
-                delete req.user;
-                await this._auth.logout(user.slug);
-                return res.status(HttpStatus.OK)
-                    .json(this.responseHandler.invoke(0, '退出成功'));
+            // 检查req.user是否存在
+            if (!user) {
+                throw new ForbiddenException('退出失败');
             }
-            res
-                .status(HttpStatus.FORBIDDEN)
-                .json(this.responseHandler.error(403, '退出失败'));
+            // 获取响应数据数据
+            const data = await this._auth.logout(user.slug);
+            delete req.user;
+            res.status(HttpStatus.OK)
+                .json(data);
         } catch (error) {
-            res
-                .status(HttpStatus.FORBIDDEN)
-                .json(this.responseHandler.error(403, error));
+            throw new ForbiddenException(error);
         }
     }
 

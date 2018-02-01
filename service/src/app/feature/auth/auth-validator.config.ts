@@ -16,6 +16,14 @@ export const authCheckStrategy = {
         },
         errorMessage: '用户名不能为空',
     },
+    mobile: {
+        notEmpty: true,
+        isLength: {
+            options: [{ min: 11, max: 11 }],
+            errorMessage: '手机号不是合法11位手机号', // Error message for the validator, takes precedent over parameter message
+        },
+        errorMessage: '手机号不能为空',
+    },
     code: {
         notEmpty: true,
         matches: {
@@ -40,9 +48,12 @@ export const authCheckStrategy = {
 // 需要验证的字段
 export const authCheckField = {
     '/api/v1/register': {
-        body: ['username', 'nickname', 'code', 'password'],
+        body: ['nickname', 'username', 'code', 'password'],
     },
     '/api/v1/login': {
         body: ['username', 'password'],
+    },
+    '/api/v1/forget/mobile': {
+        body: ['mobile', 'password', 'code'],
     },
 };

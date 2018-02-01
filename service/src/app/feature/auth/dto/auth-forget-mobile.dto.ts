@@ -4,10 +4,10 @@ export class AuthForgetMobileDto {
 
     @ApiModelProperty({
         type: String,
-        description: '用户名',
+        description: '手机号',
         required: true,
     })
-    readonly username: string;
+    readonly mobile: string;
 
     @ApiModelProperty({
         type: String,
