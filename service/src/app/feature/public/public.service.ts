@@ -10,16 +10,33 @@ export class PublicService {
         private generatRandom: GeneratRandom,
         private mobileCodeRedis: MobileCodeRedis,
     ) { }
-    async sendMobileCode(body): Promise<{ code: string } | null> {
-        const code = await this.generatRandom.size(6);
-        await this.mobileCodeRedis.saveCode(body.mobile, code);
-        this.logger.log(code);
-        return Promise.resolve({
-            code,
-        });
+    async sendMobileCode(body, source): Promise<{ message: string } | null> {
+        try {
+            const code = await this.generatRandom.size(6);
+            await this.mobileCodeRedis.saveCode(body.mobile, code, source);
+            this.logger.log(code);
+            this.logger.log(source);
+            return Promise.resolve({ message: '验证码已发送' });
+        } catch (error) {
+            this.logger.log(error.errmsg);
+        }
     }
 
     async checkNickname(nickname: CheckNicknameDto) {
-        return await this.userService.findOne(nickname);
+        try {
+            const user = await this.userService.findOne(nickname);
+            // 昵称唯一
+            if (user) {
+                return Promise.reject({
+                    field: 'nickname',
+                    message: '昵称 已被使用，换一个吧',
+                    value: nickname,
+                });
+            }
+            return Promise.resolve({});
+        } catch (error) {
+            this.logger.log(error.errmsg);
+        }
+
     }
 }

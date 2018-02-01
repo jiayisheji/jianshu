@@ -1,6 +1,5 @@
 import { Component, Logger } from '@nestjs/common';
 import * as Redis from 'ioredis';
-import { AsyncHook } from 'async_hooks';
 
 @Component()
 export class MobileCodeRedis {
@@ -12,12 +11,13 @@ export class MobileCodeRedis {
      * @param code 验证码
      * @param expiresIn 过期时间 默认5分钟
      */
-    async saveCode(mobile: string, code: string, expiresIn: number = 300): Promise<any> {
+    async saveCode(mobile: string, code: string, source: string, expiresIn: number = 300): Promise<any> {
         try {
-            // 设置token到redis 并且设置过期时间
-            await this.redisClient.hmset(`mobile:${mobile}:${code}`, { code, time: Date.now() });
-            await this.redisClient.expire(`mobile:${mobile}:${code}`, expiresIn);
-            return Promise.resolve(1);
+            // 设置短信验证码到redis 并且设置过期时间
+            return Promise.all([
+                this.redisClient.hmset(`${source}:${mobile}:${code}`, { code, time: Date.now() }),
+                this.redisClient.expire(`${source}:${mobile}:${code}`, expiresIn),
+            ]);
         } catch (error) {
             return Promise.reject(error);
         }
@@ -27,15 +27,12 @@ export class MobileCodeRedis {
      * @param mobile 手机号
      * @param code 验证码
      */
-    async getCode(mobile: string, code: string): Promise<string> {
-        const value = await this.redisClient.hget(`mobile:${mobile}:${code}`, 'code');
-        // 如果找不到为null，验证失败
-        if (!value) {
-            Promise.reject(value);
+    async getCode(mobile: string, code: string, source: string): Promise<string> {
+        try {
+            return this.redisClient.hget(`${source}:${mobile}:${code}`, 'code');
+        } catch (error) {
+            return Promise.reject(error);
         }
-        // put some validation logic here
-        // for example query user by id / email / username
-        return Promise.resolve(value);
     }
 
     /**
@@ -43,10 +40,9 @@ export class MobileCodeRedis {
      * @param mobile 手机号
      * @param code 验证码
      */
-    async removeCode(mobile: string, code: string): Promise<any> {
+    async removeCode(mobile: string, code: string, source: string): Promise<any> {
         try {
-            await this.redisClient.del(`mobile:${mobile}:${code}`);
-            return Promise.resolve(0);
+            return this.redisClient.del(`${source}:${mobile}:${code}`);
         } catch (error) {
             return Promise.reject(error);
         }

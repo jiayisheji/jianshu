@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpStatus, Res, UseInterceptors } from '@nestjs/common';
+import { Controller, Post, Req, Body, HttpStatus, Res, ForbiddenException } from '@nestjs/common';
 import { ApiUseTags, ApiResponse } from '@nestjs/swagger';
 import { PublicService } from './public.service';
 import { SendMobileCodeDto, CheckNicknameDto } from './dto';
@@ -13,15 +13,21 @@ export class PublicController {
         private responseHandler: ResponseHandler,
         private passportService: PassportService,
     ) { }
-    @Post('/send_mobile_code')
+    @Post('/send_mobile_code/:source')
     @ApiResponse({ status: 201, description: 'The record has been successfully created.' })
     @ApiResponse({ status: 403, description: 'Forbidden.' })
     async sendMobileCode(
         @Res() res,
+        @Req() req,
         @Body() sendMobileCodeDto: SendMobileCodeDto,
     ) {
-        const code = await this._public.sendMobileCode(sendMobileCodeDto);
-        res.status(HttpStatus.OK).json(this.responseHandler.invoke(0, '验证码已发送'));
+        try {
+            const data = await this._public.sendMobileCode(sendMobileCodeDto, req.params.source);
+            res.status(HttpStatus.OK)
+                .json(data);
+        } catch (error) {
+            throw new ForbiddenException(error);
+        }
     }
 
     @Post('/check_nickname')
@@ -31,11 +37,13 @@ export class PublicController {
         @Res() res,
         @Body() checkNicknameDto: CheckNicknameDto,
     ) {
-        const user = await this._public.checkNickname(checkNicknameDto);
-        if (user === null) {
-            res.status(HttpStatus.OK).json(this.responseHandler.invoke(0, '验证成功'));
+        try {
+            const data = await this._public.checkNickname(checkNicknameDto);
+            res.status(HttpStatus.OK)
+                .json(data);
+        } catch (error) {
+            throw new ForbiddenException(error);
         }
-        res.status(HttpStatus.OK).json(this.responseHandler.invoke(1, '昵称已存在'));
     }
 
     @Post('/getToken')
