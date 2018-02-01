@@ -1,4 +1,4 @@
-import { Middleware, NestMiddleware, ExpressMiddleware, HttpStatus } from '@nestjs/common';
+import { Middleware, NestMiddleware, ExpressMiddleware, HttpStatus, BadRequestException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { ResponseHandler } from '../../shared';
 
@@ -42,9 +42,7 @@ const removeDuplicates = (array: Array<any>, iterator: any): Array<any> => {
 
 @Middleware()
 export class ValidatorMiddleware implements NestMiddleware {
-    constructor(
-        private responseHandler: ResponseHandler,
-    ) { }
+    constructor() { }
     resolve(...args: any[]): ExpressMiddleware {
         return async (req: Request, res: Response, next: NextFunction) => {
             // 如果长度不是2就直接下一步，忽略验证
@@ -89,8 +87,7 @@ export class ValidatorMiddleware implements NestMiddleware {
                 return next();
             }
             // 有错误直接返回错误
-            return res.status(HttpStatus.BAD_REQUEST)
-                .json(this.responseHandler.error(400, removeDuplicates(errors, 'param')));
+            throw new BadRequestException(removeDuplicates(errors, 'param'));
         };
     }
 }
