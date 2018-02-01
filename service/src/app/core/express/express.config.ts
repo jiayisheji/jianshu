@@ -30,15 +30,15 @@ const compressionOptions = {};
 
 // expressValidator配置
 const expressValidatorOptions = {
-    errorFormatter(param, errormsg, value) {
+    errorFormatter(param, message, value) {
         const namespace = param.split('.');
         let formParam = namespace.shift();
         while (namespace.length) {
             formParam += '[' + namespace.shift() + ']';
         }
         return {
-            param: formParam,
-            errormsg,
+            field: formParam,
+            message,
             value,
         };
     },
