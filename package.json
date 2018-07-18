@@ -1,0 +1,34 @@
+{
+    "name": "jianshu",
+    "version": "0.0.1",
+    "author": "jiayi",
+    "description": "仿简书nodejs+nestjs+express+mongodb+vue2+angular4+爬虫",
+    "keywords": [
+        "Angular6",
+        "admin",
+        "pro",
+        "ng6",
+        "rxjs",
+        "angular"
+    ],
+    "license": "MIT",
+    "scripts": {
+        "release": "standard-version && git push --follow-tags origin master"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jiayisheji/jianshu.git"
+    },
+    "private": true,
+    "dependencies": {},
+    "devDependencies": {
+        "ghooks": "^2.0.0",
+        "standard-version": "^4.2.0",
+        "validate-commit-msg": "^2.14.0"
+    },
+    "config": {
+        "ghooks": {
+            "commit-msg": "validate-commit-msg"
+        }
+    }
+}

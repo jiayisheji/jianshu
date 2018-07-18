@@ -3,6 +3,7 @@
 node_modules/
 npm-debug.log
 # IDE - VSCode
+.history/*
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
