@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "nrwl.angular-console",
+    "angular.ng-template",
+    "ms-vscode.vscode-typescript-tslint-plugin",
+    "esbenp.prettier-vscode",
+    "editorconfig.editorconfig",
+    "mikael.angular-beastcode",
+    "streetsidesoftware.code-spell-checker",
+    "eamodio.gitlens",
+    "shinnn.stylelint",
+    "mkaufman.htmlhint",
+    "knisterpeter.vscode-commitizen"
+  ]
+}
