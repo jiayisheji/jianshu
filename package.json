@@ -1,6 +1,6 @@
 {
   "name": "jianshu",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -26,7 +26,9 @@
     "update:check": "ng update",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "release": "standard-version",
+    "publish": "standard-version && git push --follow-tags origin master"
   },
   "private": true,
   "dependencies": {
