@@ -3,9 +3,9 @@
  */
 module.exports = [
   {
-    scope: 'admin',
+    scope: 'secure',
     name: '后台管理前端页面',
-    readme: '对应apps/admin',
+    readme: '对应apps/secure',
     remark: '',
   },
   {
@@ -15,15 +15,15 @@ module.exports = [
     remark: '',
   },
   {
-    scope: 'frontend',
+    scope: 'client',
     name: '网站后端服务',
-    readme: '对应apps/frontend',
+    readme: '对应apps/client',
     remark: '',
   },
   {
-    scope: 'backend',
+    scope: 'server',
     name: '后台管理后端服务',
-    readme: '对应apps/backend',
+    readme: '对应apps/server',
     remark: '',
   },
   {

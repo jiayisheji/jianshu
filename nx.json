@@ -25,6 +25,21 @@
     },
     "utils": {
       "tags": ["utils"]
+    },
+    "models": {
+      "tags": ["child-module"]
+    },
+    "client": {
+      "tags": ["api-module"]
+    },
+    "server": {
+      "tags": ["api-module"]
+    },
+    "secure-e2e": {
+      "tags": []
+    },
+    "secure": {
+      "tags": ["app-module"]
     }
   }
 }

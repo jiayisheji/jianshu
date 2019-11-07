@@ -6,7 +6,9 @@
     "class-name": true,
     "comment-format": [true, "check-space"],
     "curly": true,
-    "deprecation": { "severity": "warn" },
+    "deprecation": {
+      "severity": "warn"
+    },
     "forin": true,
     "eofline": false,
     "indent": [false, "spaces"],

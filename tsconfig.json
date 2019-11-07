@@ -20,7 +20,8 @@
       "@web/env/*": ["apps/web/src/environments/*"],
       "@jianshu/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@jianshu/utils": ["libs/utils/src/index.ts"],
-      "@jianshu/rest-client": ["libs/rest-client/src/index.ts"]
+      "@jianshu/rest-client": ["libs/rest-client/src/index.ts"],
+      "@jianshu/models": ["libs/models/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
