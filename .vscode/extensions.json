@@ -10,6 +10,11 @@
     "eamodio.gitlens",
     "shinnn.stylelint",
     "mkaufman.htmlhint",
-    "knisterpeter.vscode-commitizen"
+    "knisterpeter.vscode-commitizen",
+    "wmaurer.change-case",
+    "formulahendry.auto-rename-tag",
+    "zignd.html-css-class-completion",
+    "pkief.material-icon-theme",
+    "zhuangtongfa.material-theme"
   ]
 }

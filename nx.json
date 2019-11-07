@@ -12,16 +12,19 @@
       "tags": []
     },
     "web": {
-      "tags": []
+      "tags": ["app-module"]
     },
     "api": {
-      "tags": []
+      "tags": ["api-module"]
     },
     "api-interfaces": {
       "tags": []
     },
     "rest-client": {
       "tags": ["child-module"]
+    },
+    "utils": {
+      "tags": ["utils"]
     }
   }
 }
