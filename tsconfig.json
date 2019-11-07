@@ -16,7 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@jianshu/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@web/app/*": ["apps/web/src/app/*"],
+      "@web/env/*": ["apps/web/src/environments/*"],
+      "@jianshu/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@jianshu/utils": ["libs/utils/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

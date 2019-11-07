@@ -41,6 +41,8 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "cSpell.words": [
+    "devkit",
+    "esnext",
     "jianshu"
   ]
 }

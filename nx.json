@@ -12,13 +12,16 @@
       "tags": []
     },
     "web": {
-      "tags": []
+      "tags": ["app-module"]
     },
     "api": {
-      "tags": []
+      "tags": ["api-module"]
     },
     "api-interfaces": {
       "tags": []
+    },
+    "utils": {
+      "tags": ["utils"]
     }
   }
 }

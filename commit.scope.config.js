@@ -39,9 +39,15 @@ module.exports = [
     remark: '',
   },
   {
-    scope: 'ui-kit',
+    scope: 'components',
     name: '前端ui组件库',
-    readme: '对应libs/ui-kit',
+    readme: '对应libs/components',
+    remark: '',
+  },
+  {
+    scope: 'utils',
+    name: '工具库',
+    readme: '对应libs/utils',
     remark: '',
   },
   {
