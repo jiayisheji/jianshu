@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@jianshu/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@jianshu/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@jianshu/rest-client": ["libs/rest-client/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -19,6 +19,9 @@
     },
     "api-interfaces": {
       "tags": []
+    },
+    "rest-client": {
+      "tags": ["child-module"]
     }
   }
 }

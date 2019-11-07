@@ -79,10 +79,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/web/tsconfig.app.json",
-              "apps/web/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/web/tsconfig.app.json", "apps/web/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/web/**"]
           }
         },
@@ -161,10 +158,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/api/tsconfig.app.json",
-              "apps/api/tsconfig.spec.json"
-            ],
+            "tsConfig": ["apps/api/tsconfig.app.json", "apps/api/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
@@ -186,10 +180,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/api-interfaces/tsconfig.lib.json",
-              "libs/api-interfaces/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/api-interfaces/tsconfig.lib.json", "libs/api-interfaces/tsconfig.spec.json"],
             "exclude": ["**/node_modules/**", "!libs/api-interfaces/**"]
           }
         },
@@ -201,6 +192,30 @@
           }
         }
       }
+    },
+    "rest-client": {
+      "projectType": "library",
+      "root": "libs/rest-client",
+      "sourceRoot": "libs/rest-client/src",
+      "prefix": "jianshu",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/rest-client/tsconfig.lib.json", "libs/rest-client/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/rest-client/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/rest-client/jest.config.js",
+            "tsConfig": "libs/rest-client/tsconfig.spec.json",
+            "setupFile": "libs/rest-client/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {
