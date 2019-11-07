@@ -1,3 +1,4 @@
+const scopeEnum = require('./commit.scope.config');
 module.exports = {
   // 自定义types
   types: [
@@ -51,16 +52,7 @@ module.exports = {
     },
   ],
   // 自定义scopes
-  scopes: [
-    { name: 'docs' },
-    { name: 'libs' },
-    { name: 'app' },
-    { name: 'admin' },
-    { name: 'api' },
-    { name: 'web' },
-    { name: 'tools' },
-    { name: 'scripts' },
-  ],
+  scopes: scopeEnum.map(item => ({ name: item.scope })),
 
   allowTicketNumber: false,
   isTicketNumberRequired: false,

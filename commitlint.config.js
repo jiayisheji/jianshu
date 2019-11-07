@@ -1,23 +1,10 @@
+const scopeEnum = require('./commit.scope.config');
+
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'header-max-length': [2, 'always', 100],
-    /**
-     * scope-enum 提交scope的枚举
-     * docs： 文档 docs
-     * libs： 库 libs
-     * web: 前端页面 apps/web
-     * app: 移动端app apps/app
-     * admin: 管理后台 apps/admin
-     * api: 后端接口 apps/api
-     * tools： 工具 tools
-     * scripts: 项目脚本 scripts
-     */
-    'scope-enum': [
-      2,
-      'always',
-      ['docs', 'libs', 'web', 'api', 'admin', 'app', 'tools', 'scripts']
-    ],
+    'scope-enum': [2, 'always', scopeEnum.map(item => item.scope)],
     /**
      * type-enum 提交的类型枚举
      * build： 主要目的是修改项目构建系统(例如 glup， webpack， rollup，npm的配置等.xxx) 的提交
@@ -37,21 +24,7 @@ module.exports = {
     'type-enum': [
       2,
       'always',
-      [
-        'build',
-        'chore',
-        'ci',
-        'docs',
-        'feat',
-        'fix',
-        'merge',
-        'perf',
-        'refactor',
-        'release',
-        'revert',
-        'style',
-        'test'
-      ]
-    ]
-  }
+      ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'merge', 'perf', 'refactor', 'release', 'revert', 'style', 'test'],
+    ],
+  },
 };

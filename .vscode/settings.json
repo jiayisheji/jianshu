@@ -13,12 +13,22 @@
     "**/.DS_Store": true,
     "**/.idea": true
   },
-  "vsicons.presets.angular": true,
   "search.exclude": {
     "**/node_modules": true,
     "**/bower_components": true,
     "**/dist": true,
-    "**/coverage": true
+    "**/coverage": true,
+    "**/docs": true,
+    "**/scripts": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/coverage": true,
+    "**/docs": true,
+    "**/scripts": true
   },
   "[html]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -29,5 +39,8 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "cSpell.words": [
+    "jianshu"
+  ]
 }
