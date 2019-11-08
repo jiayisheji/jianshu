@@ -1,0 +1,64 @@
+.ui-button {
+  box-sizing: border-box;
+  position: relative;
+  text-align: center;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  white-space: nowrap;
+}
+
+.ui-button-none {
+  border-radius: 0;
+}
+
+.ui-pill-button {
+  border-radius: 100px;
+}
+
+.ui-fluid-button {
+  width: 100%;
+  display: block;
+}
+
+.ui-button-loading {
+  pointer-events: none;
+  user-select: none;
+}
+
+.ui-button-loading::before {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  z-index: 1;
+  background: #fff;
+  border-radius: inherit;
+  opacity: 0.35;
+  transition: opacity 0.2s;
+  content: "";
+}
+.ui-button-loading::after {
+  animation: spinAround 0.5s infinite linear;
+  border: 2px solid #dbdbdb;
+  border-radius: 290486px;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  content: "";
+  height: 1em;
+  width: 1em;
+  position: absolute;
+  left: calc(50% - (1em / 2));
+  top: calc(50% - (1em / 2));
+}
+
+@keyframes spinAround {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}

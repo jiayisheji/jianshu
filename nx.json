@@ -22,6 +22,9 @@
     },
     "utils": {
       "tags": ["utils"]
+    },
+    "components": {
+      "tags": ["child-module"]
     }
   }
 }
