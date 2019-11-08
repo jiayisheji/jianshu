@@ -3,6 +3,12 @@
  */
 module.exports = [
   {
+    scope: 'api-interfaces',
+    name: '后端服务接口',
+    readme: '对应libs/api-interfaces',
+    remark: '',
+  },
+  {
     scope: 'secure',
     name: '后台管理前端页面',
     readme: '对应apps/secure',

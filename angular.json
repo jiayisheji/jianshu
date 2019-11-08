@@ -508,6 +508,28 @@
           "style": "scss"
         }
       }
+    },
+    "redis": {
+      "root": "libs/redis",
+      "sourceRoot": "libs/redis/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/redis/tsconfig.lib.json", "libs/redis/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/redis/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/redis/jest.config.js",
+            "tsConfig": "libs/redis/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {

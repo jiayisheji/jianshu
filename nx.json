@@ -43,6 +43,9 @@
     },
     "secure": {
       "tags": ["app-module"]
+    },
+    "redis": {
+      "tags": ["public-module"]
     }
   }
 }

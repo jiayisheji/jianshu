@@ -48,6 +48,7 @@
     "jianshu",
     "packagr",
     "tsickle",
-    "tslib"
+    "tslib",
+    "virtuals"
   ]
 }
