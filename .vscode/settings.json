@@ -41,8 +41,13 @@
   },
   "typescript.tsdk": "node_modules\\typescript\\lib",
   "cSpell.words": [
+    "codelyzer",
     "devkit",
     "esnext",
-    "jianshu"
+    "htmlhint",
+    "jianshu",
+    "packagr",
+    "tsickle",
+    "tslib"
   ]
 }

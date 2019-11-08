@@ -20,11 +20,29 @@
     "api-interfaces": {
       "tags": []
     },
+    "rest-client": {
+      "tags": ["child-module"]
+    },
     "utils": {
       "tags": ["utils"]
     },
     "components": {
       "tags": ["child-module"]
+    },
+    "models": {
+      "tags": ["child-module"]
+    },
+    "client": {
+      "tags": ["api-module"]
+    },
+    "server": {
+      "tags": ["api-module"]
+    },
+    "secure-e2e": {
+      "tags": []
+    },
+    "secure": {
+      "tags": ["app-module"]
     }
   }
 }
