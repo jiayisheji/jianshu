@@ -1,1 +1,2 @@
-export * from './lib/models';
+export * from './lib/crud-model.controller';
+export * from './lib/user-model';

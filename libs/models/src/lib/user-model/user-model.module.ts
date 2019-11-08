@@ -1,12 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserModelSchema } from './user-model.schema';
+import { UserModelService } from './user-model.service';
 
-
-
-@NgModule({
-  declarations: [],
+@Module({
   imports: [
-    CommonModule
-  ]
+    MongooseModule.forFeature([{ name: 'User', schema: UserModelSchema }]),
+  ],
+  providers: [UserModelService],
+  exports: [UserModelService]
 })
 export class UserModelModule { }
