@@ -100,7 +100,7 @@ export class AuthService {
     /**
      * 查询用户是否存在
      */
-    const userExist: UserModel = await this.userService.findOne(username);
+    const userExist: UserModel = await this.userService.findOne(username, '+password');
     /**
      * 如果用户不存在直接抛出异常给客户端 提醒用户注册
      */
@@ -173,16 +173,16 @@ export class AuthService {
     /**
      * 判断账号是手机号还是邮箱
      */
-    const name: { email?: string; mobile?: string } = {};
+    const account: { email?: string; mobile?: string } = {};
     if (username.indexOf('@') > -1) {
-      name.email = username;
+      account.email = username;
     } else {
-      name.mobile = username;
+      account.mobile = username;
     }
     /**
      * 查询用户是否存在
      */
-    const userExist: UserModel = await this.userService.findOne(name);
+    const userExist: UserModel = await this.userService.findOne(account, '+password');
     /**
      * 如果用户不存在直接抛出异常给客户端 提醒用户注册
      */

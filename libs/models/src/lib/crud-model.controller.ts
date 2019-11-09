@@ -31,7 +31,7 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiBadRequestResponse({ description: 'Invalid input, The response body may contain clues as to what went wrong' })
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() entity: Partial<T>, ...options: any[]): Promise<T> {
+  async create(@Body() entity: Partial<T>): Promise<T> {
     return this.crudService.create(entity);
   }
 
@@ -39,9 +39,9 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiCreatedResponse({ description: 'The record has been successfully edited.' })
   @ApiNotFoundResponse({ description: 'Record not found' })
   @ApiBadRequestResponse({ description: 'Invalid input, The response body may contain clues as to what went wrong' })
-  @HttpCode(HttpStatus.ACCEPTED)
+  @HttpCode(HttpStatus.CREATED)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() entity: Partial<T>, ...options: any[]): Promise<any> {
+  async update(@Param('id') id: string, @Body() entity: Partial<T>): Promise<any> {
     return this.crudService.update(id, entity);
   }
 
@@ -50,7 +50,7 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiNotFoundResponse({ description: 'Record not found' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async delete(@Param('id') id: string, ...options: any[]): Promise<FindAndModifyWriteOpResultObject<T>> {
+  async delete(@Param('id') id: string): Promise<FindAndModifyWriteOpResultObject<T>> {
     return this.crudService.delete(id);
   }
 }

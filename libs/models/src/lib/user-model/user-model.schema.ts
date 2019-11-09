@@ -1,6 +1,24 @@
 import { Schema } from 'mongoose';
 import { CommonSchema, schemaOptions } from '../crud-model.schema';
 
+/**
+ * node.js 如何保护Mongoose/MongoDB中的密码字段，以便在填充集合时它不会在查询中返回？
+ * ```
+ * User.findOne({...}).exec()
+ * ```
+ * 默认不希望返回password字段 因为它是受保护的
+ * 但是有种情况下需要返回，当用户想要登录或更改密码时
+ *
+ * 需要在数据库Schema定义时候 加上 select
+ * ```
+ * password: { type: String, select: false }
+ * ```
+ * 想要使用password字段时候
+ * ```
+ * Users.findOne({_id: id}).select('+password').exec(...);
+ * ```
+ */
+
 export const UserModelSchema = new Schema({
   /**
    * 昵称
@@ -17,6 +35,7 @@ export const UserModelSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false
   },
   /**
    * 头像
