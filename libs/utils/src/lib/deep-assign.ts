@@ -1,4 +1,5 @@
 import { isNil, isPrimitive, isPromise } from './typeof';
+import { deepClone } from './deep-clone';
 
 /**
  * 对象自身属性中是否具有指定的属性
@@ -34,7 +35,7 @@ function assignKey(to: any, from: any, key: string | symbol) {
   if (!hasOwnProperty.call(to, key) || isPrimitive(val)) {
     to[key] = val;
   } else {
-    to[key] = assign(Object(to[key]), val);
+    to[key] = assign(deepClone(to[key]), val);
   }
 }
 
@@ -48,7 +49,7 @@ function assign(to: any, from: any) {
     return to;
   }
 
-  from = Object(from);
+  from = deepClone(from);
 
   for (const key in from) {
     if (hasOwnProperty.call(from, key)) {
@@ -99,7 +100,7 @@ export function deepAssign<T extends object>(target: object): T {
     throw new TypeError('Cannot convert undefined or null to object');
   }
   // 转成对象
-  const to = Object(target);
+  const to = deepClone<object, T>(target);
   // 遍历剩余所有参数
   for (let index = 1; index < arguments.length; index++) {
     const source = arguments[index];

@@ -84,9 +84,10 @@ export function isNull(val: unknown): val is null {
  * 使用typeof检查值是否为 function 类型。
  * @export
  * @param {unknown} val 任意值
- * @returns {val is (...reset: Array<unknown>) => unknown} 如果指定值是function类型，则返回true，否则返回false。
+ * @returns {val is (...reset: Array<any>) => T} 如果指定值是function类型，则返回true，否则返回false。
  */
-export function isFunction(val: unknown): val is (...reset: Array<unknown>) => unknown {
+// tslint:disable-next-line: no-any
+export function isFunction<T = any>(val: unknown): val is (...reset: Array<any>) => T {
   return typeof val === 'function';
 }
 
@@ -132,7 +133,8 @@ export function isPrimitive<T = null | boolean | number | string | symbol>(val: 
  * @param {unknown} val 任意值
  * @returns {val is Promise<T>} 如果指定值为Promise，则返回true，否则返回false。
  */
-export function isPromise<T = unknown>(val: unknown): val is Promise<T> {
+// tslint:disable-next-line: no-any
+export function isPromise<T = any>(val: unknown): val is Promise<T> {
   return val !== null && (typeof val === 'object' || typeof val === 'function') && typeof (val as Promise<T>).then === 'function';
 }
 
@@ -144,8 +146,23 @@ export function isPromise<T = unknown>(val: unknown): val is Promise<T> {
  * @param {unknown} val 任意值
  * @returns {val is T[]} 如果指定值为array，则返回true，否则返回false。
  */
-export function isArray<T = unknown>(val: unknown): val is T[] {
+// tslint:disable-next-line: no-any
+export function isArray<T = any>(val: unknown): val is T[] {
   return Array.isArray(val);
+}
+
+/**
+ * @description 检查提供的参数是否类似于数组(即是可迭代的)。
+ * 比如 字符串 dom集合 等
+ * @export
+ * @template T
+ * @param {unknown} val 任意值
+ * @returns {val is T[]} 检查提供的参数是否不为 null，以及它的 Symbol.iterator 属性是一个函数。
+ */
+// tslint:disable-next-line: no-any
+export function isArrayLike<T = any>(val: unknown): val is ArrayLike<T> {
+  // tslint:disable-next-line: no-any
+  return val != null && typeof (val as any)[Symbol.iterator] === 'function';
 }
 
 /**
@@ -158,6 +175,18 @@ export function isArray<T = unknown>(val: unknown): val is T[] {
  */
 export function isObject(val: unknown): val is object {
   return val === Object(val);
+}
+
+/**
+ * @description 检查值是否为object-like。
+ * 例如 JSON Array Date RegExp Map Set...
+ * 检查提供的值是否不为null，其类型是否等于'object'。
+ * @export
+ * @param {unknown} val 任意值
+ * @returns {val is object} 如果指定值为object，则返回true，否则返回false。
+ */
+export function isObjectLike(val: unknown): val is object {
+  return val !== null && typeof val === 'object';
 }
 
 /**
