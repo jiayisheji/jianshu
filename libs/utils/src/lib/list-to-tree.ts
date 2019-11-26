@@ -1,12 +1,11 @@
 /**
  * @description 列表结构转换成树形结构
  * @export
- * @template D
- * @param {D[]} data
- * @param {{ idKey?: string; parentKey?: string; childrenKey?: string }} options
- * @returns {D[]}
+ * @param data
+ * @param options
+ * @returns
  */
-export function listToTree<D>(data: D[], options: { idKey?: string; parentKey?: string; childrenKey?: string }): D[] {
+export function listToTree<D>(data: D[], options?: { idKey?: string; parentKey?: string; childrenKey?: string }): D[] {
   const { idKey: ID_KEY, parentKey: PARENT_KEY, childrenKey: CHILDREN_KEY } = Object.assign(
     { idKey: 'id', parentKey: 'parentId', childrenKey: 'children' },
     options,
@@ -17,8 +16,9 @@ export function listToTree<D>(data: D[], options: { idKey?: string; parentKey?: 
   let item: D;
   let id: string | number;
   let parentId: string | number;
-
-  for (let i = 0, length = data.length; i < length; i++) {
+  let i = 0;
+  const length = data.length;
+  while (i < length) {
     item = data[i];
     id = item[ID_KEY];
     parentId = item[PARENT_KEY] || 0;
@@ -34,6 +34,7 @@ export function listToTree<D>(data: D[], options: { idKey?: string; parentKey?: 
     } else {
       tree.push(item);
     }
+    i++;
   }
   // 销毁变量
   childrenOf = null;

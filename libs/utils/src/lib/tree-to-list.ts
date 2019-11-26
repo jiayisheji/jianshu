@@ -1,12 +1,11 @@
 /**
  * @description 树形结构转换成列表结构
  * @export
- * @template D
- * @param {(D[] | D)} root
- * @param {{ idKey?: string; childrenKey?: string }} options
- * @returns {D[]}
+ * @param root
+ * @param options
+ * @returns
  */
-export function treeToList<D>(root: D[] | D, options: { idKey?: string; childrenKey?: string }): D[] {
+export function treeToList<D>(root: D[] | D, options?: { idKey?: string; childrenKey?: string }): D[] {
   const { idKey: ID_KEY, childrenKey: CHILDREN_KEY } = Object.assign({ idKey: 'id', childrenKey: 'children' }, options);
   // 堆叠集合
   let stack = [];
