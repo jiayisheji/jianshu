@@ -1,3 +1,4 @@
+import { AnyType } from './types';
 import { merge } from './merge';
 import { isEqual } from './check';
 
@@ -45,13 +46,13 @@ describe('merge', () => {
     };
 
     source.foo.b.c.d = source;
-    // tslint:disable-next-line: no-any
-    (source.bar as any).b = source.foo.b;
+
+    (source.bar as AnyType).b = source.foo.b;
 
     const actual = merge(object, source);
 
-    // tslint:disable-next-line: no-any
-    expect(actual.foo.b.c.d).toStrictEqual((actual.foo.b.c.d as any).foo.b.c.d);
+
+    expect(actual.foo.b.c.d).toStrictEqual((actual.foo.b.c.d as AnyType).foo.b.c.d);
   });
 
   it('should work with four arguments', function () {
@@ -68,8 +69,8 @@ describe('merge', () => {
     const actual = merge(Foo, source);
 
     expect(actual).toStrictEqual(Foo);
-    // tslint:disable-next-line: no-any
-    expect((Foo as any).a).toStrictEqual(1);
+
+    expect((Foo as AnyType).a).toStrictEqual(1);
   });
 
   it('should merge first source object properties to function', function () {

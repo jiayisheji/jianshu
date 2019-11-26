@@ -1,3 +1,4 @@
+import { AnyType } from './types';
 import { treeToList } from './tree-to-list';
 import { listToTree } from './list-to-tree';
 import { clone } from './clone';
@@ -37,8 +38,7 @@ function genTree(itemCount: number, options: Record<string, string> = {}) {
     return ids[id] ? getId() : (ids[id] = id);
   }
 
-  // tslint:disable-next-line: no-any
-  function gen(count: number, prev?: any, parent?: any, top?: any) {
+  function gen(count: number, prev?: AnyType, parent?: AnyType, top?: AnyType) {
 
     if (count >= itemCount) {
       return top[childrenKey];

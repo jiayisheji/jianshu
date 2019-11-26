@@ -1,3 +1,4 @@
+import { AnyType } from './types';
 import { isNil, isObject, isArray, isObjectLike, isArrayLike, isPlainObject, isFunction } from './typeof';
 import { isEqual } from './check';
 import { clone, initCloneObject, copyArray } from './clone';
@@ -28,8 +29,7 @@ export function merge<T, U, V, W>(target: T, source1: U, source2: V, source3: W)
  * @param target 要复制到的目标对象
  * @param sources 复制属性的一个或多个源对象
  */
-// tslint:disable-next-line: no-any
-export function merge<T extends object>(target: T, ...sources: any[]): T {
+export function merge<T extends object>(target: T, ...sources: AnyType[]): T {
   // 第一个参数为空，则抛错
   if (isNil(target)) {
     throw new TypeError('Cannot convert undefined or null to object');
@@ -47,13 +47,12 @@ export function merge<T extends object>(target: T, ...sources: any[]): T {
   return target;
 }
 
-// tslint:disable-next-line: no-any
-function assigner(object: any, source: any, index: number, stack?: WeakMap<any, any>) {
+function assigner(object: AnyType, source: AnyType, index: number, stack?: WeakMap<AnyType, AnyType>) {
   if (object === source) {
     return;
   }
-  // tslint:disable-next-line: no-any
-  baseFor(source, (srcValue: any, key: string) => {
+
+  baseFor(source, (srcValue: AnyType, key: string) => {
     if (isObject(srcValue)) {
       assignerDeep(object, source, key, index, assigner, stack || new WeakMap())
     } else {
@@ -62,8 +61,7 @@ function assigner(object: any, source: any, index: number, stack?: WeakMap<any, 
   })
 }
 
-// tslint:disable-next-line: no-any
-function assignerDeep(object: any, source: any, key: string, index: number, assign: (object: any, source: any, index: number, stack?: WeakMap<any, any>) => void, stack: WeakMap<any, any>) {
+function assignerDeep(object: AnyType, source: AnyType, key: string, index: number, assign: (object: AnyType, source: AnyType, index: number, stack?: WeakMap<AnyType, AnyType>) => void, stack: WeakMap<AnyType, AnyType>) {
   const objValue = object[key];
   const srcValue = source[key];
   const stacked = stack.get(srcValue);
@@ -71,8 +69,8 @@ function assignerDeep(object: any, source: any, key: string, index: number, assi
     assignMergeValue(object, key, stacked);
     return;
   }
-  // tslint:disable-next-line: no-any
-  let newValue: any;
+
+  let newValue: AnyType;
   let isCommon = true;
   if (isCommon) {
     newValue = srcValue;
@@ -104,8 +102,7 @@ function assignerDeep(object: any, source: any, key: string, index: number, assi
 }
 
 
-// tslint:disable-next-line: no-any
-function assignMergeValue(object: any, key: string, value: any) {
+function assignMergeValue(object: AnyType, key: string, value: AnyType) {
   if ((value !== undefined && !isEqual(object[key], value)) ||
     (value === undefined && !(key in object))) {
     if (key === '__proto__') {
@@ -121,8 +118,7 @@ function assignMergeValue(object: any, key: string, value: any) {
   }
 }
 
-// tslint:disable-next-line: no-any
-function baseFor(object: any, iteratee: (value: any, key: string, iterable: any) => void) {
+function baseFor(object: AnyType, iteratee: (value: AnyType, key: string, iterable: AnyType) => void) {
   const iterable = Object(object)
   const props = Object.keys(object);
   let length = props.length;

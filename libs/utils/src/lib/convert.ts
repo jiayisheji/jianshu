@@ -1,4 +1,5 @@
 import { isString } from './typeof';
+import { AnyType } from './types';
 
 /**
  * @description 将提供的值包装在数组中，除非提供的值是数组
@@ -16,8 +17,7 @@ export function toArray<T>(value: T | T[]): T[] {
  * @param value 任意值
  * @returns 返回布尔值
  */
-// tslint:disable-next-line: no-any
-export function toBoolean(value: any): boolean {
+export function toBoolean(value: AnyType): boolean {
   return value != null && `${value}` !== 'false';
 }
 
@@ -27,12 +27,9 @@ export function toBoolean(value: any): boolean {
  * @param value 任意值
  * @returns 返回数字
  */
-// tslint:disable-next-line: no-any
-export function toNumber(value: any): number;
-// tslint:disable-next-line: no-any
-export function toNumber<D>(value: any, fallback: D): number | D;
-// tslint:disable-next-line: no-any
-export function toNumber(value: any, fallbackValue = 0) {
+export function toNumber(value: AnyType): number;
+export function toNumber<D>(value: AnyType, fallback: D): number | D;
+export function toNumber(value: AnyType, fallbackValue = 0) {
   return _isNumberValue(value) ? Number(value) : fallbackValue;
 }
 
@@ -46,8 +43,7 @@ export function toNumber(value: any, fallbackValue = 0) {
  * @param value 任意值
  * @returns 如果是数字字符串返回true，否则返回false
  */
-// tslint:disable-next-line: no-any
-export function _isNumberValue(value: any): boolean {
+export function _isNumberValue(value: AnyType): boolean {
   // parseFloat(value)处理我们感兴趣的大多数情况(它将null、空字符串和其他非数字值视为NaN，其中Number只使用0)，
   // 但是它认为字符串“123hello”是一个有效的数字。因此我们还要检查Number(value)是否为NaN。
   return !isNaN(parseFloat(value)) && !isNaN(Number(value));
@@ -59,12 +55,9 @@ export function _isNumberValue(value: any): boolean {
  * @param value 任意值
  * @returns 返回指定值
  */
-// tslint:disable-next-line: no-any
-export function toJson<D>(value: any): D;
-// tslint:disable-next-line: no-any
-export function toJson<D, T>(value: any, fallback: D): T | D;
-// tslint:disable-next-line: no-any
-export function toJson(value: any, fallbackValue = null) {
+export function toJson<D>(value: AnyType): D;
+export function toJson<D, T>(value: AnyType, fallback: D): T | D;
+export function toJson(value: AnyType, fallbackValue = null) {
   if (!isString(value)) {
     return value;
   }

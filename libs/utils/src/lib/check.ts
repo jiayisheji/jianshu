@@ -1,16 +1,16 @@
 import { toArray } from './convert';
 import { getTypeTag, mapTag, setTag } from './type';
 import { isArray, isArrayLike, isPlainObject, isString } from './typeof';
+import { AnyType } from './types';
 
 /**
  * @description 判断两个值是否相等
  * @export
  * @param value 任意值
  * @param other 任意值
- * @returns {boolean} 两个值相等为true，否则为false
+ * @returns 两个值相等为true，否则为false
  */
-// tslint:disable-next-line: no-any
-export function isEqual(value: any, other: any): boolean {
+export function isEqual(value: AnyType, other: AnyType): boolean {
   // 基本类型值
   if (value === other) {
     return true;
@@ -38,8 +38,8 @@ export function isEqual(value: any, other: any): boolean {
       return false;
     }
     let i = 0;
-    // tslint:disable-next-line: no-any
-    value.forEach((val: any, key: any) => {
+
+    value.forEach((val: AnyType, key: AnyType) => {
       if (isEqual(val, other.get(key))) {
         i++;
       }
@@ -54,8 +54,8 @@ export function isEqual(value: any, other: any): boolean {
       return false;
     }
     let i = 0;
-    // tslint:disable-next-line: no-any
-    value.forEach((val: any) => {
+
+    value.forEach((val: AnyType) => {
       if (other.has(val)) {
         i++;
       }
@@ -86,8 +86,7 @@ const hasOwnProperty = Object.prototype.hasOwnProperty;
  * @param value 任意值
  * @returns 如果值是空对象，则返回true; 如果值是0，则返回true; 如果集合没有可枚举属性，或任何类型不被视为集合，则返回true。
  */
-// tslint:disable-next-line: no-any
-export function isEmpty(value: any): boolean {
+export function isEmpty(value: AnyType): boolean {
   if (value == null) {
     return true;
   }
@@ -149,8 +148,7 @@ export function get<T extends object>(obj: T, key: string | Array<string | numbe
 }
 
 //
-// tslint:disable-next-line: no-any
-export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
+export type Omit<T, K extends keyof AnyType> = Pick<T, Exclude<keyof T, K>>;
 
 /**
  * @description 根据属性集合排除对象值

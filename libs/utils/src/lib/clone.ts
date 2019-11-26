@@ -1,25 +1,22 @@
 import { getType } from './type';
 import { isFunction } from './typeof';
+import { AnyType } from './types';
 
-// tslint:disable-next-line: no-any
-type CloneCache = WeakMap<object, any>;
+type CloneCache = WeakMap<object, AnyType>;
 
 const objectProto = Object.prototype;
 
-// tslint:disable-next-line: no-any
-function isPrototype(value: any): boolean {
+function isPrototype(value: AnyType): boolean {
   const Ctor = value && value.constructor;
   const proto = (isFunction(Ctor) && Ctor.prototype) || objectProto;
   return value === proto;
 }
 
-// tslint:disable-next-line: no-any
-export function initCloneObject(object: any) {
+export function initCloneObject(object: AnyType) {
   return isFunction(object.constructor) && !isPrototype(object) ? Object.create(Object.getPrototypeOf(object)) : {};
 }
 
-// tslint:disable-next-line: no-any
-export function copyArray(source: any) {
+export function copyArray(source: AnyType) {
   let index = -1
   const length = source.length
 
@@ -33,8 +30,7 @@ export function copyArray(source: any) {
 /** 用于从强制字符串值匹配' RegExp '标志。 */
 const reFlags = /\w*$/;
 
-// tslint:disable-next-line: no-any
-function cloneRegExp(regexp: any): RegExp {
+function cloneRegExp(regexp: AnyType): RegExp {
   const result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
   result.lastIndex = regexp.lastIndex;
   return result;
@@ -42,8 +38,7 @@ function cloneRegExp(regexp: any): RegExp {
 
 const symbolProto = Symbol ? Symbol.prototype : undefined;
 const symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
-// tslint:disable-next-line: no-any
-function cloneSymbol(symbol: any): symbol {
+function cloneSymbol(symbol: AnyType): symbol {
   return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
 }
 
@@ -57,8 +52,8 @@ function forEach<T>(target: T[], callback: (value: T, key: number) => void): voi
 
 const typesConfig = {
   Array: {
-    // tslint:disable-next-line: no-any
-    copy(target: any[], cache: CloneCache): any[] {
+
+    copy(target: AnyType[], cache: CloneCache): AnyType[] {
       const result = new Array(target.length);
       forEach(target, (value, key) => {
         result[key] = clone(value, cache);
@@ -84,8 +79,8 @@ const typesConfig = {
     },
   },
   Map: {
-    // tslint:disable-next-line: no-any
-    copy(target: Map<any, any>, cache: CloneCache): Map<any, any> {
+
+    copy(target: Map<AnyType, AnyType>, cache: CloneCache): Map<AnyType, AnyType> {
       const result = new Map();
       target.forEach((value, key) => {
         result.set(clone(key, cache), clone(value, cache));
@@ -101,7 +96,7 @@ const typesConfig = {
     },
   },
   Object: {
-    // tslint:disable-next-line: no-any
+
     copy(target: object, cache: CloneCache): object {
       const result = initCloneObject(target);
       cache.set(target, result);
@@ -117,8 +112,8 @@ const typesConfig = {
     },
   },
   Set: {
-    // tslint:disable-next-line: no-any
-    copy(target: Set<any>, cache: CloneCache): Set<any> {
+
+    copy(target: Set<AnyType>, cache: CloneCache): Set<AnyType> {
       const result = new Set();
       target.forEach(value => {
         result.add(clone(value, cache));

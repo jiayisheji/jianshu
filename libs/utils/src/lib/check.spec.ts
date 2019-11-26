@@ -1,4 +1,5 @@
 import { has, isEmpty, isEqual, omit, pick, get } from './check';
+import { AnyType } from './types';
 
 describe('isEqual', () => {
   it('should return `true` for `isEqual` values', () => {
@@ -73,8 +74,7 @@ describe('isEmpty', () => {
 });
 
 describe('has', () => {
-  // tslint:disable-next-line: no-any
-  const a: any = {
+  const a: AnyType = {
     foo: {
       foz: [1, 2, 3],
       bar: {
@@ -106,14 +106,13 @@ describe('has', () => {
     expect(has(null, '1')).toBeFalsy();
     expect(has([], '1')).toBeFalsy();
     expect(has(undefined, '1')).toBeFalsy();
-    // tslint:disable-next-line: no-any
-    expect(has(1 as any, '1')).toBeFalsy();
+
+    expect(has(1 as AnyType, '1')).toBeFalsy();
   });
 });
 
 describe('omit', () => {
-  // tslint:disable-next-line: no-any
-  const a: any = {
+  const a: AnyType = {
     foo: {
       foz: [1, 2, 3],
       bar: {
@@ -140,8 +139,7 @@ describe('omit', () => {
 });
 
 describe('pick', () => {
-  // tslint:disable-next-line: no-any
-  const a: any = {
+  const a: AnyType = {
     foo: {
       foz: [1, 2, 3],
       bar: {
@@ -157,10 +155,10 @@ describe('pick', () => {
     empty: null,
   };
   it('should return `undefined` for `pick` values', () => {
-    // tslint:disable-next-line: no-any
-    expect((pick(a, 'field1') as any).empty).toBeUndefined();
-    // tslint:disable-next-line: no-any
-    expect((pick(a, ['foo', 'field4', 'field3', 'field1', 'field2', 'foo']) as any).empty).toBeUndefined();
+
+    expect((pick(a, 'field1') as AnyType).empty).toBeUndefined();
+
+    expect((pick(a, ['foo', 'field4', 'field3', 'field1', 'field2', 'foo']) as AnyType).empty).toBeUndefined();
   });
 
   it('should return `value` for `pick` values', () => {
@@ -186,8 +184,8 @@ describe('get', () => {
   });
   it('should return test', () => {
     const result = 'test';
-    // tslint:disable-next-line: no-any
-    expect(get<any, string>(data, ['foo', 'bar', 'baz', 8, 'foz'], result)).toEqual(result);
+
+    expect(get<AnyType, string>(data, ['foo', 'bar', 'baz', 8, 'foz'], result)).toEqual(result);
   });
   it('should return null', () => {
     expect(get(data, null)).toEqual(null);

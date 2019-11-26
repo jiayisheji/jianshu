@@ -1,3 +1,5 @@
+import { AnyType } from './types';
+
 /**
  * `Object#toString` 结果引用
  */
@@ -26,8 +28,7 @@ const objectToString = Object.prototype.toString;
  * @param value 任意值
  * @returns 返回类型 例如：'[object Array]'
  */
-// tslint:disable-next-line: no-any
-export function getTypeTag(value: any): string {
+export function getTypeTag(value: AnyType): string {
   return objectToString.call(value);
 }
 
@@ -37,7 +38,6 @@ export function getTypeTag(value: any): string {
  * @param target 任意值
  * @returns 返回类型 例如：'[object Array]' => 'Array'
  */
-// tslint:disable-next-line: no-any
-export function getType(target: any): string {
+export function getType(target: AnyType): string {
   return objectToString.call(target).match(/^\[object (.*)]$/)[1];
 }

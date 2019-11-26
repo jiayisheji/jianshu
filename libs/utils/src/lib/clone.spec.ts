@@ -1,12 +1,12 @@
 import { clone } from './clone';
+import { AnyType } from './types';
 
 describe('clone', () => {
   it('should return `{}` values', () => {
     const sym = Symbol('testB');
-    // tslint:disable-next-line: no-any
-    const a: any = {
-      // tslint:disable-next-line: no-any
-      a(d: any, b: any) {
+    const a: AnyType = {
+
+      a(d: AnyType, b: AnyType) {
         console.log(d, b);
       },
       b: 'b',
@@ -32,8 +32,7 @@ describe('clone', () => {
     set.add('Levi');
     set.add('code秘密花园');
 
-    // tslint:disable-next-line: no-any
-    const target: any = {
+    const target: AnyType = {
       field1: 1,
       field2: undefined,
       field3: {
@@ -57,8 +56,8 @@ describe('clone', () => {
         console.log(this);
         console.log('code秘密花园');
       },
-      // tslint:disable-next-line: no-any
-      func2(a: any, b: any) {
+
+      func2(a: AnyType, b: AnyType) {
         return a + b;
       },
     };
