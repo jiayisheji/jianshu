@@ -27,22 +27,22 @@ export class SmsCodeService {
   /**
    * @description 发送手机验证码
    * @param {SmsCodeLabel} label
-   * @param {string} target
+   * @param {string} target 手机号
    * @returns {Promise<string>}
    * @memberof SmsCodeService
    */
-  sendMobileCode(label: SmsCodeLabel, target: string): Promise<string> {
+  public sendMobileCode(label: SmsCodeLabel, target: string): Promise<string> {
     return Promise.resolve(this.generateCode());
   }
 
   /**
    * @description 发送邮箱验证码
    * @param {SmsCodeLabel} label
-   * @param {string} target
+   * @param {string} target 邮箱账号
    * @returns {Promise<string>}
    * @memberof SmsCodeService
    */
-  sendEmailCode(label: SmsCodeLabel, target: string): Promise<string> {
+  public sendEmailCode(label: SmsCodeLabel, target: string): Promise<string> {
     return Promise.resolve(this.generateCode());
   }
 
@@ -53,16 +53,15 @@ export class SmsCodeService {
    * @returns {boolean}
    * @memberof SmsCodeService
    */
-  validateCode(label: SmsCodeLabel, target: string, code: string): boolean {
+  public validateCode(label: SmsCodeLabel, target: string, code: string): boolean {
     return true;
   }
 
   private generateCode(): string {
     let code: string = Math.floor(Math.random() * 999999) + '';
-    if (code.length < 6) {
-      const length: number = 6 - code.length;
-      const fill: string = Array(length).fill(0).join('');
-      code = code + fill;
+    const length = code.length;
+    if (length < 6) {
+      code = code + '000000'.slice(length);
     }
     return code;
   }

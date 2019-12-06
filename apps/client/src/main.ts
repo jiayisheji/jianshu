@@ -32,7 +32,12 @@ async function bootstrap() {
     .setExternalDoc('Github Repo', 'https://github.com/jiayisheji/jianshu/tree/master/apps/client')
     .setVersion('v1')
     .setSchemes(false ? 'https' : 'http')
+    .addBearerAuth('Authorization', 'header')
     .build();
+  // Authorization 操作
+  // 1. 调用login接口 拿到token信息
+  // 2. 获取tokenType和accessToken字段，拼接，注意空格
+  // 3. 点击文档Authorize，填入2信息
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
 

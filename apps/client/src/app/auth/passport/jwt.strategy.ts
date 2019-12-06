@@ -2,8 +2,8 @@ import { ExtractJwt, Strategy, VerifiedCallback } from 'passport-jwt';
 import { AuthService } from '../auth.service';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserModel } from '@jianshu/models';
 import { jwtConstants } from './constants';
+import { User } from '@jianshu/database';
 
 export interface JwtPayload {
   id: string;
@@ -19,8 +19,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: JwtPayload, done: VerifiedCallback) {
-    const user: UserModel = await this.authService.validateJwtUser(payload);
+  public async validate(payload: JwtPayload, done: VerifiedCallback) {
+    console.log('validate', payload);
+    const user: User = await this.authService.validateJwtUser(payload);
     if (!user) {
       return done(new UnauthorizedException('没找到用户'), false);
     }

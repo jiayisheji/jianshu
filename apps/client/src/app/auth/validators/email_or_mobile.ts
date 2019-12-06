@@ -1,4 +1,4 @@
-import { registerDecorator, ValidationOptions, ValidationArguments, Validator } from 'class-validator';
+import { registerDecorator, ValidationOptions, Validator } from 'class-validator';
 const validator = new Validator();
 export function EmailOrMobile(property: string, validationOptions?: ValidationOptions) {
   // tslint:disable-next-line:ban-types
@@ -11,7 +11,7 @@ export function EmailOrMobile(property: string, validationOptions?: ValidationOp
       options: validationOptions,
       validator: {
         /** true表示验证成功 false表示验证失败 */
-        validate(value: any, args: ValidationArguments): boolean {
+        validate(value: string): boolean {
           if (validator.isEmpty(value)) {
             return true;
           }

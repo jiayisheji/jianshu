@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserModelModule } from '@jianshu/models';
+import { UserModelModule } from '@jianshu/database';
 
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';

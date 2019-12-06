@@ -1,6 +1,6 @@
 import { PassportSerializer } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { UserModel } from '@jianshu/models';
+import { User } from '@jianshu/database';
 
 @Injectable()
 export class AuthSerializer extends PassportSerializer {
@@ -12,7 +12,7 @@ export class AuthSerializer extends PassportSerializer {
    * @param user
    * @param done
    */
-  serializeUser(user: UserModel, done: (error: null, user: UserModel) => UserModel) {
+  public serializeUser(user: User, done: (error: null, user: User) => User) {
     done(null, user);
   }
 
@@ -21,7 +21,7 @@ export class AuthSerializer extends PassportSerializer {
    * @param payload
    * @param done
    */
-  async deserializeUser(payload: UserModel, done: (error: null, payload: UserModel) => UserModel) {
+  public async deserializeUser(payload: User, done: (error: null, payload: User) => User) {
     done(null, payload);
   }
 }

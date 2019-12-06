@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
 
 import * as mongoose from 'mongoose';
 
@@ -20,7 +19,8 @@ mongoose.set('useCreateIndex', true);
       useUnifiedTopology: true
     }),
     PassportModule.register({
-      defaultStrategy: 'jwt'
+      defaultStrategy: 'jwt',
+      session: true
     }),
     AppRoutingModule,
   ],
