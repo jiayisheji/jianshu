@@ -7,7 +7,7 @@ export interface LoginParam {
   /**
    * 手机号或邮箱
    */
-  email_or_mobile: string;
+  userAccount: string;
   /**
    * 登录密码
    */
@@ -39,13 +39,13 @@ export interface RegisterParam {
 export interface Token { expiresIn: number; accessToken: string; tokenType: string; }
 
 @Exclude()
-export class UserInfoEntity {
-  @Expose() id: string;
-  @Expose() nickname: string;
-  @Expose() avatar: string;
+export class UserInfo {
+  @Expose() public id: string;
+  @Expose() public nickname: string;
+  @Expose() public avatar: string;
 }
 
-export interface UserInfo {
-  user: UserInfoEntity;
+export interface LoginDao {
+  user: UserInfo;
   token: Token;
 }
