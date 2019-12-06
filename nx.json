@@ -29,9 +29,6 @@
     "components": {
       "tags": ["child-module"]
     },
-    "models": {
-      "tags": ["child-module"]
-    },
     "client": {
       "tags": ["api-module"]
     },
@@ -46,6 +43,9 @@
     },
     "redis": {
       "tags": ["public-module"]
+    },
+    "database": {
+      "tags": ["child-module"]
     }
   }
 }

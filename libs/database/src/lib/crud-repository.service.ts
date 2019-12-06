@@ -1,9 +1,12 @@
-import { Document, Model, ModelPopulateOptions, QueryFindOneAndUpdateOptions, Types, DocumentQuery, QueryFindOneAndRemoveOptions } from 'mongoose';
+import { ModelPopulateOptions, QueryFindOneAndUpdateOptions, Types, DocumentQuery, QueryFindOneAndRemoveOptions } from 'mongoose';
 import { WriteOpResult, FindAndModifyWriteOpResultObject } from 'mongodb';
 
 import { ApiModelPropertyOptional } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import { IsOptional, Max, Min } from 'class-validator';
+import { Typegoose, ModelType, InstanceType } from 'typegoose';
+
+import { AnyType } from '@jianshu/utils';
 
 export type OrderType<T> = Record<keyof T, 'asc' | 'desc' | 'ascending' | 'descending' | 1 | -1>
 
@@ -19,7 +22,7 @@ export abstract class PaginationParams<T> {
   @Min(1)
   @Max(50)
   @Transform((val: string) => parseInt(val, 10) || 10)
-  readonly limit = 10;
+  public readonly limit = 10;
 
   /**
    * Pagination offset
@@ -28,7 +31,7 @@ export abstract class PaginationParams<T> {
   @IsOptional()
   @Min(0)
   @Transform((val: string) => parseInt(val, 10))
-  readonly offset: number;
+  public readonly offset: number;
 
   /**
    * Pagination page
@@ -37,14 +40,14 @@ export abstract class PaginationParams<T> {
   @IsOptional()
   @Min(1)
   @Transform((val: string) => parseInt(val, 10))
-  readonly page: number;
+  public readonly page: number;
 
   /**
    * OrderBy
    */
   @ApiModelPropertyOptional()
   @IsOptional()
-  abstract readonly order?: OrderType<T>;
+  public abstract readonly order?: OrderType<T>;
 }
 
 /**
@@ -80,15 +83,15 @@ export interface Paginator<T> {
   pages?: number;
 }
 
-export abstract class CrudModelService<T extends Document> {
-  constructor(private readonly _model: Model<T>) { }
+export abstract class CrudRepositoryService<T extends Typegoose> {
+  constructor(private readonly _model: ModelType<T>) { }
   /**
    * @description 返回模型
    * @readonly
-   * @type {Model<T>}
+   * @type {ModelType<T>}
    * @memberof CrudModelService
    */
-  get getMode(): Model<T> {
+  get getMode(): ModelType<T> {
     return this._model;
   }
 
@@ -107,17 +110,17 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {Promise<T[]>}
    * @memberof CrudModelService
    */
-  findAll(conditions: any, projection?: Object | String, options: {
+  public findAll(conditions: AnyType, projection?: Object | String, options: {
     sort?: OrderType<T>;
     limit?: number;
     skip?: number;
     lean?: boolean;
     populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-    [key: string]: any;
-  } = {}): Promise<T[]> {
+    [key: string]: AnyType;
+  } = {}): Promise<InstanceType<T>[]> {
     const { populates = null, ...option } = options;
     const docsQuery = this._model.find(conditions, projection, option);
-    return this.populates<T[]>(docsQuery, populates);
+    return this.populates<InstanceType<T>[]>(docsQuery, populates);
   }
 
   /**
@@ -132,15 +135,15 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {Promise<Paginator<T>>}
    * @memberof CrudModelService
    */
-  async paginator(conditions: PaginationParams<T>, projection?: Object | String, options: {
+  public async paginator(conditions: PaginationParams<InstanceType<T>>, projection?: Object | String, options: {
     lean?: boolean;
     populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-    [key: string]: any;
-  } = {}): Promise<Paginator<T>> {
+    [key: string]: AnyType;
+  } = {}): Promise<Paginator<InstanceType<T>>> {
     const { limit, offset, page, order, ...query } = conditions;
 
     // 拼装分页返回参数
-    const result: Paginator<T> = {
+    const result: Paginator<InstanceType<T>> = {
       items: [],
       total: 0,
       limit,
@@ -184,14 +187,14 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {(Promise<T | null>)}
    * @memberof CrudModelService
    */
-  findOne(conditions: any, projection?: Object | String, options: {
+  public findOne(conditions: AnyType, projection?: Object | String, options: {
     lean?: boolean;
     populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-    [key: string]: any;
-  } = {}): Promise<T | null> {
+    [key: string]: AnyType;
+  } = {}): Promise<InstanceType<T> | null> {
     const { populates = null, ...option } = options;
     const docsQuery = this._model.findOne(conditions, projection || {}, option);
-    return this.populates<T>(docsQuery, populates);
+    return this.populates<InstanceType<T>>(docsQuery, populates);
   }
 
   /**
@@ -206,14 +209,14 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {(Promise<T | null>)}
    * @memberof CrudModelService
    */
-  findById(id: any | string | number, projection?: Object | String, options: {
+  public findById(id: AnyType | string | number, projection?: Object | String, options: {
     lean?: boolean;
     populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-    [key: string]: any;
-  } = {}): Promise<T | null> {
+    [key: string]: AnyType;
+  } = {}): Promise<InstanceType<T> | null> {
     const { populates = null, ...option } = options;
     const docsQuery = this._model.findById(this.toObjectId(id), projection, option);
-    return this.populates<T>(docsQuery, populates);
+    return this.populates<InstanceType<T>>(docsQuery, populates);
   }
 
   /**
@@ -222,7 +225,7 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {Promise<number>}
    * @memberof CrudModelService
    */
-  count(conditions: any): Promise<number> {
+  public count(conditions: AnyType): Promise<number> {
     return this._model.countDocuments(conditions).exec();
   }
 
@@ -232,7 +235,7 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {Promise<T>}
    * @memberof CrudModelService
    */
-  create(docs: Partial<T>): Promise<T> {
+  public create(docs: Partial<T>): Promise<InstanceType<T>> {
     return this._model.create(docs);
   }
 
@@ -243,7 +246,7 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {(Promise<FindAndModifyWriteOpResultObject<T | null>>)}
    * @memberof CrudModelService
    */
-  delete(id: any | number | string, options?: QueryFindOneAndRemoveOptions): Promise<FindAndModifyWriteOpResultObject<T | null>> {
+  public delete(id: AnyType | number | string, options?: QueryFindOneAndRemoveOptions): Promise<FindAndModifyWriteOpResultObject<InstanceType<T> | null>> {
     return this._model.findByIdAndRemove(this.toObjectId(id), options).exec();
   }
 
@@ -255,7 +258,7 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {(Promise<T | null>)}
    * @memberof CrudModelService
    */
-  update(id: string, update: Partial<T>, options: QueryFindOneAndUpdateOptions = { new: true }): Promise<T | null> {
+  public update(id: string, update: Partial<T>, options: QueryFindOneAndUpdateOptions = { new: true }): Promise<InstanceType<T> | null> {
     return this._model.findByIdAndUpdate(this.toObjectId(id), update, options).exec();
   }
 
@@ -265,7 +268,7 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {Promise<WriteOpResult['result']>}
    * @memberof CrudModelService
    */
-  clearCollection(conditions: any = {}): Promise<WriteOpResult['result']> {
+  public clearCollection(conditions: AnyType = {}): Promise<WriteOpResult['result']> {
     return this._model.deleteMany(conditions).exec();
   }
 
@@ -289,7 +292,7 @@ export abstract class CrudModelService<T extends Document> {
    * @returns {(Promise<D | null>)}
    * @memberof CrudModelService
    */
-  private populates<D>(docsQuery: DocumentQuery<D, T, {}>, populates: ModelPopulateOptions | ModelPopulateOptions[] | null): Promise<D | null> {
+  private populates<D>(docsQuery: DocumentQuery<D, InstanceType<T>, {}>, populates: ModelPopulateOptions | ModelPopulateOptions[] | null): Promise<D | null> {
     if (populates) {
       [].concat(populates).forEach((item: ModelPopulateOptions) => {
         docsQuery.populate(item);

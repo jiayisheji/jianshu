@@ -57,9 +57,9 @@ module.exports = [
     remark: '',
   },
   {
-    scope: 'models',
+    scope: 'database',
     name: '服务端数据模型',
-    readme: '对应libs/models',
+    readme: '对应libs/database',
     remark: '',
   },
   {
@@ -78,6 +78,12 @@ module.exports = [
     scope: 'tools',
     name: '工具箱',
     readme: '对应tools',
+    remark: '',
+  },
+  {
+    scope: 'deps',
+    name: '依赖管理',
+    readme: 'package.json',
     remark: '',
   },
 ];

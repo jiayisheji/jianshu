@@ -20,7 +20,7 @@
     "max-classes-per-file": [true, 10, "exclude-class-expressions"],
     "prefer-for-of": true,
     "await-promise": true,
-    "member-access": false,
+    "member-access": true,
     "member-ordering": [
       true,
       {

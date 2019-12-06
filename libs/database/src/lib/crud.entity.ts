@@ -1,16 +1,7 @@
-import { Schema, SchemaOptions } from 'mongoose';
-
-export const schemaOptions: SchemaOptions = {
-  toJSON: {
-    virtuals: true,
-    getters: true,
-    versionKey: false,
-  },
-  timestamps: {
-    createdAt: 'created_at',
-    updatedAt: 'updated_at',
-  }
-}
+import { SchemaOptions } from 'mongoose';
+import { ApiModelPropertyOptional } from '@nestjs/swagger';
+import { Typegoose, prop } from 'typegoose';
+import { Expose } from 'class-transformer';
 
 /** 名词解释
  * - Schema: 一种以文件形式存储的数据库模型骨架，不具备数据库的操作能力
@@ -21,6 +12,7 @@ export const schemaOptions: SchemaOptions = {
  * Model 和 Entity 都可对数据库操作造成影响
  * 但 Model 比 Entity 更具操作性
  */
+
 
 /**
  * created_at 创建时间
@@ -35,26 +27,31 @@ export const schemaOptions: SchemaOptions = {
  * 比较常用的比如 created_at、updated_at、expires_in 都属于这种类型
  */
 
-export const CommonSchema = new Schema({
-  /**
-   * 状态
-   * 0 正常 1 禁用 2 逻辑删除
-   */
-  status: {
-    type: Number,
-    enum: [0, 1, 2],
-    default: 0,
+export abstract class Crud<T> extends Typegoose {
+  @prop()
+  @ApiModelPropertyOptional({ type: String, format: 'date-time' })
+  @Expose()
+  public created_at?: Date;
+
+  @prop()
+  @ApiModelPropertyOptional({ type: String, format: 'date-time' })
+  @Expose()
+  public updated_at?: Date;
+
+  @ApiModelPropertyOptional()
+  @Expose()
+  public id?: string;
+}
+
+
+export const schemaOptions: SchemaOptions = {
+  toJSON: {
+    virtuals: true,
+    getters: true,
+    versionKey: false,
   },
-  /**
-   * 禁用时间
-   */
-  disabled_at: {
-    type: Date,
-  },
-  /**
-   * 逻辑删除时间
-   */
-  deleted_at: {
-    type: Date,
-  },
-})
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at',
+  }
+}

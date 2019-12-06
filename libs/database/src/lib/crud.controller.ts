@@ -1,20 +1,19 @@
 import { ApiOperation, ApiResponse, ApiOkResponse, ApiForbiddenResponse, ApiCreatedResponse, ApiNotFoundResponse, ApiBadRequestResponse, ApiUnauthorizedResponse } from '@nestjs/swagger';
-
-import { CrudModel } from './crud-model.interface';
 import { HttpStatus, Get, Param, HttpCode, Post, Body, Put, Delete, Query } from '@nestjs/common';
-import { CrudModelService, Paginator, PaginationParams } from './crud-model.service';
+import { CrudRepositoryService, Paginator, PaginationParams } from './crud-repository.service';
 import { FindAndModifyWriteOpResultObject } from 'mongodb';
+import { Typegoose, InstanceType } from 'typegoose';
 
 @ApiUnauthorizedResponse({ description: 'Unauthorized' })
 @ApiForbiddenResponse({ description: 'Forbidden.' })
-export abstract class CrudModelController<T extends CrudModel>  {
+export abstract class CrudController<T extends Typegoose>  {
 
-  constructor(private readonly crudService: CrudModelService<T>) { }
+  constructor(private readonly crudService: CrudRepositoryService<T>) { }
 
   @ApiOperation({ title: 'find all' })
   @ApiOkResponse({ description: 'Found records' })
   @Get()
-  async findAll(@Query() filter: PaginationParams<T>): Promise<Paginator<T>> {
+  public async findAll(@Query() filter: PaginationParams<InstanceType<T>>): Promise<Paginator<InstanceType<T>>> {
     return this.crudService.paginator(filter);
   }
 
@@ -22,7 +21,7 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiOkResponse({ description: 'Found one record' })
   @ApiNotFoundResponse({ description: 'Record not found' })
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<T> {
+  public async findById(@Param('id') id: string): Promise<InstanceType<T>> {
     return this.crudService.findOne(id);
   }
 
@@ -31,7 +30,7 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiBadRequestResponse({ description: 'Invalid input, The response body may contain clues as to what went wrong' })
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async create(@Body() entity: Partial<T>): Promise<T> {
+  public async create(@Body() entity: Partial<T>): Promise<InstanceType<T>> {
     return this.crudService.create(entity);
   }
 
@@ -41,7 +40,7 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiBadRequestResponse({ description: 'Invalid input, The response body may contain clues as to what went wrong' })
   @HttpCode(HttpStatus.CREATED)
   @Put(':id')
-  async update(@Param('id') id: string, @Body() entity: Partial<T>): Promise<any> {
+  public async update(@Param('id') id: string, @Body() entity: Partial<InstanceType<T>>): Promise<InstanceType<T>> {
     return this.crudService.update(id, entity);
   }
 
@@ -50,7 +49,7 @@ export abstract class CrudModelController<T extends CrudModel>  {
   @ApiNotFoundResponse({ description: 'Record not found' })
   @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<FindAndModifyWriteOpResultObject<T>> {
+  public async delete(@Param('id') id: string): Promise<FindAndModifyWriteOpResultObject<InstanceType<T>>> {
     return this.crudService.delete(id);
   }
 }
