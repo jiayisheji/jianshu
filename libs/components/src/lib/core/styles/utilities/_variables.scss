@@ -1,0 +1,38 @@
+/// 全局组件注册表映射
+/// @type List
+$components: () !default;
+
+/// 全局使用的默认字体大小
+/// @type String
+$browser-context: 16px;
+
+/// 全局使用的默认行高
+/// @type String
+$browser-line-height: 26px !default;
+
+/// 全局前景色和背景色
+$browser-background-color: #fff !default;
+$browser-foreground-color: rgba(0, 0, 0, 0.87) !default;
+
+// 使用的默认动画曲线
+$sim-linear-out-slow-in-timing-function: cubic-bezier(0, 0, 0.2, 0.1) !default;
+$sim-fast-out-slow-in-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !default;
+$sim-fast-out-linear-in-timing-function: cubic-bezier(0.4, 0, 1, 1) !default;
+
+$ease-in-out-curve-function: cubic-bezier(0.35, 0, 0.25, 1) !default;
+
+$swift-ease-out-duration: 400ms !default;
+$swift-ease-out-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
+$swift-ease-out: all $swift-ease-out-duration $swift-ease-out-timing-function !default;
+
+$swift-ease-in-duration: 300ms !default;
+$swift-ease-in-timing-function: cubic-bezier(0.55, 0, 0.55, 0.2) !default;
+$swift-ease-in: all $swift-ease-in-duration $swift-ease-in-timing-function !default;
+
+$swift-ease-in-out-duration: 500ms !default;
+$swift-ease-in-out-timing-function: $ease-in-out-curve-function !default;
+$swift-ease-in-out: all $swift-ease-in-out-duration $swift-ease-in-out-timing-function !default;
+
+$swift-linear-duration: 80ms !default;
+$swift-linear-timing-function: linear !default;
+$swift-linear: all $swift-linear-duration $swift-linear-timing-function !default;

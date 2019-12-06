@@ -2,19 +2,14 @@ import { ValueHook } from './value-hook';
 
 /**
  * 尺寸模式
- * - xs Extra small 极小的
  * - sm small 小的
  * - md medium 中等的/默认的
  * - lg large 大的
- * - xl extra large 失败的/错误的
  */
-export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined;
+export type Size = 'sm' | 'md' | 'lg' | undefined;
 
-export function SizeHook<T, K = Size>(
-  setter?: (key?: symbol, value?: K) => boolean | void,
-  getter?: (value?: K) => K,
-) {
-  return ValueHook<T, K>(function (key: symbol, value: K) {
+export function SizeHook<T, K = Size>(setter?: (key?: symbol, value?: K) => boolean | void, getter?: (value?: K) => K) {
+  return ValueHook<T, K>(function(key: symbol, value: K) {
     const sizePalette = value || 'md';
     if (sizePalette !== this[key]) {
       const elementRef = this.elementRef;
@@ -23,10 +18,10 @@ export function SizeHook<T, K = Size>(
       }
       const classList = elementRef.nativeElement.classList;
       if (this[key]) {
-        classList.remove(`ui-${this[key]}`);
+        classList.remove(`sim-${this[key]}`);
       }
       if (sizePalette) {
-        classList.add(`ui-${sizePalette}`);
+        classList.add(`sim-${sizePalette}`);
       }
       this[key] = sizePalette;
     }
@@ -34,5 +29,5 @@ export function SizeHook<T, K = Size>(
       setter.call(this, key, value);
     }
     return false;
-  }, getter)
+  }, getter);
 }

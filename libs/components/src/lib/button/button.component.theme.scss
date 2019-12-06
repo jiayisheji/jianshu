@@ -1,0 +1,171 @@
+@import "../core/styles/utilities/mixins";
+@import "../core/styles/typography/typography-utils";
+@import "../core/styles/theming/theming";
+
+// 注册组件
+@include register-component(sim-button);
+
+// 主题风格
+@mixin sim-button-theme($theme) {
+  .sim-button-base.sim-stroked-button,
+  .sim-button-base.sim-broken-button {
+    background: 0 0;
+    border-color: map-get(map-get($theme, foreground), divider);
+    &:hover {
+      border-color: rgba(black, 0.3);
+    }
+    &[disabled],
+    &.sim-button-disabled {
+      border-color: rgb(187, 187, 187);
+    }
+  }
+
+  .sim-button-base {
+    &[disabled],
+    &.sim-button-disabled {
+      color: rgba(0, 0, 0, 0.26);
+    }
+  }
+
+  .sim-button-base.sim-button {
+    background: 0 0;
+    &:not(.sim-button-disabled):hover {
+      background: #f5f5f5;
+    }
+
+    &:not(.sim-button-disabled):active {
+      background: rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .sim-button-base.sim-invert-button {
+    background: 0 0;
+    &:not(.sim-button-disabled):hover {
+      color: #fff;
+      background: rgba(0, 0, 0, 0.78);
+    }
+    &:not(.sim-button-disabled):active {
+      background: rgba(0, 0, 0, 0.87);
+    }
+  }
+
+  .sim-button-base.sim-flat-button {
+    background-color: #fff;
+    &:not(.sim-button-disabled):hover {
+      background: #f5f5f5;
+    }
+    &:not(.sim-button-disabled):active {
+      background: rgba(0, 0, 0, 0.06);
+    }
+    &[disabled],
+    &.sim-button-disabled {
+      background-color: rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  .sim-button-base.sim-raised-button {
+    &:not(.sim-button-disabled) {
+      @include sim-elevation(2);
+    }
+
+    &:not(.sim-button-disabled):active {
+      @include sim-elevation(5);
+    }
+  }
+
+  .sim-anchor-button.sim-link-button {
+    $link: map-get($theme, info);
+
+    color: sim-color($link, 500);
+    background: transparent;
+
+    &:hover {
+      color: sim-color($link, 300);
+      background: transparent;
+    }
+    &:active {
+      color: sim-color($link, 700);
+    }
+    &::before {
+      background-color: sim-color($link, 300);
+    }
+    &[disabled],
+    &.sim-button-disabled {
+      color: rgba(0, 0, 0, 0.26);
+    }
+  }
+
+  @each $type in (primary, secondary, info, success, warning, danger) {
+    $color: map-get($theme, $type);
+    .sim-button-base.sim-button.sim-#{$type} {
+      color: sim-color($color, 500);
+      &:hover {
+        background-color: sim-color($color, 500, 0.04);
+      }
+      &:active {
+        background-color: sim-color($color, 500, 0.1);
+      }
+    }
+
+    .sim-button-base.sim-outlined-button.sim-#{$type} {
+      border-color: sim-color($color, 500);
+    }
+
+    .sim-button-base.sim-stroked-button.sim-#{$type},
+    .sim-button-base.sim-broken-button.sim-#{$type} {
+      &:hover {
+        color: sim-color($color, 500);
+        border-color: sim-color($color, 500);
+      }
+    }
+
+    .sim-button-base.sim-invert-button.sim-#{$type} {
+      color: sim-color($color, 500);
+      &:hover {
+        color: sim-contrast($color, 500);
+        background-color: sim-color($color, 500);
+      }
+      &:active {
+        background-color: sim-color($color, 700);
+      }
+    }
+
+    .sim-button-base.sim-flat-button.sim-#{$type} {
+      color: sim-contrast($color, 500);
+      background-color: sim-color($color, 500);
+      &:hover {
+        background-color: sim-color($color, 300);
+      }
+      &:active {
+        background-color: sim-color($color, 700);
+      }
+    }
+  }
+}
+// 排版风格
+@mixin sim-button-typography($config) {
+  .sim-button {
+    font-family: sim-font-family($config, button);
+  }
+}
+// 尺寸风格
+@mixin sim-button-size($config) {
+  @each $type in (sm, md, lg) {
+    $size: map-get($config, $type);
+    .sim-button.sim-#{$type},
+    .sim-invert-button.sim-#{$type},
+    .sim-stroked-button.sim-#{$type},
+    .sim-broken-button.sim-#{$type},
+    .sim-flat-button.sim-#{$type} {
+      font-size: map-get($size, font-size);
+      line-height: map-get($size, line-height);
+      padding: map-get($size, padding);
+    }
+    .sim-fab-button.sim-#{$type},
+    .sim-icon-button.sim-#{$type} {
+      width: map-get($size, line-height);
+      height: map-get($size, line-height);
+      padding: 0;
+    }
+  }
+}

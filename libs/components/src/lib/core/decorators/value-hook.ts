@@ -38,10 +38,7 @@ const checkDescriptor = <T, K extends keyof T>(target: T, propertyKey: K) => {
  *    name: string;
  * }
  */
-export function ValueHook<T, K>(
-  setter?: (key?: symbol, value?: K) => boolean | void,
-  getter?: (value?: K) => K,
-) {
+export function ValueHook<T, K>(setter?: (key?: symbol, value?: K) => boolean | void, getter?: (value?: K) => K) {
   return (target: T, propertyKey: keyof T) => {
     const { oGetter, oSetter } = checkDescriptor(target, propertyKey);
 
@@ -59,7 +56,7 @@ export function ValueHook<T, K>(
       },
       set(this: Mixed, value: K) {
         // tslint:disable-next-line: no-any
-        if (value === (this[propertyKey] as any as K) || (setter && setter.call(this, symbol, value) === false)) {
+        if (value === ((this[propertyKey] as any) as K) || (setter && setter.call(this, symbol, value) === false)) {
           return;
         }
         if (oSetter) {

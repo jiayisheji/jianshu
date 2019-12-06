@@ -23,7 +23,10 @@
             "aot": false,
             "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
             "styles": ["apps/web/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "stylePreprocessorOptions": {
+              "includePaths": ["apps/web/src/assets/styles"]
+            }
           },
           "configurations": {
             "production": {

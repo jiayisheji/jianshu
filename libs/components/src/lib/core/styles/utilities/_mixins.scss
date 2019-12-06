@@ -1,0 +1,10 @@
+/// 将组件注册到已知组件列表中
+/// @access private
+/// @param {String} $name - 要注册的组件名称
+@mixin register-component($name) {
+  $component: map-get($components, $name);
+  @if $component == null {
+    $component: unique-id();
+    $components: map-merge($components, (#{$name}: $component)) !global;
+  }
+}

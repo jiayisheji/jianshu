@@ -12,11 +12,8 @@ import { ValueHook } from './value-hook';
  */
 export type ThemePalette = 'primary' | 'secondary' | 'info' | 'success' | 'danger' | 'warning' | 'link' | undefined;
 
-export function ColorHook<T, K = ThemePalette>(
-  setter?: (key?: symbol, value?: K) => boolean | void,
-  getter?: (value?: K) => K,
-) {
-  return ValueHook<T, K>(function (key: symbol, value: K) {
+export function ColorHook<T, K = ThemePalette>(setter?: (key?: symbol, value?: K) => boolean | void, getter?: (value?: K) => K) {
+  return ValueHook<T, K>(function(key: symbol, value: K) {
     const colorPalette = value || '';
     if (colorPalette !== this[key]) {
       const elementRef = this.elementRef;
@@ -25,10 +22,10 @@ export function ColorHook<T, K = ThemePalette>(
       }
       const classList = elementRef.nativeElement.classList;
       if (this[key]) {
-        classList.remove(`ui-${this[key]}`);
+        classList.remove(`sim-${this[key]}`);
       }
       if (colorPalette) {
-        classList.add(`ui-${colorPalette}`);
+        classList.add(`sim-${colorPalette}`);
       }
       this[key] = colorPalette;
     }
@@ -36,5 +33,5 @@ export function ColorHook<T, K = ThemePalette>(
       setter.call(this, key, value);
     }
     return false;
-  }, getter)
+  }, getter);
 }

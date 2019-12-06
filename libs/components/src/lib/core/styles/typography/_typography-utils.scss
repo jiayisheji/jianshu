@@ -1,0 +1,80 @@
+// 用于从排版配置中获取嵌套值的实用程序.
+@function _sim-get-type-value($config, $level, $name) {
+  @return map-get(map-get($config, $level), $name);
+}
+
+// 获取排版配置中某个级别的字体大小
+@function sim-font-size($config, $level) {
+  @return _sim-get-type-value($config, $level, font-size);
+}
+
+// 获取排版配置内某个级别的行高
+@function sim-line-height($config, $level) {
+  @return _sim-get-type-value($config, $level, line-height);
+}
+
+// 获取排版配置内某个级别的字体权重
+@function sim-font-weight($config, $level) {
+  @return _sim-get-type-value($config, $level, font-weight);
+}
+
+// 获取排版配置内某个级别的字间距
+@function sim-letter-spacing($config, $level) {
+  @return _sim-get-type-value($config, $level, letter-spacing);
+}
+
+// 从排版配置中获取字体族并删除围绕它的引号
+@function sim-font-family($config, $level: null) {
+  $font-family: map-get($config, font-family);
+
+  @if $level != null {
+    $font-family: _sim-get-type-value($config, $level, font-family);
+  }
+
+  // 防止不引用非字符串值，因为它是不赞成的
+  @return if(type-of($font-family) == string, unquote($font-family), $font-family);
+}
+
+// 根据一组排版值输出font属性简写。如果传入了简写中不允许的值，则返回到各个属性。
+@mixin sim-typography-font-shorthand($font-size, $font-weight, $line-height, $font-family) {
+  // 如果任何一个值被设置为“inherit”，那么我们就不能使用简写，所以只能返回到传递单个属性
+  @if (
+    $font-size ==
+      inherit or
+      $font-weight ==
+      inherit or
+      $line-height ==
+      inherit or
+      $font-family ==
+      inherit or
+      $font-size ==
+      null or
+      $font-weight ==
+      null or
+      $line-height ==
+      null or
+      $font-family ==
+      null
+  ) {
+    font-size: $font-size;
+    font-weight: $font-weight;
+    line-height: $line-height;
+    font-family: $font-family;
+  } @else {
+    // 否则使用缩写“字体”，因为它的字节数最少。
+    // 请注意，我们需要对‘font-size/line-height’使用插值表达式，以防止Sass分割两个值。
+    font: $font-weight #{$font-size}/#{$line-height} $font-family;
+  }
+}
+
+// 将排版级别转换为CSS样式。
+@mixin sim-typography-level-to-styles($config, $level) {
+  $font-size: sim-font-size($config, $level);
+  $font-weight: sim-font-weight($config, $level);
+  $line-height: sim-line-height($config, $level);
+  $font-family: sim-font-family($config, $level);
+
+  @include sim-typography-font-shorthand($font-size, $font-weight, $line-height, $font-family);
+
+  letter-spacing: sim-letter-spacing($config, $level);
+}

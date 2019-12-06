@@ -1,0 +1,38 @@
+@import "./styles/other/_overlay";
+@import "./styles/other/a11y";
+
+@import "./styles/utilities/_variables";
+
+@import "./styles/other/normalize";
+
+@import "./styles/other/elevation";
+
+@import "./styles/typography/all-typography";
+
+// 显示所有不依赖主题的核心样式的Mixin
+@mixin simple-ui-core($typography-config: null) {
+  @if $typography-config == null {
+    $typography-config: sim-typography-config();
+  }
+  @include sim-normalize($typography-config);
+  @include cdk-a11y();
+  @include cdk-overlay();
+  @include sim-typography($typography-config);
+}
+
+@mixin simple-ui-core-theme($theme) {
+  // 生成主题字体颜色
+  @each $type in primary, secondary, success, info, warning, danger {
+    $color: map-get($theme, $type);
+    .sim-text-#{$type} {
+      color: sim-color($color, $type);
+    }
+  }
+
+  // 为每个提升值提供外部CSS类。每个CSS类都被格式化为“sim-elevation-z$zValue”，其中“$zValue”对应元素被提升到的z空间。
+  @for $zValue from 1 through 24 {
+    .#{$_sim-elevation-prefix}#{$zValue} {
+      @include sim-elevation($zValue);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import "../component";
+@import "./typography";
+
+// 包含所有的排版样式
+@mixin sim-typography($config: null) {
+  @if $config == null {
+    $config: mat-typography-config();
+  }
+  @include sim-base-typography($config);
+
+  // 组件排版
+  @include sim-button-typography($config);
+}

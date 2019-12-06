@@ -1,66 +1,64 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, OnDestroy, Input, HostBinding, ElementRef, HostListener } from '@angular/core';
-import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
-
-import { toBoolean } from '@jianshu/utils';
-
-import { ColorHook, ThemePalette, SizeHook, Size, BooleanHook } from '../core';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostBinding,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import { BooleanHook, ColorHook, Size, SizeHook, ThemePalette } from '../core';
 
 const BUTTON_HOST_ATTRIBUTES = [
-  'ui-flat-button',
-  'ui-icon-button',
-  'ui-raised-button',
-  'ui-stroked-button',
-  'ui-broken-button',
-  'ui-fab-button',
-  'ui-fluid-button',
-  'ui-pill-button',
-  'ui-link-button',
+  'sim-button',
+  'sim-invert-button',
+  'sim-outlined-button',
+  'sim-flat-button',
+  'sim-icon-button',
+  'sim-raised-button',
+  'sim-stroked-button',
+  'sim-broken-button',
+  'sim-fab-button',
+  'sim-fluid-button',
+  'sim-pill-button',
+  'sim-link-button',
 ];
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'button[ui-button],button[ui-flat-button],button[ui-icon-button],button[ui-raised-button],button[ui-stroked-button],button[ui-broken-button],button[ui-fab-button],button[ui-fluid-button],button[ui-pill-button]',
-  exportAs: 'uiButton',
+  selector: `button[sim-button], button[sim-invert-button], button[sim-flat-button], button[sim-icon-button],
+             button[sim-stroked-button], button[sim-broken-button],
+             button[sim-fab-button], button[sim-fluid-button], button[sim-pill-button]`,
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ButtonComponent implements OnInit, OnDestroy {
+export class SimButtonComponent implements OnInit, OnDestroy {
+  @Input()
+  @BooleanHook<SimButtonComponent>()
+  @HostBinding('class.sim-button-loading')
+  public loading = false;
 
   @Input()
-  @HostBinding('class.ui-button-loading')
-  get loading(): boolean {
-    return this._loading;
-  }
-  set loading(value: boolean) {
-    this._loading = toBoolean(value);
-  }
+  @ColorHook<SimButtonComponent>()
+  public color: ThemePalette;
 
   @Input()
-  @ColorHook<ButtonComponent>()
-  color: ThemePalette;
+  @SizeHook<SimButtonComponent>()
+  public size: Size = 'md';
 
   @Input()
-  @SizeHook<ButtonComponent>()
-  size: Size;
+  @BooleanHook<SimButtonComponent>()
+  @HostBinding('class.sim-button-disabled')
+  public disabled: boolean;
 
-  @Input()
-  @BooleanHook<ButtonComponent>()
-  disabled: boolean;
+  constructor(protected elementRef: ElementRef, protected _focusMonitor: FocusMonitor) { }
 
-  private _loading: boolean;
-
-  constructor(
-    protected elementRef: ElementRef,
-    protected _focusMonitor: FocusMonitor,
-  ) { }
-
-  ngOnInit() {
-    // 给尺寸设置默认值
-    if (!this.size) {
-      this.size = 'md';
-    }
+  public ngOnInit(): void {
     // 存储已存在的 用户添加的 或者@Input输入的
     const oldClassList = this._getHostElement().className.trim();
     this._getHostElement().className = '';
@@ -72,53 +70,50 @@ export class ButtonComponent implements OnInit, OnDestroy {
       }
     }
     let mergeClass = (newClassList + ' ' + oldClassList).trim();
-    // 强制处理一下ui-link-button
-    if (mergeClass.includes('ui-link-button')) {
+    // 强制处理一下sim-link-button
+    if (mergeClass.includes('sim-link-button')) {
       mergeClass = mergeClass.replace(/ui\-[a-z]+\-button/g, '').trim();
-      mergeClass = 'ui-link-button ui-anchor-button ' + mergeClass;
+      mergeClass = 'sim-link-button sim-anchor-button ' + mergeClass;
     }
     // 合并私有的，存储已存在的
-    this._getHostElement().className = 'ui-button ' + mergeClass;
+    this._getHostElement().className = 'sim-button-base ' + mergeClass;
     this._focusMonitor.monitor(this.elementRef, true);
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this.elementRef);
   }
 
-  focus(origin: FocusOrigin = 'program', options?: FocusOptions): void {
+  public focus(origin: FocusOrigin = 'program', options?: FocusOptions): void {
     this._focusMonitor.focusVia(this._getHostElement(), origin, options);
-  }
-
-  private _hasHostAttributes(...attributes: string[]) {
-    return attributes.some(attribute => this._getHostElement().hasAttribute(attribute));
   }
 
   private _getHostElement() {
     return this.elementRef.nativeElement;
   }
 
+  private _hasHostAttributes(...attributes: string[]) {
+    return attributes.some(attribute => this._getHostElement().hasAttribute(attribute));
+  }
 }
 
 @Component({
   // tslint:disable-next-line: component-selector
-  selector: 'a[ui-button],a[ui-flat-button],a[ui-icon-button],a[ui-raised-button],a[ui-stroked-button],a[ui-broken-button],a[ui-fab-button],a[ui-fluid-button],a[ui-pill-button],a[ui-link-button]',
-  exportAs: 'uiButton, uiAnchor',
+  selector: `a[sim-button], a[sim-invert-button], a[sim-flat-button], a[sim-icon-button],
+             a[sim-stroked-button], a[sim-broken-button],
+             a[sim-fab-button], a[sim-fluid-button], a[sim-pill-button], a[sim-link-button]`,
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnchorComponent extends ButtonComponent implements OnInit, OnDestroy {
-  @HostBinding('class.ui-anchor-button') public hostClass = true;
+export class SimAnchorComponent extends SimButtonComponent implements OnInit {
+  @HostBinding('class.sim-anchor-button') public hostClass = true;
 
   /** 按钮的tabindex */
-  @Input() tabIndex: number;
+  @Input() public tabIndex: number;
 
-  constructor(
-    elementRef: ElementRef,
-    _focusMonitor: FocusMonitor,
-  ) {
+  constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor) {
     super(elementRef, _focusMonitor);
   }
 
@@ -130,5 +125,4 @@ export class AnchorComponent extends ButtonComponent implements OnInit, OnDestro
       event.stopImmediatePropagation();
     }
   }
-
 }

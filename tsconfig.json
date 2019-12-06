@@ -23,7 +23,6 @@
       "@jianshu/components": ["libs/components/src/index.ts"],
       "@jianshu/rest-client": ["libs/rest-client/src/index.ts"],
       "@jianshu/redis": ["libs/redis/src/index.ts"],
-      "@jianshu/test": ["libs/test/src/index.ts"],
       "@jianshu/database": ["libs/database/src/index.ts"]
     }
   },

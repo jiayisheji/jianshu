@@ -16,7 +16,9 @@
     "string-quotes": "double",
     "max-nesting-depth": 3,
     "selector-max-compound-selectors": 3,
-    "selector-max-specificity": "0,3,2",
+    "selector-max-specificity": ["0,3,2", {
+      "ignoreSelectors": [":not", ":hover", ":focus", ":active"]
+    }],
     "declaration-no-important": true,
     "at-rule-no-vendor-prefix": true,
     "media-feature-name-no-vendor-prefix": true,
@@ -55,8 +57,7 @@
         ignoreTypes: ["/^app-/", "router-outlet", "custom-type"],
       }
     ],
-    "unit-whitelist": ["px", "%", "em", "rem", "vw", "vh", "deg", "s"],
-    "max-empty-lines": 2,
-    "max-line-length": 120
+    "unit-whitelist": ["px", "%", "em", "rem", "vw", "vh", "deg", "s", "ms"],
+    "max-empty-lines": 2
   }
 }
