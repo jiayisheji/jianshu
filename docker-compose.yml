@@ -1,0 +1,27 @@
+#  Run `docker-compose build` to build the images
+#  Run `docker-compose up` to run the containers -d 后台启动
+#  Run `docker-compose stop` 按依赖关系顺序停止服务
+#  Run `docker-compose down` 按依赖关系顺序停止服务
+
+version: '3.8'
+services:
+    db:
+        image: mongo
+        ports:
+            - '27017:27017'
+        command: [--auth]
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: root
+            MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+            MONGO_USERNAME: ${MONGO_USERNAME}
+            MONGO_PASSWORD: ${MONGO_PASSWORD}
+        volumes:
+            - ./.docker/mongo_data:/data/db
+            - ./.deploy/docker/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh
+    cache:
+        image: redis
+        volumes:
+            - ./.docker/redis_data:/data
+        ports:
+            - '6379:6379'

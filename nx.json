@@ -1,51 +1,33 @@
 {
   "npmScope": "jianshu",
-  "implicitDependencies": {
-    "angular.json": "*",
-    "package.json": "*",
-    "tsconfig.json": "*",
-    "tslint.json": "*",
-    "nx.json": "*"
+  "affected": {
+    "defaultBase": "master"
   },
-  "projects": {
-    "web-e2e": {
-      "tags": []
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
     },
-    "web": {
-      "tags": ["app-module"]
-    },
-    "api": {
-      "tags": ["api-module"]
-    },
-    "api-interfaces": {
-      "tags": []
-    },
-    "rest-client": {
-      "tags": ["child-module"]
-    },
-    "utils": {
-      "tags": ["utils"]
-    },
-    "components": {
-      "tags": ["child-module"]
-    },
-    "client": {
-      "tags": ["api-module"]
-    },
-    "server": {
-      "tags": ["api-module"]
-    },
-    "secure-e2e": {
-      "tags": []
-    },
-    "secure": {
-      "tags": ["app-module"]
-    },
-    "redis": {
-      "tags": ["public-module"]
-    },
-    "database": {
-      "tags": ["child-module"]
+    ".eslintrc.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "MzQ5NzdmZWEtNzE3Yy00NzNjLWE3MjEtNzkwMzNiMDhmMDhhfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
     }
-  }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
+  },
+  "projects": {}
 }

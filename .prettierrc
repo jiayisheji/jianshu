@@ -11,6 +11,13 @@
       "options": {
         "singleQuote": false
       }
+    },
+    {
+      "files": "*.yml",
+      "options": {
+        "useTabs": false,
+        "tabWidth": 4
+      }
     }
   ]
 }

@@ -1,55 +1,111 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true
-  },
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "emmet.triggerExpansionOnTab": true,
+  // 文件排序
   "explorer.sortOrder": "type",
-  "eslint.autoFixOnSave": true,
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.DS_Store": true,
-    "**/.idea": true
+  // Editor settings
+  "editor.snippetSuggestions": "top",
+  "editor.autoIndent": "full",
+  "editor.codeLens": false,
+  "editor.cursorBlinking": "solid",
+  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorStyle": "line",
+  "editor.fontSize": 14,
+  "editor.fontLigatures": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.formatOnSave": true,
+  "editor.letterSpacing": 0.5,
+  "editor.lineHeight": 25,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.suggestSelection": "first",
+  "editor.tabCompletion": "on",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "editor.codeActionsOnSave": {
+    // For ESLint
+    "source.fixAll.eslint": true,
+    // For TSLint
+    "source.fixAll.tslint": true,
+    // For Stylelint
+    "source.fixAll.stylelint": true,
+    // import sort
+    "source.organizeImports": true
   },
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/dist": true,
-    "**/coverage": true,
-    "**/docs": true,
-    "**/scripts": true
+  // File settings
+  "files.associations": {
+    "*.template": "plaintext"
   },
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/**": true,
-    "**/dist/**": true,
-    "**/coverage": true,
-    "**/docs": true,
-    "**/scripts": true
+  "files.trimTrailingWhitespace": true,
+  // gitlens, git 可视化功能增强
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false
   },
+  "eslint.validate": ["javascript", "typescript"],
+  // markdown
+  "markdownlint.config": {
+    "MD033": {
+      "allowed_elements": [
+        "iframe",
+        "details",
+        "summary",
+        "div",
+        "hr",
+        "br",
+        "a",
+        "img"
+      ]
+    }
+  },
+  // html
+  "html.format.indentInnerHtml": true,
+  "html.format.indentHandlebars": true,
+  "html.format.endWithNewline": true,
+  "html.format.extraLiners": "",
+  // emmet
+  "emmet.triggerExpansionOnTab": true,
+  "emmet.showSuggestionsAsSnippets": true,
+  // stylelint
+  "stylelint.syntax": "scss",
+  "stylelint.validate": ["sass", "scss"],
+  // typescript
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  // commitizen
+  "commitizen.subjectLength": 150,
+  // 以下配置大多是设置默认格式化程序
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "shd101wyy.markdown-preview-enhanced"
+  },
   "cSpell.words": [
-    "codelyzer",
-    "devkit",
-    "esnext",
-    "htmlhint",
     "jianshu",
+    "Nestjs",
+    "Typegoose",
+    "Virtuals",
+    "cnode",
+    "dasherize",
     "jiayi",
-    "packagr",
-    "tsickle",
-    "tslib",
-    "virtuals"
+    "mongodb",
+    "nrwl",
+    "stylelint",
+    "typeof"
   ]
 }

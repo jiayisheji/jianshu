@@ -3,33 +3,15 @@
  */
 module.exports = [
   {
-    scope: 'api-interfaces',
-    name: '后端服务接口',
-    readme: '对应libs/api-interfaces',
-    remark: '',
-  },
-  {
-    scope: 'secure',
-    name: '后台管理前端页面',
-    readme: '对应apps/secure',
+    scope: 'api',
+    name: '网站服务端',
+    readme: '对应apps/api',
     remark: '',
   },
   {
     scope: 'web',
     name: '网站前端页面',
     readme: '对应apps/web',
-    remark: '',
-  },
-  {
-    scope: 'client',
-    name: '网站后端服务',
-    readme: '对应apps/client',
-    remark: '',
-  },
-  {
-    scope: 'server',
-    name: '后台管理后端服务',
-    readme: '对应apps/server',
     remark: '',
   },
   {
@@ -45,27 +27,9 @@ module.exports = [
     remark: '',
   },
   {
-    scope: 'components',
-    name: '前端ui组件库',
-    readme: '对应libs/components',
-    remark: '',
-  },
-  {
-    scope: 'utils',
-    name: '工具库',
-    readme: '对应libs/utils',
-    remark: '',
-  },
-  {
-    scope: 'database',
-    name: '服务端数据模型',
-    readme: '对应libs/database',
-    remark: '',
-  },
-  {
-    scope: 'assets',
-    name: '前端通用资源',
-    readme: '对应libs/assets',
+    scope: 'docker',
+    name: '构建部署',
+    readme: '对应.docker',
     remark: '',
   },
   {
@@ -84,6 +48,6 @@ module.exports = [
     scope: 'deps',
     name: '依赖管理',
     readme: 'package.json',
-    remark: '',
+    remark: 'build(deps): bump nx from 0.2.3 to 0.3.1',
   },
 ];

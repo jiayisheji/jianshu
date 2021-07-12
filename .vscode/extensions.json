@@ -2,19 +2,21 @@
   "recommendations": [
     "nrwl.angular-console",
     "angular.ng-template",
-    "ms-vscode.vscode-typescript-tslint-plugin",
     "esbenp.prettier-vscode",
-    "editorconfig.editorconfig",
     "mikael.angular-beastcode",
     "streetsidesoftware.code-spell-checker",
     "eamodio.gitlens",
-    "hex-ci.stylelint-plus",
+    "stylelint.vscode-stylelint",
     "mkaufman.htmlhint",
     "knisterpeter.vscode-commitizen",
     "wmaurer.change-case",
-    "formulahendry.auto-rename-tag",
-    "zignd.html-css-class-completion",
     "pkief.material-icon-theme",
-    "zhuangtongfa.material-theme"
+    "oderwat.indent-rainbow",
+    "coenraads.bracket-pair-colorizer-2",
+    "quicktype.quicktype",
+    "jasonnutter.search-node-modules",
+    "humao.rest-client",
+    "firsttris.vscode-jest-runner",
+    "dbaeumer.vscode-eslint"
   ]
 }

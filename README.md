@@ -1,94 +1,148 @@
 # Jianshu
 
-This project was generated using [Nx](https://nx.dev).
+A simple application demonstrating [Angular](https://github.com/angular/angular) (SPA, SSR) the basic usage of permissions with [NestJS](https://github.com/nestjs/nest) (JWT, Passport, Github, User, Group, Permission) based on [jianshu](https://www.jianshu.com) template.
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+## Related Technology
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+- [@nrwl/nx](https://github.com/nrwl/nx) - Nx is an open platform with plugins for many modern tools and frameworks.
+- [NestJS](https://github.com/nestjs/nest) - a JS backend framework providing architecture out of the box with a syntax similar to Angular
+- [Angular](https://github.com/angular/angular) - a JS frontend framework created by Google
+- [Angular Universal](https://github.com/angular/universal) - a JS frontend framework created by Google
+- [Material-ui](https://material.angular.io/) - Material Design components for Angular
+- [TypeScript](https://github.com/Microsoft/TypeScript) - reactive extensions for JavaScript
+- [RxJS](https://github.com/Reactive-Extensions/RxJS) - superset of JS which compiles to JS, providing compile-time type checking
+- [MongoDB](https://github.com/mongodb/mongo) - a NoSQL database
+- [Mongoose](https://github.com/Automattic/mongoose) - MongoDB object modeling designed to work in an asynchronous environment
+- [TypeORM](https://github.com/typeorm/typeorm) - ORM for TypeScript and JavaScript (ES7, ES6, ES5). Supports MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle, WebSQL databases.
+- [Redis](https://redis.io) - Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache, and message broker.
+- [Ioredis](https://github.com/luin/ioredis) - A robust, performance-focused and full-featured Redis client for Node.js.
+- [Passport](https://github.com/jaredhanson/passport) - a popular library used to implement JavaScript authentication
+- [JWT](https://jwt.io) - JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties.
+- [Docker](https://www.docker.com) - Complete flexibility to run any Docker commands. Ship Better Code, Faster.
 
-## Quick Start & Documentation
+## Features
 
-[Nx Documentation](https://nx.dev/angular)
+- Use the Mongoose(Typegoose) connect MongoDB
+- Use the Ioredis connect Redis
+- Use JWT for authentication
+- Support github authentication login
+- Super easy to install and start using the full-featured controllers and services
+- DB and service agnostic extendable CRUD controllers
+- Reach query parsing with filtering, pagination, sorting, relations, nested relations, cache, etc.
+- Framework agnostic package with query builder for a frontend usage
+- Query, path params and DTO validation included
+- Overriding controller methods with ease
+- Tiny config (including globally)
+- Additional helper decorators
+- Swagger documentation
+- Support Angular server rendering
+- Support Angular responsive presentation
+- Support Domain-Driven Design
 
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
+## Running the project
 
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
+These instructions should be sufficient for one to get the project going on their local machine
 
-## Adding capabilities to your workspace
+### Installing core dependencies
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+- make sure you have [node.js](https://nodejs.org/en/download/) installed version 12.13+
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+#### Local Installing DB dependencies
 
-Below are some plugins which you can add to your workspace:
+- make sure you have [MongoDB](https://www.mongodb.com/) installed version 3.4+
+- make sure you have [Redis](https://redis.io/download) installed version 3.2+
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
+#### Docker Installing DB dependencies
 
-## Generate an application
+- make sure you have [Docker](https://www.docker.com/products/docker-desktop)
 
-Run `ng g @nrwl/angular:app my-app` to generate an application.
+### Cloning the github repository
 
-> You can use any of the plugins above to generate applications as well.
+To clone the project, run
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+```bash
+git clone https://github.com/jiayisheji/jianshu.git
+```
 
-## Generate a library
+### Installing the dependencies
 
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
+To install the dependencies after you've cloned the project, go to its root folder and run
 
-> You can also use any of the plugins above to generate libraries as well.
+```bash
+cd jianshu && npm install
+```
 
-Libraries are sharable across libraries and applications. They can be imported from `@jianshu/mylib`.
+### Setting environment variables
 
-## Development server
+```bash
+cp .env.example  .env
+```
 
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+> Modify the corresponding values as required
 
-## Code scaffolding
+### Starting the MongoDB and Redis
 
-Run `ng g component my-component --project=my-app` to generate a new component.
+Once you start the database application, you are ready to run the server
 
-## Build
+Boot according to your system
 
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Notice that the server uses MongoDB and Redis so we need to have a MongoDB and Redis instance running so the server can connect to it。
 
-## Running unit tests
+If you use Docker:
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+```bash
+docker-compose up -d
+```
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+### Alternative commands
 
-## Running end-to-end tests
+If you need to work on the frontend and backend parts at the same time, you can run
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+```bash
+npm start
+```
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+Then, you can go to the Angular dev server at port 4200 and test server requests (to port 3000), we got a proxy to the backend
 
-## Understand your workspace
+If you only need to work on the frontend, you can run
 
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
+```bash
+npm run start client
+```
 
-## Further help
+Alternatively, if you only need to work on the backend, you can run
 
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+```bash
+npm run start server
+```
+
+Keeping in mind that you need to have the Angular app built and a MongoDB and Redis connection established
+
+## Documentation
+
+- [Angular Docs](https://angular.io/docs)
+- [NestJS Docs](https://docs.nestjs.com)
+- [Typescript Docs](http://www.typescriptlang.org/)
+- [Rxjs Docs](https://rxjs.dev/api)
+- [Mongoose Docs](https://mongoosejs.com/)
+- [Typegoose Docs](https://typegoose.github.io/typegoose/)
+- [Ioredis Docs](https://github.com/luin/ioredis/blob/master/API.md)
+- [Graphql Docs](https://graphql.org/)
+- [Passport Docs](http://www.passportjs.org/)
+- [JWT Docs](https://jwt.io/)
+- [Tutorial Docs](docs/README.md)
+
+## Support
+
+Any support is welcome. At least you can give us a star :star:
 
 ## Browser Support
 
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome |
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox |
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge |
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari |
-[<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera
-| --- | --- | --- | --- | --- |
-| last 2 versions | last 2 versions | IE11, Edge | last 2 versions | last 2 versions
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) <br /> Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) <br /> Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) <br /> IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) <br /> Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/) <br /> Opera |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| last 2 versions                                                                                                                                                                                                  | last 2 versions                                                                                                                                                                                                      | IE11, Edge                                                                                                                                                                                                         | last 2 versions                                                                                                                                                                                                  | last 2 versions                                                                                                                                                                                              |
+
+## License
+
+[MIT](LICENSE)
+
