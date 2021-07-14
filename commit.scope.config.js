@@ -27,9 +27,9 @@ module.exports = [
     remark: '',
   },
   {
-    scope: 'docker',
+    scope: 'deploy',
     name: '构建部署',
-    readme: '对应.docker',
+    readme: '对应.deploy',
     remark: '',
   },
   {
