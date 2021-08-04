@@ -8,13 +8,14 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    ".stylelintrc.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "cacheableOperations": ["build", "lint", "test", "e2e", "stylelint"],
         "accessToken": "MzQ5NzdmZWEtNzE3Yy00NzNjLWE3MjEtNzkwMzNiMDhmMDhhfHJlYWQtd3JpdGU=",
         "canTrackAnalytics": false,
         "showUsageWarnings": true

@@ -49,16 +49,7 @@
   // markdown
   "markdownlint.config": {
     "MD033": {
-      "allowed_elements": [
-        "iframe",
-        "details",
-        "summary",
-        "div",
-        "hr",
-        "br",
-        "a",
-        "img"
-      ]
+      "allowed_elements": ["iframe", "details", "summary", "div", "hr", "br", "a", "img"]
     }
   },
   // html
@@ -72,6 +63,7 @@
   // stylelint
   "stylelint.syntax": "scss",
   "stylelint.validate": ["sass", "scss"],
+  "scss.validate": false,
   // typescript
   "typescript.tsdk": "node_modules\\typescript\\lib",
   // commitizen
@@ -93,19 +85,7 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "shd101wyy.markdown-preview-enhanced"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": [
-    "jianshu",
-    "Nestjs",
-    "Typegoose",
-    "Virtuals",
-    "cnode",
-    "dasherize",
-    "jiayi",
-    "mongodb",
-    "nrwl",
-    "stylelint",
-    "typeof"
-  ]
+  "cSpell.words": ["jianshu", "Nestjs", "Typegoose", "Virtuals", "cnode", "dasherize", "jiayi", "mongodb", "nrwl", "stylelint", "typeof"]
 }

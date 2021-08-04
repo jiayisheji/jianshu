@@ -1,7 +1,31 @@
 {
   "name": "jianshu",
   "version": "0.0.0",
+  "author": {
+    "name": "jiayi",
+    "email": "jiayisheji@gmail.com",
+    "url": "https://github.com/jiayisheji"
+  },
   "license": "MIT",
+  "homepage": "https://github.com/jiayisheji/jianshu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jiayisheji/jianshu.git"
+  },
+  "keywords": [
+    "angular",
+    "nestjs",
+    "nx",
+    "swagger",
+    "ioredis",
+    "passport",
+    "jwt",
+    "mongodb",
+    "typegoose"
+  ],
+  "engines": {
+    "node": ">=14.15.0"
+  },
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
@@ -17,6 +41,7 @@
     "affected:e2e": "nx affected:e2e",
     "affected:test": "nx affected:test",
     "affected:lint": "nx affected:lint",
+    "affected:stylelint": "nx affected --target=stylelint",
     "affected:dep-graph": "nx affected:dep-graph",
     "affected": "nx affected",
     "format": "nx format:write",
@@ -110,24 +135,24 @@
     "eslint": "7.22.0",
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-cypress": "^2.10.3",
+    "husky": "^7.0.1",
     "jest": "27.0.3",
     "jest-preset-angular": "9.0.3",
+    "nx-stylelint": "^12.2.0",
     "prettier": "^2.3.1",
     "ts-jest": "27.0.3",
     "ts-node": "~9.1.1",
-    "typescript": "~4.2.4"
-  },
-  "optionalDependencies": {
+    "typescript": "~4.2.4",
+    "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-idiomatic-order": "^8.1.0",
+    "stylelint-config-recommended-scss": "^4.3.0",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-scss": "^3.19.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "htmlhint": "^0.11.0",
-    "husky": "^7.0.1",
     "lint-staged": "^11.0.0",
-    "standard-version": "^9.3.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-recommended-scss": "^4.3.0",
-    "stylelint-config-standard": "^22.0.0",
-    "stylelint-scss": "^3.19.0"
+    "standard-version": "^9.3.0"
   }
 }

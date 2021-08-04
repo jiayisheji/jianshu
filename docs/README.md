@@ -15,4 +15,5 @@
 目录：
 
 1. [Nx 安装环境](post/1.1-Nx安装环境.md)
-2. [使用 Mongoose 建立 MongoDB 数据库](post/使用Mongoose建立MongoDB数据库.md)
+2. [项目工程化配置](post/1.2-项目工程化配置.md)
+3. [使用 Mongoose 建立 MongoDB 数据库](post/使用Mongoose建立MongoDB数据库.md)
