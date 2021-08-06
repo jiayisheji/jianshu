@@ -16,4 +16,7 @@
 
 1. [Nx 安装环境](post/1.1-Nx安装环境.md)
 2. [项目工程化配置](post/1.2-项目工程化配置.md)
-3. [使用 Mongoose 建立 MongoDB 数据库](post/使用Mongoose建立MongoDB数据库.md)
+3. [Nest 体系结构](post/1.3-Nest体系结构.md)
+4. [使用 Mongoose 建立 MongoDB 数据库](post/使用Mongoose建立MongoDB数据库.md)
+5. [使用 bcrypt、Passport、JWT 和 cookie 对用户进行身份验证](post/1.4-使用bcrypt-Passport-JWT和cookie对用户进行身份验证.md)
+6. [使用 JWT 实现刷新令牌](post/1.5-使用JWT实现刷新令牌.md)
