@@ -89,7 +89,7 @@
     "class-validator": "^0.13.1",
     "ioredis": "^4.27.10",
     "joi": "^17.4.0",
-    "mongoose": "^6.0.2",
+    "mongoose": "^6.4.6",
     "mongoose-autopopulate": "^0.16.0",
     "nestjs-redis": "^1.3.3",
     "nodemailer": "^6.6.5",
